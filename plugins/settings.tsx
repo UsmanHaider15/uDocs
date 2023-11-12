@@ -7,6 +7,7 @@ import { type StructureResolver } from 'sanity/desk'
 import { Iframe } from 'sanity-plugin-iframe-pane'
 
 import { iframeOptions, PREVIEWABLE_DOCUMENT_TYPES } from '../sanity.config'
+import parentChild from 'parentchild'
 
 export const singletonPlugin = (types: string[]) => {
   return {
@@ -40,7 +41,7 @@ export const singletonPlugin = (types: string[]) => {
 export const pageStructure = (
   typeDefArray: DocumentDefinition[],
 ): StructureResolver => {
-  return (S) => {
+  return (S, context) => {
     // Goes through all of the singletons that were provided and translates them into something the
     // Desktool can understand
     const singletonItems = typeDefArray.map((typeDef) => {
@@ -76,6 +77,11 @@ export const pageStructure = (
 
     return S.list()
       .title('Content')
-      .items([...singletonItems, S.divider(), ...defaultListItems])
+      .items([
+        ...singletonItems,
+        S.divider(),
+        ...defaultListItems,
+        parentChild('category', S, context.documentStore),
+      ])
   }
 }
