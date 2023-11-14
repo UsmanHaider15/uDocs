@@ -3,6 +3,7 @@ import 'server-only'
 import type { QueryParams } from '@sanity/client'
 import { client } from 'lib/sanity.client'
 import {
+  categoryQuery,
   homePageQuery,
   homePageTitleQuery,
   pagePaths,
@@ -13,6 +14,7 @@ import {
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
+  Category,
   HomePagePayload,
   PagePayload,
   ProjectPayload,
@@ -89,6 +91,13 @@ export function getHomePage() {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
     tags: ['home', 'project'],
+  })
+}
+
+export function getCategories() {
+  return sanityFetch<Category[] | null>({
+    query: categoryQuery,
+    tags: ['categories'],
   })
 }
 

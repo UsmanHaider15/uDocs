@@ -16,6 +16,16 @@ export const homePageQuery = groq`
   }
 `
 
+export const categoryQuery = groq`
+  *[_type == "category"]{
+    title,
+    "slug": select(
+      defined(parent) => parent->slug.current + "/" + slug.current,
+      slug.current
+    )
+  }
+`
+
 export const homePageTitleQuery = groq`
   *[_type == "home"][0].title
 `
