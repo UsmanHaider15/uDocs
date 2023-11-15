@@ -39,14 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const slugs = await getPagesPaths()
-  console.log('slugs', slugs)
   return slugs.map((slug) => ({ slug }))
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  console.log('params.slug', params.slug)
   const data = await getPageBySlug(params.slug.join('/'))
-
   console.log('data', data)
 
   if (!data && !draftMode().isEnabled) {
