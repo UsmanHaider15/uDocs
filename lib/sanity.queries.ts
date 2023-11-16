@@ -20,6 +20,8 @@ export const categoryQuery = groq`
   *[_type == "category"]{
     title,
     "slug": select(
+      defined(parent) && defined(parent->parent) && defined(parent->parent->parent) => parent->parent->parent->slug.current + "/" + parent->parent->slug.current + "/" + parent->slug.current + "/" + slug.current,
+      defined(parent) && defined(parent->parent) => parent->parent->slug.current + "/" + parent->slug.current + "/" + slug.current,
       defined(parent) => parent->slug.current + "/" + slug.current,
       slug.current
     )
@@ -32,17 +34,21 @@ export const homePageTitleQuery = groq`
 
 export const pagesBySlugQuery = groq`
   *[_type == "page" && select(
-      defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
-      category->slug.current
-    ) == $slug][0] {
-    _id,
-    body,
-    overview,
-    title,
-    "slug": select(
-      defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
-      category->slug.current
-    )
+    defined(category->parent) && defined(category->parent->parent) && defined(category->parent->parent->parent) => category->parent->parent->parent->slug.current + "/" + category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
+    defined(category->parent) && defined(category->parent->parent) => category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
+    defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
+    category->slug.current
+  ) == $slug][0] {
+  _id,
+  body,
+  overview,
+  title,
+  "slug": select(
+    defined(category->parent) && defined(category->parent->parent) && defined(category->parent->parent->parent) => category->parent->parent->parent->slug.current + "/" + category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
+    defined(category->parent) && defined(category->parent->parent) => category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
+    defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
+    category->slug.current
+  )
   }
 `
 

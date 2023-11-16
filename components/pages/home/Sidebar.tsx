@@ -17,26 +17,18 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
-  return (
-    <nav>
-      <ul>
-        {groupedLinks.map((group) => (
-          <li key={group.slug}>
-            <Link href={`/docs/${group.slug}`}>{group.title}</Link>
-            {group.links && group.links.length > 0 && (
-              <ul>
-                {group.links.map((link) => (
-                  <li key={link.slug}>
-                    <Link href={`/docs/${link.slug}`}>{link.title}</Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
-    </nav>
+  console.log
+  const renderLinks = (links: GroupedLink[]) => (
+    <ul>
+      {links.map((link) => (
+        <li key={link.slug}>
+          <Link href={`/docs/${link.slug}`}>{link.title}</Link>
+          {link.links && link.links.length > 0 && renderLinks(link.links)}
+        </li>
+      ))}
+    </ul>
   )
-}
 
+  return <nav>{renderLinks(groupedLinks)}</nav>
+}
 export default Sidebar

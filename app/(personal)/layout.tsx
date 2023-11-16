@@ -26,20 +26,19 @@ type GroupedLink = {
   links: Link[]
 }
 
-function groupLinks(links: Category[]): GroupedLink[] {
-  // Function to check if a link is a parent
-  const isParentLink = (link: Link) => !link.slug.includes('/')
-
-  // Function to find child links for a given parent link
-  const findChildLinks = (parentLink: Link) =>
-    links.filter((link) => link.slug.startsWith(parentLink.slug + '/'))
-
-  // Find and group parent links with their children
-  return links.filter(isParentLink).map((parentLink) => ({
-    title: parentLink.title,
-    slug: parentLink.slug,
-    links: findChildLinks(parentLink),
-  }))
+// Recursive function to group links
+function groupLinks(links: Link[], parentSlug = ''): GroupedLink[] {
+  return links
+    .filter(
+      (link) =>
+        link.slug.startsWith(parentSlug) &&
+        link.slug.slice(parentSlug.length).split('/').length === 1,
+    )
+    .map((link) => ({
+      title: link.title,
+      slug: link.slug,
+      links: groupLinks(links, link.slug + '/'),
+    }))
 }
 
 export default async function IndexRoute({

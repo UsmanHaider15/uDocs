@@ -28,9 +28,6 @@ export default defineType({
       type: 'reference',
       to: [{ type: 'category' }],
       // This ensures we cannot select other "children"
-      options: {
-        filter: '!defined(parent)',
-      },
     }),
   ],
   // Customize the preview so parents are visualized in the studio
