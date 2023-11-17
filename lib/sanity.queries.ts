@@ -33,7 +33,7 @@ export const homePageTitleQuery = groq`
 `
 
 export const pagesBySlugQuery = groq`
-  *[_type == "page" && slug.current == $slug][0] {
+  *[_type == "page" && slug.current == $slug && language == $lang ][0] {
   _id,
   body,
   overview,

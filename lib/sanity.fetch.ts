@@ -71,10 +71,10 @@ export function getSettings() {
   })
 }
 
-export function getPageBySlug(slug: string) {
+export function getPageBySlug(slug: string, lang?: string) {
   return sanityFetch<PagePayload | null>({
     query: pagesBySlugQuery,
-    params: { slug },
+    params: { slug, lang },
     tags: [`page:${slug}`],
   })
 }

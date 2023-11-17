@@ -5,7 +5,7 @@
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
 import { pageStructure, singletonPlugin } from 'plugins/settings'
-import { defineConfig } from 'sanity'
+import { defineConfig, defineField } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import Iframe, {
@@ -21,6 +21,7 @@ import timeline from 'schemas/objects/timeline'
 import home from 'schemas/singletons/home'
 import settings from 'schemas/singletons/settings'
 import category from 'schemas/documents/category'
+import { documentInternationalization } from '@sanity/document-internationalization'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -108,6 +109,44 @@ export default defineConfig({
 
         return null
       },
+    }),
+    documentInternationalization({
+      // Required
+      // Either: an array of supported languages...
+      supportedLanguages: [
+        { id: 'nb', title: 'Norwegian (Bokmål)' },
+        { id: 'nn', title: 'Norwegian (Nynorsk)' },
+        { id: 'en', title: 'English' },
+      ],
+      // ...or a function that takes the client and returns a promise of an array of supported languages
+      // MUST return an "id" and "title" as strings
+      // supportedLanguages: (client) => client.fetch(`*[_type == "language"]{id, title}`),
+
+      // Required
+      // Translations UI will only appear on these schema types
+      schemaTypes: ['page'],
+
+      // Optional
+      // Customizes the name of the language field
+      languageField: `language`, // defauts to "language"
+
+      // Optional
+      // Keep translation.metadata references weak
+      weakReferences: true, // defaults to false
+
+      // Optional
+      // Adds UI for publishing all translations at once. Requires access to the Scheduling API
+      // https://www.sanity.io/docs/scheduling-api
+      // bulkPublish: true // defaults to false
+
+      // Optional
+      // Adds additional fields to the metadata document
+      metadataFields: [defineField({ name: 'slug', type: 'slug' })],
+
+      // Optional
+      // Define API Version for all queries
+      // https://www.sanity.io/docs/api-versioning
+      apiVersion: '2023-05-22',
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     singletonPlugin([home.name, settings.name]),

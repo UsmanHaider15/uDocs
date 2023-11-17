@@ -17,15 +17,15 @@ import { LiveQuery } from 'next-sanity/preview/live-query'
 export const runtime = 'edge'
 
 type Props = {
-  params: { slug: string[] }
+  params: { slug: string[]; lang: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params
+  const { slug, lang } = params
 
   const [settings, page, homePageTitle] = await Promise.all([
     getSettings(),
-    getPageBySlug(`docs/${slug.join('/')}`),
+    getPageBySlug(`docs/${slug.join('/')}`, lang),
     getHomePageTitle(),
   ])
 
@@ -43,7 +43,8 @@ export async function generateStaticParams() {
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getPageBySlug(`docs/${params.slug.join('/')}`)
+  console.log('params it is', params)
+  const data = await getPageBySlug(`docs/${params.slug.join('/')}`, params.lang)
 
   if (!data && !draftMode().isEnabled) {
     notFound()

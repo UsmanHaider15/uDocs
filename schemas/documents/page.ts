@@ -1,5 +1,10 @@
 import { DocumentIcon, ImageIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import {
+  SlugValidationContext,
+  defineArrayMember,
+  defineField,
+  defineType,
+} from 'sanity'
 
 export default defineType({
   type: 'document',
@@ -17,6 +22,14 @@ export default defineType({
       type: 'slug',
       name: 'slug',
       title: 'Slug',
+      options: {
+        isUnique: isUniqueOtherThanLanguage,
+      },
+    }),
+    defineField({
+      name: 'language',
+      type: 'string',
+      // readOnly: true,
     }),
     defineField({
       name: 'category',
@@ -120,12 +133,45 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      subtitle: 'language',
     },
-    prepare({ title }) {
-      return {
-        subtitle: 'Page',
-        title,
-      }
-    },
+    // prepare({ title, language }) {
+    //   console.log('language', language)
+    //   return {
+    //     subtitle: 'Page Language',
+    //     title,
+    //     language,
+    //   }
+    // },
   },
 })
+
+// Create the function
+// This checks that there are no other documents
+// With this published or draft _id
+// Or this schema type
+// With the same slug and language
+export async function isUniqueOtherThanLanguage(
+  slug: string,
+  context: SlugValidationContext,
+) {
+  const { document, getClient } = context
+  if (!document?.language) {
+    return true
+  }
+  const client = getClient({ apiVersion: '2023-04-24' })
+  const id = document._id.replace(/^drafts\./, '')
+  const params = {
+    draft: `drafts.${id}`,
+    published: id,
+    language: document.language,
+    slug,
+  }
+  const query = `!defined(*[
+    !(_id in [$draft, $published]) &&
+    slug.current == $slug &&
+    language == $language
+  ][0]._id)`
+  const result = await client.fetch(query, params)
+  return result
+}
