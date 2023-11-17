@@ -48,7 +48,12 @@ export default async function IndexRoute({
 }) {
   const isDraftMode = draftMode().isEnabled
 
-  const categories = await getCategories()
+  let categories = await getCategories()
+  categories = categories.map((category) => ({
+    ...category,
+    slug: category.slug.replace('docs/', ''),
+  }))
+
   const groupedLinks = groupLinks(categories)
 
   const layout = (

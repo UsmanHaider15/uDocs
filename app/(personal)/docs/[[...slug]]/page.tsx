@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const [settings, page, homePageTitle] = await Promise.all([
     getSettings(),
-    getPageBySlug(slug),
+    getPageBySlug(`docs/${slug.join('/')}`),
     getHomePageTitle(),
   ])
 
@@ -43,8 +43,7 @@ export async function generateStaticParams() {
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getPageBySlug(params.slug.join('/'))
-  console.log('data', data)
+  const data = await getPageBySlug(`docs/${params.slug.join('/')}`)
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -54,7 +53,7 @@ export default async function PageSlugRoute({ params }: Props) {
     <LiveQuery
       enabled={draftMode().isEnabled}
       query={pagesBySlugQuery}
-      params={params}
+      params={{ slug: `docs/${params.slug.join('/')}` }}
       initialData={data}
       as={PagePreview}
     >

@@ -33,22 +33,11 @@ export const homePageTitleQuery = groq`
 `
 
 export const pagesBySlugQuery = groq`
-  *[_type == "page" && select(
-    defined(category->parent) && defined(category->parent->parent) && defined(category->parent->parent->parent) => category->parent->parent->parent->slug.current + "/" + category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
-    defined(category->parent) && defined(category->parent->parent) => category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
-    defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
-    category->slug.current
-  ) == $slug][0] {
+  *[_type == "page" && slug.current == $slug][0] {
   _id,
   body,
   overview,
   title,
-  "slug": select(
-    defined(category->parent) && defined(category->parent->parent) && defined(category->parent->parent->parent) => category->parent->parent->parent->slug.current + "/" + category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
-    defined(category->parent) && defined(category->parent->parent) => category->parent->parent->slug.current + "/" + category->parent->slug.current + "/" + category->slug.current,
-    defined(category->parent) => category->parent->slug.current + "/" + category->slug.current,
-    category->slug.current
-  )
   }
 `
 
