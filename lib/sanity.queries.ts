@@ -33,11 +33,21 @@ export const homePageTitleQuery = groq`
 `
 
 export const pagesBySlugQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+  _id,
+  body,
+  overview,
+  title,
+  }
+`
+
+export const pagesBySlugAndLangQuery = groq`
   *[_type == "page" && slug.current == $slug && language == $lang ][0] {
   _id,
   body,
   overview,
   title,
+  "headings": body[length(style) == 2 && string::startsWith(style, "h")]
   }
 `
 

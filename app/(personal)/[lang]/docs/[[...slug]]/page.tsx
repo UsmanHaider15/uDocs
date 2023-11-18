@@ -3,7 +3,7 @@ import { Page } from 'components/pages/page/Page'
 import PagePreview from 'components/pages/page/PagePreview'
 import {
   getHomePageTitle,
-  getPageBySlug,
+  getPageBySlugAndLang,
   getPagesPaths,
   getSettings,
 } from 'lib/sanity.fetch'
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const [settings, page, homePageTitle] = await Promise.all([
     getSettings(),
-    getPageBySlug(`docs/${slug.join('/')}`, lang),
+    getPageBySlugAndLang(`docs/${slug.join('/')}`, lang),
     getHomePageTitle(),
   ])
 
@@ -44,7 +44,10 @@ export async function generateStaticParams() {
 
 export default async function PageSlugRoute({ params }: Props) {
   console.log('params it is', params)
-  const data = await getPageBySlug(`docs/${params.slug.join('/')}`, params.lang)
+  const data = await getPageBySlugAndLang(
+    `docs/${params.slug.join('/')}`,
+    params.lang,
+  )
 
   if (!data && !draftMode().isEnabled) {
     notFound()

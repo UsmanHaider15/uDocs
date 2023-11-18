@@ -7,6 +7,7 @@ import {
   homePageQuery,
   homePageTitleQuery,
   pagePaths,
+  pagesBySlugAndLangQuery,
   pagesBySlugQuery,
   projectBySlugQuery,
   projectPaths,
@@ -71,9 +72,17 @@ export function getSettings() {
   })
 }
 
-export function getPageBySlug(slug: string, lang?: string) {
+export function getPageBySlug(slug: string) {
   return sanityFetch<PagePayload | null>({
     query: pagesBySlugQuery,
+    params: { slug },
+    tags: [`page:${slug}`],
+  })
+}
+
+export function getPageBySlugAndLang(slug: string, lang?: string) {
+  return sanityFetch<PagePayload | null>({
+    query: pagesBySlugAndLangQuery,
     params: { slug, lang },
     tags: [`page:${slug}`],
   })

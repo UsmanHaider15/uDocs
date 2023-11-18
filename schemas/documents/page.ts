@@ -66,13 +66,10 @@ export default defineType({
       validation: (rule) => rule.max(155).required(),
     }),
     defineField({
-      type: 'array',
       name: 'body',
       title: 'Body',
-      description:
-        "This is where you can write the page's content. Including custom blocks like timelines for more a more visual display of information.",
+      type: 'array',
       of: [
-        // Paragraphs
         defineArrayMember({
           type: 'block',
           marks: {
@@ -91,13 +88,22 @@ export default defineType({
               },
             ],
           },
-          styles: [],
+          styles: [
+            { title: 'Normal', value: 'normal' },
+            { title: 'H1', value: 'h1' },
+            { title: 'H2', value: 'h2' },
+            { title: 'H3', value: 'h3' },
+            { title: 'H4', value: 'h4' },
+            { title: 'H5', value: 'h5' },
+            { title: 'H6', value: 'h6' },
+            { title: 'Quote', value: 'blockquote' },
+          ],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Number', value: 'number' },
+          ],
         }),
-        // Custom blocks
-        defineArrayMember({
-          name: 'timeline',
-          type: 'timeline',
-        }),
+        // Custom blocks or images can also go here
         defineField({
           type: 'image',
           icon: ImageIcon,
