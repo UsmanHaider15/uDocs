@@ -7,6 +7,7 @@ import {
   homePageQuery,
   homePageTitleQuery,
   pagePaths,
+  pagePathsWithLang,
   pagesBySlugAndLangQuery,
   pagesBySlugQuery,
   projectBySlugQuery,
@@ -124,6 +125,15 @@ export function getPagesPaths() {
     { token, perspective: 'published' },
   )
 }
+
+export function getPagesPathsWithLang() {
+  return client.fetch<{ language: string; slug: string }[]>(
+    pagePathsWithLang,
+    {},
+    { token, perspective: 'published' },
+  )
+}
+
 export function getProjectsPaths() {
   return client.fetch<string[]>(
     projectPaths,

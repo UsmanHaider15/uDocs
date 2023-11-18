@@ -5,6 +5,7 @@ import {
   getHomePageTitle,
   getPageBySlugAndLang,
   getPagesPaths,
+  getPagesPathsWithLang,
   getSettings,
 } from 'lib/sanity.fetch'
 import { pagesBySlugQuery } from 'lib/sanity.queries'
@@ -37,10 +38,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   })
 }
 
+type InputType = {
+  slug: string
+  language: string
+}
+
+type OutputType = {
+  lang: string
+  slug: string[]
+}
+
+function convertSlugs(input: InputType[]): OutputType[] {
+  return input.map(({ slug, language }) => {
+    // Remove the 'docs/' prefix and split the slug into parts
+    const slugParts = slug.replace('docs/', '').split('/')
+
+    return {
+      lang: language,
+      slug: slugParts,
+    }
+  })
+}
+
 export async function generateStaticParams() {
-  const slugs = await getPagesPaths()
-  console.log('slugs it is', slugs)
-  return slugs.map((slug) => ({ slug: slugs.map((slug) => `en/${slug}`) }))
+  const docPaths = await getPagesPathsWithLang()
+  return convertSlugs(docPaths)
 }
 
 export default async function PageSlugRoute({ params }: Props) {

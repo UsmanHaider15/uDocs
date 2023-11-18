@@ -74,6 +74,12 @@ export const pagePaths = groq`
   *[_type == "page" && slug.current != null].slug.current
 `
 
+export const pagePathsWithLang = groq`
+  *[_type == "page" && slug.current != null]{
+    "slug": slug.current,
+    language
+  }
+`
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer,
