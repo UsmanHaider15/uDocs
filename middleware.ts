@@ -60,6 +60,7 @@ export const middleware: Middleware = (request) => {
 
   const locale = getLocale(request)
   request.nextUrl.pathname = `/${locale}${pathname}`
+  // @ts-ignore
   return Response.redirect(request.nextUrl)
 }
 

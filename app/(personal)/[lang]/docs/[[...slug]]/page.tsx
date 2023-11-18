@@ -39,11 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const slugs = await getPagesPaths()
-  return slugs.map((slug) => ({ slug }))
+  console.log('slugs it is', slugs)
+  return slugs.map((slug) => ({ slug: slugs.map((slug) => `en/${slug}`) }))
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  console.log('params it is', params)
   const data = await getPageBySlugAndLang(
     `docs/${params.slug.join('/')}`,
     params.lang,

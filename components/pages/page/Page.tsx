@@ -6,9 +6,9 @@ export interface PageProps {
   data: PagePayload | null
 }
 
-function createToC(headings) {
-  const toc = []
-  let currentH2 = null
+function createToC(headings: any[]) {
+  const toc: any[] = []
+  let currentH2: any = null
 
   headings.forEach((heading) => {
     if (heading._type === 'block' && heading.style === 'h2') {

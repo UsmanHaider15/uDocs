@@ -17,8 +17,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
-  console.log
-  const renderLinks = (links: GroupedLink[]) => (
+  const renderLinks = (links: GroupedLink[] | Link[]) => (
     <ul>
       {links.map((link) => (
         <li key={link.slug}>

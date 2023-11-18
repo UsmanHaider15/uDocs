@@ -47,14 +47,15 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const isDraftMode = draftMode().isEnabled
-
+  let groupedLinks: GroupedLink[] = []
   let categories = await getCategories()
-  categories = categories.map((category) => ({
-    ...category,
-    slug: category.slug.replace('docs/', ''),
-  }))
-
-  const groupedLinks = groupLinks(categories)
+  if (categories) {
+    categories = categories.map((category) => ({
+      ...category,
+      slug: category.slug.replace('docs/', ''),
+    }))
+    groupedLinks = groupLinks(categories)
+  }
 
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">

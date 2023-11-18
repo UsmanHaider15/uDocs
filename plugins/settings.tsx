@@ -7,6 +7,7 @@ import { type StructureResolver } from 'sanity/desk'
 import { Iframe } from 'sanity-plugin-iframe-pane'
 
 import { iframeOptions, PREVIEWABLE_DOCUMENT_TYPES } from '../sanity.config'
+// @ts-ignore
 import parentChild from 'parentchild'
 
 export const singletonPlugin = (types: string[]) => {

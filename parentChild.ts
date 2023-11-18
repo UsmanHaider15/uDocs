@@ -35,5 +35,5 @@ export default function parentChild(
       )
   }
 
-  return buildCategoryList(null, 'Categories')
+  return buildCategoryList(null, 'Table of Contents')
 }
