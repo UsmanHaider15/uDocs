@@ -41,8 +41,8 @@ export const pagesBySlugQuery = groq`
   }
 `
 
-export const pagesBySlugAndLangQuery = groq`
-  *[_type == "page" && slug.current == $slug && language == $lang ][0] {
+export const docsBySlugAndLangQuery = groq`
+  *[_type == "doc" && slug.current == $slug && language == $lang ][0] {
   _id,
   body,
   overview,
@@ -74,8 +74,8 @@ export const pagePaths = groq`
   *[_type == "page" && slug.current != null].slug.current
 `
 
-export const pagePathsWithLang = groq`
-  *[_type == "page" && slug.current != null]{
+export const docPathsWithLang = groq`
+  *[_type == "doc" && slug.current != null]{
     "slug": slug.current,
     language
   }

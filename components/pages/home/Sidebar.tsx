@@ -1,3 +1,4 @@
+import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import React from 'react'
 
@@ -21,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
     <ul>
       {links.map((link) => (
         <li key={link.slug}>
-          <Link href={`/docs/${link.slug}`}>{link.title}</Link>
+          <Link href={resolveHref('doc', link.slug)}>{link.title}</Link>
           {link.links && link.links.length > 0 && renderLinks(link.links)}
         </li>
       ))}

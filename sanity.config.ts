@@ -14,6 +14,7 @@ import Iframe, {
 } from 'sanity-plugin-iframe-pane'
 import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import page from 'schemas/documents/page'
+import doc from 'schemas/documents/doc'
 import project from 'schemas/documents/project'
 import duration from 'schemas/objects/duration'
 import milestone from 'schemas/objects/milestone'
@@ -30,12 +31,14 @@ const title =
 export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
   page.name,
+  doc.name,
   project.name,
   category.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
   page.name,
+  doc.name,
   project.name,
   category.name,
 ] satisfies typeof PREVIEWABLE_DOCUMENT_TYPES
@@ -67,6 +70,7 @@ export default defineConfig({
       // Documents
       duration,
       page,
+      doc,
       project,
       category,
       // Objects
@@ -124,7 +128,7 @@ export default defineConfig({
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['page'],
+      schemaTypes: ['page', 'doc'],
 
       // Optional
       // Customizes the name of the language field

@@ -52,7 +52,7 @@ export default async function IndexRoute({
   if (categories) {
     categories = categories.map((category) => ({
       ...category,
-      slug: category.slug.replace('docs/', ''),
+      slug: category.slug,
     }))
     groupedLinks = groupLinks(categories)
   }

@@ -3,9 +3,9 @@ import { Page } from 'components/pages/page/Page'
 import PagePreview from 'components/pages/page/PagePreview'
 import {
   getHomePageTitle,
-  getPageBySlugAndLang,
+  getDocBySlugAndLang,
   getPagesPaths,
-  getPagesPathsWithLang,
+  getDocsPathsWithLang,
   getSettings,
 } from 'lib/sanity.fetch'
 import { pagesBySlugQuery } from 'lib/sanity.queries'
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const [settings, page, homePageTitle] = await Promise.all([
     getSettings(),
-    getPageBySlugAndLang(`docs/${slug.join('/')}`, lang),
+    getDocBySlugAndLang(`${slug.join('/')}`, lang),
     getHomePageTitle(),
   ])
 
@@ -38,38 +38,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   })
 }
 
-type InputType = {
-  slug: string
-  language: string
-}
-
-type OutputType = {
-  lang: string
-  slug: string[]
-}
-
-function convertSlugs(input: InputType[]): OutputType[] {
-  return input.map(({ slug, language }) => {
-    // Remove the 'docs/' prefix and split the slug into parts
-    const slugParts = slug.replace('docs/', '').split('/')
-
+export async function generateStaticParams() {
+  const docPaths = await getDocsPathsWithLang()
+  return docPaths.map(({ slug, language }) => {
     return {
       lang: language,
-      slug: slugParts,
+      slug: slug.split('/'),
     }
   })
 }
 
-export async function generateStaticParams() {
-  const docPaths = await getPagesPathsWithLang()
-  return convertSlugs(docPaths)
-}
-
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getPageBySlugAndLang(
-    `docs/${params.slug.join('/')}`,
-    params.lang,
-  )
+  const data = await getDocBySlugAndLang(params.slug.join('/'), params.lang)
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -79,7 +59,7 @@ export default async function PageSlugRoute({ params }: Props) {
     <LiveQuery
       enabled={draftMode().isEnabled}
       query={pagesBySlugQuery}
-      params={{ slug: `docs/${params.slug.join('/')}` }}
+      params={{ slug: params.slug.join('/') }}
       initialData={data}
       as={PagePreview}
     >

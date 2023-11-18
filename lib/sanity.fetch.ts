@@ -7,8 +7,8 @@ import {
   homePageQuery,
   homePageTitleQuery,
   pagePaths,
-  pagePathsWithLang,
-  pagesBySlugAndLangQuery,
+  docPathsWithLang,
+  docsBySlugAndLangQuery,
   pagesBySlugQuery,
   projectBySlugQuery,
   projectPaths,
@@ -81,9 +81,9 @@ export function getPageBySlug(slug: string) {
   })
 }
 
-export function getPageBySlugAndLang(slug: string, lang?: string) {
+export function getDocBySlugAndLang(slug: string, lang?: string) {
   return sanityFetch<PagePayload | null>({
-    query: pagesBySlugAndLangQuery,
+    query: docsBySlugAndLangQuery,
     params: { slug, lang },
     tags: [`page:${slug}`],
   })
@@ -126,9 +126,9 @@ export function getPagesPaths() {
   )
 }
 
-export function getPagesPathsWithLang() {
+export function getDocsPathsWithLang() {
   return client.fetch<{ language: string; slug: string }[]>(
-    pagePathsWithLang,
+    docPathsWithLang,
     {},
     { token, perspective: 'published' },
   )
