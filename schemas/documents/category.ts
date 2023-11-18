@@ -34,11 +34,32 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'parent.title',
+      // subtitle: 'parent.parent.parent.title',
+      parent: 'parent.title',
+      grandParent: 'parent.parent.title',
+      greatGrandParent: 'parent.parent.parent.title',
     },
-    prepare: ({ title, subtitle }) => ({
-      title,
-      subtitle: subtitle ? `– ${subtitle}` : ``,
-    }),
+    prepare: (props: any) => {
+      let subtitleParts: any = []
+
+      if (props.greatGrandParent) {
+        subtitleParts.push(props.greatGrandParent)
+      }
+      if (props.grandParent) {
+        subtitleParts.push(props.grandParent)
+      }
+      if (props.parent) {
+        subtitleParts.push(props.parent)
+      }
+
+      // Join the parts with ' - ' only if there are any parts to join
+      const subtitle =
+        subtitleParts.length > 0 ? `– ${subtitleParts.join(' - ')}` : ''
+
+      return {
+        title: props.title,
+        subtitle: subtitle,
+      }
+    },
   },
 })
