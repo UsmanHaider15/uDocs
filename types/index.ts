@@ -27,8 +27,6 @@ export interface ShowcaseProject {
   title?: string
 }
 
-// Page payloads
-
 export interface HomePagePayload {
   footer?: PortableTextBlock[]
   overview?: PortableTextBlock[]
@@ -43,6 +41,12 @@ export interface PagePayload {
   headings?: PortableTextBlock[]
   title?: string
   slug?: string
+}
+
+export interface TOCLink {
+  title: string
+  slug: string
+  links?: TOCLink[]
 }
 
 export interface ProjectPayload {

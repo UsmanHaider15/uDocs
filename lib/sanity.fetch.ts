@@ -20,6 +20,7 @@ import type {
   PagePayload,
   ProjectPayload,
   SettingsPayload,
+  TOCLink,
 } from 'types'
 
 import { revalidateSecret } from './sanity.api'
@@ -104,7 +105,7 @@ export function getHomePage() {
 }
 
 export function getTocs() {
-  return sanityFetch<any[] | null>({
+  return sanityFetch<TOCLink[] | null>({
     query: tocQuery,
     tags: ['toc'],
   })

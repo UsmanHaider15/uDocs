@@ -22,8 +22,6 @@ export default async function IndexRoute({
   const isDraftMode = draftMode().isEnabled
   let toc = await getTocs()
 
-  console.log(toc)
-
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}
@@ -32,7 +30,7 @@ export default async function IndexRoute({
       </Suspense>
       <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
         <div className="flex">
-          <Sidebar groupedLinks={toc} />
+          {toc && <Sidebar groupedLinks={toc} />}
           <div className="flex-1 p-10">
             <Suspense>{children}</Suspense>
           </div>
