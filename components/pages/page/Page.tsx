@@ -77,7 +77,7 @@ export function Page({ data }: PageProps) {
 
       {/* Table of Contents */}
       <div className="sticky top-0 h-screen overflow-y-auto">
-        {/* <TableOfContents headings={headings} /> */}
+        {headings ? <TableOfContents headings={headings} /> : null}
       </div>
     </div>
   )
