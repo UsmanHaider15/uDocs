@@ -28,12 +28,6 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'category',
-      type: 'reference',
-      to: [{ type: 'category' }],
-      options: { filter: 'defined(parent)' },
-    }),
-    defineField({
       name: 'overview',
       description:
         'Used both for the <meta> description tag for SEO, and project subheader.',

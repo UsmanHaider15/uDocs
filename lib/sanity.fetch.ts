@@ -3,7 +3,6 @@ import 'server-only'
 import type { QueryParams } from '@sanity/client'
 import { client } from 'lib/sanity.client'
 import {
-  categoryQuery,
   homePageQuery,
   homePageTitleQuery,
   pagePaths,
@@ -13,10 +12,10 @@ import {
   projectBySlugQuery,
   projectPaths,
   settingsQuery,
+  tocQuery,
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
-  Category,
   HomePagePayload,
   PagePayload,
   ProjectPayload,
@@ -104,10 +103,10 @@ export function getHomePage() {
   })
 }
 
-export function getCategories() {
-  return sanityFetch<Category[] | null>({
-    query: categoryQuery,
-    tags: ['categories'],
+export function getTocs() {
+  return sanityFetch<any[] | null>({
+    query: tocQuery,
+    tags: ['toc'],
   })
 }
 

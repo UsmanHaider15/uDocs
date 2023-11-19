@@ -16,18 +16,6 @@ export const homePageQuery = groq`
   }
 `
 
-export const categoryQuery = groq`
-  *[_type == "category"]{
-    title,
-    "slug": select(
-      defined(parent) && defined(parent->parent) && defined(parent->parent->parent) => parent->parent->parent->slug.current + "/" + parent->parent->slug.current + "/" + parent->slug.current + "/" + slug.current,
-      defined(parent) && defined(parent->parent) => parent->parent->slug.current + "/" + parent->slug.current + "/" + slug.current,
-      defined(parent) => parent->slug.current + "/" + slug.current,
-      slug.current
-    )
-  }
-`
-
 export const homePageTitleQuery = groq`
   *[_type == "home"][0].title
 `
@@ -38,6 +26,26 @@ export const pagesBySlugQuery = groq`
   body,
   overview,
   title,
+  }
+`
+
+export const tocQuery = `
+*[_type == "toc"]
+  {
+    title,
+    "slug": target->slug.current,
+    links[] {
+      "title": target->title,
+      "slug": target->slug.current,
+      links[] {
+        "title": target->title,
+        "slug": target->slug.current,
+        links[] {
+          "title": target->title,
+          "slug": target->slug.current,
+        }
+      }
+    }
   }
 `
 

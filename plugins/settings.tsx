@@ -5,10 +5,7 @@
 import { type DocumentDefinition } from 'sanity'
 import { type StructureResolver } from 'sanity/desk'
 import { Iframe } from 'sanity-plugin-iframe-pane'
-
 import { iframeOptions, PREVIEWABLE_DOCUMENT_TYPES } from '../sanity.config'
-// @ts-ignore
-import parentChild from 'parentchild'
 
 export const singletonPlugin = (types: string[]) => {
   return {
@@ -78,11 +75,6 @@ export const pageStructure = (
 
     return S.list()
       .title('Content')
-      .items([
-        ...singletonItems,
-        S.divider(),
-        ...defaultListItems,
-        parentChild('category', S, context.documentStore),
-      ])
+      .items([...singletonItems, S.divider(), ...defaultListItems])
   }
 }

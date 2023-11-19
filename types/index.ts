@@ -36,15 +36,6 @@ export interface HomePagePayload {
   title?: string
 }
 
-export interface Category {
-  title: string
-  slug: string
-}
-
-export interface CategoryPayload {
-  categories: Category[]
-}
-
 export interface PagePayload {
   body?: PortableTextBlock[]
   name?: string

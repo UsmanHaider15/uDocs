@@ -32,11 +32,6 @@ export default defineType({
       // readOnly: true,
     }),
     defineField({
-      name: 'category',
-      type: 'reference',
-      to: [{ type: 'category' }],
-    }),
-    defineField({
       name: 'overview',
       description:
         'Used both for the <meta> description tag for SEO, and the personal website subheader.',
@@ -139,31 +134,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'language',
-      parent: 'category.parent.title',
-      grandParent: 'category.parent.parent.title',
-      greatGrandParent: 'category.parent.parent.parent.title',
+      subtitle: 'slug.current',
     },
     prepare(props: any) {
-      let subtitleParts: any = []
-
-      if (props.greatGrandParent) {
-        subtitleParts.push(props.greatGrandParent)
-      }
-      if (props.grandParent) {
-        subtitleParts.push(props.grandParent)
-      }
-      if (props.parent) {
-        subtitleParts.push(props.parent)
-      }
-
-      // Join the parts with ' - ' only if there are any parts to join
-      const subtitle =
-        subtitleParts.length > 0 ? `– ${subtitleParts.join(' - ')}` : ''
-
       return {
         title: props.title,
-        subtitle,
+        subtitle: props.subtitle,
       }
     },
   },

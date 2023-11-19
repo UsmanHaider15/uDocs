@@ -5,24 +5,21 @@ import React from 'react'
 type Link = {
   title: string
   slug: string
-}
-
-type GroupedLink = {
-  title: string
-  slug: string
-  links: Link[]
+  links?: Link[] // Optional nested links
 }
 
 interface SidebarProps {
-  groupedLinks: GroupedLink[]
+  groupedLinks: Link[] // Use the Link type here
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
-  const renderLinks = (links: GroupedLink[] | Link[]) => (
+  const renderLinks = (links: Link[]) => (
     <ul>
       {links.map((link) => (
         <li key={link.slug}>
-          <Link href={resolveHref('doc', link.slug)}>{link.title}</Link>
+          <Link href={resolveHref('doc', link.slug)} passHref>
+            {link.title}
+          </Link>
           {link.links && link.links.length > 0 && renderLinks(link.links)}
         </li>
       ))}
@@ -31,4 +28,5 @@ const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
 
   return <nav>{renderLinks(groupedLinks)}</nav>
 }
+
 export default Sidebar

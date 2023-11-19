@@ -32,11 +32,6 @@ export default defineType({
       // readOnly: true,
     }),
     defineField({
-      name: 'category',
-      type: 'reference',
-      to: [{ type: 'category' }],
-    }),
-    defineField({
       name: 'overview',
       description:
         'Used both for the <meta> description tag for SEO, and the personal website subheader.',

@@ -1,7 +1,7 @@
 import { toPlainText } from '@portabletext/react'
 import { HomePage } from 'components/pages/home/HomePage'
 import HomePagePreview from 'components/pages/home/HomePagePreview'
-import { getCategories, getHomePage, getSettings } from 'lib/sanity.fetch'
+import { getHomePage, getSettings } from 'lib/sanity.fetch'
 import { homePageQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function IndexRoute() {
-  const [data] = await Promise.all([getHomePage(), getCategories()])
+  const [data] = await Promise.all([getHomePage()])
 
   if (!data && !draftMode().isEnabled) {
     return (

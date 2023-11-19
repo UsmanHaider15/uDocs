@@ -1,0 +1,26 @@
+// schemas/documents/toc.js
+
+export default {
+  name: 'toc',
+  type: 'document',
+  title: 'Table of Contents',
+  fields: [
+    {
+      type: 'string',
+      name: 'title',
+      title: 'Title',
+    },
+    {
+      type: 'reference',
+      name: 'target',
+      title: 'Target',
+      to: [{ type: 'doc' }],
+    },
+    {
+      type: 'array',
+      name: 'links',
+      title: 'Links',
+      of: [{ type: 'tocLink' }],
+    },
+  ],
+}

@@ -15,14 +15,15 @@ import Iframe, {
 import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import page from 'schemas/documents/page'
 import doc from 'schemas/documents/doc'
+import toc from 'schemas/documents/toc'
 import project from 'schemas/documents/project'
 import duration from 'schemas/objects/duration'
 import milestone from 'schemas/objects/milestone'
 import timeline from 'schemas/objects/timeline'
 import home from 'schemas/singletons/home'
 import settings from 'schemas/singletons/settings'
-import category from 'schemas/documents/category'
 import { documentInternationalization } from '@sanity/document-internationalization'
+import tocLink from 'schemas/objects/tocLink'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -32,15 +33,15 @@ export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
   page.name,
   doc.name,
+  toc.name,
   project.name,
-  category.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
   page.name,
   doc.name,
+  toc.name,
   project.name,
-  category.name,
 ] satisfies typeof PREVIEWABLE_DOCUMENT_TYPES
 
 // Used to generate URLs for drafts and live previews
@@ -72,26 +73,12 @@ export default defineConfig({
       page,
       doc,
       project,
-      category,
+      toc,
       // Objects
       milestone,
       timeline,
+      tocLink,
     ],
-    // Add this 'category child' template
-    templates: (prev) => {
-      const categoryChild = {
-        id: 'category-child',
-        title: 'Category: Child',
-        schemaType: 'category',
-        parameters: [{ name: `parentId`, title: `Parent ID`, type: `string` }],
-        // This value will be passed-in from desk structure
-        value: ({ parentId }: { parentId: string }) => ({
-          parent: { _type: 'reference', _ref: parentId },
-        }),
-      }
-
-      return [...prev, categoryChild]
-    },
   },
   plugins: [
     deskTool({
