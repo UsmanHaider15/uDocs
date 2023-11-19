@@ -8,7 +8,7 @@ import {
   getDocsPathsWithLang,
   getSettings,
 } from 'lib/sanity.fetch'
-import { pagesBySlugQuery } from 'lib/sanity.queries'
+import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -58,8 +58,8 @@ export default async function PageSlugRoute({ params }: Props) {
   return (
     <LiveQuery
       enabled={draftMode().isEnabled}
-      query={pagesBySlugQuery}
-      params={{ slug: params.slug.join('/') }}
+      query={docsBySlugAndLangQuery}
+      params={{ slug: params.slug.join('/'), lang: params.lang }}
       initialData={data}
       as={PagePreview}
     >

@@ -71,7 +71,6 @@ export default async function IndexRoute({
     groupedLinks = buildLinkHierarchy(categories)
   }
 
-  console.log('groupedLinks', groupedLinks)
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}

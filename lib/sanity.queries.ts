@@ -42,7 +42,7 @@ export const pagesBySlugQuery = groq`
 `
 
 export const docsBySlugAndLangQuery = groq`
-  *[_type == "doc" && slug.current == $slug && language == $lang ][0] {
+  *[_type == "doc" && slug.current == $slug ][0] {
   _id,
   body,
   overview,
