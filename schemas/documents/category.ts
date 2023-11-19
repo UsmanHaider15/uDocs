@@ -19,7 +19,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context),
+        isUnique: () => Promise.resolve(true),
       },
       validation: (rule) => rule.required(),
     }),

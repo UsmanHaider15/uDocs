@@ -18,27 +18,41 @@ const PreviewProvider = dynamic(
 type Link = {
   title: string
   slug: string
-}
-
-type GroupedLink = {
-  title: string
-  slug: string
   links: Link[]
 }
 
-// Recursive function to group links
-function groupLinks(links: Link[], parentSlug = ''): GroupedLink[] {
-  return links
-    .filter(
-      (link) =>
-        link.slug.startsWith(parentSlug) &&
-        link.slug.slice(parentSlug.length).split('/').length === 1,
-    )
-    .map((link) => ({
-      title: link.title,
-      slug: link.slug,
-      links: groupLinks(links, link.slug + '/'),
-    }))
+function buildLinkHierarchy(
+  items: Array<{ title: string; slug: string }>,
+): Link[] {
+  const root: Link[] = []
+
+  for (const item of items) {
+    const parts = item.slug.split('/')
+    let currentLevel = root
+    let currentPath = ''
+
+    for (const [index, part] of parts.entries()) {
+      // Update the current path
+      currentPath = index === 0 ? part : `${currentPath}/${part}`
+
+      // Find or create the node at the current level
+      let node = currentLevel.find((link) => link.slug === currentPath)
+      if (!node) {
+        node = { title: '', slug: currentPath, links: [] }
+        currentLevel.push(node)
+      }
+
+      // If it's the last part, update the title
+      if (index === parts.length - 1) {
+        node.title = item.title
+      }
+
+      // Move to the next level
+      currentLevel = node.links
+    }
+  }
+
+  return root
 }
 
 export default async function IndexRoute({
@@ -47,16 +61,17 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const isDraftMode = draftMode().isEnabled
-  let groupedLinks: GroupedLink[] = []
+  let groupedLinks: Link[] = []
   let categories = await getCategories()
   if (categories) {
     categories = categories.map((category) => ({
       ...category,
       slug: category.slug,
     }))
-    groupedLinks = groupLinks(categories)
+    groupedLinks = buildLinkHierarchy(categories)
   }
 
+  console.log('groupedLinks', groupedLinks)
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}
