@@ -112,7 +112,7 @@ export default defineConfig({
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['doc'],
+      schemaTypes: ['doc', 'toc'],
 
       // Optional
       // Customizes the name of the language field

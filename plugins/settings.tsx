@@ -69,7 +69,9 @@ export const pageStructure = (
       (listItem) =>
         !typeDefArray.find(
           (singleton) => singleton.name === listItem.getId(),
-        ) && listItem.getId() !== 'doc',
+        ) &&
+        listItem.getId() !== 'doc' &&
+        listItem.getId() !== 'toc',
     )
 
     const docsByLanguageItem = S.listItem()
@@ -94,12 +96,35 @@ export const pageStructure = (
           ]),
       )
 
+    const tocByLanguageItem = S.listItem()
+      .title('Toc by language')
+      .child(() =>
+        S.list()
+          .title('Languages')
+          .items([
+            ...i18n.languages.map((language) =>
+              S.listItem()
+                .title(`Toc (${language.id.toLocaleUpperCase()})`)
+                .schemaType('toc')
+                .child(
+                  S.documentList()
+                    .id(language.id)
+                    .title(`${language.title} Toc`)
+                    .schemaType('toc')
+                    .filter('_type == "toc" && language == $language')
+                    .params({ language: language.id }),
+                ),
+            ),
+          ]),
+      )
+
     return S.list()
       .title('Content')
       .items([
         ...singletonItems,
         S.divider(),
         docsByLanguageItem,
+        tocByLanguageItem,
         S.divider(),
         ...defaultListItems,
       ])

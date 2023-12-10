@@ -11,6 +11,11 @@ export default {
       title: 'Title',
     },
     {
+      name: 'language',
+      type: 'string',
+      // readOnly: true,
+    },
+    {
       type: 'reference',
       name: 'target',
       title: 'Target',

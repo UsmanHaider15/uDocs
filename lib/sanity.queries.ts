@@ -30,7 +30,7 @@ export const pagesBySlugQuery = groq`
 `
 
 export const tocQuery = `
-*[_type == "toc"]
+*[_type == "toc" && language == $lang]
   {
     title,
     "slug": target->slug.current,

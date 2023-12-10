@@ -104,9 +104,10 @@ export function getHomePage() {
   })
 }
 
-export function getTocs() {
+export function getTocs(lang: string) {
   return sanityFetch<TOCLink[] | null>({
     query: tocQuery,
+    params: { lang },
     tags: ['toc'],
   })
 }

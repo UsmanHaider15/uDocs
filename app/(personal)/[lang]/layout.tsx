@@ -15,12 +15,14 @@ const PreviewProvider = dynamic(
 )
 
 export default async function IndexRoute({
+  params,
   children,
 }: {
+  params: { lang: string }
   children: React.ReactNode
 }) {
   const isDraftMode = draftMode().isEnabled
-  let toc = await getTocs()
+  let toc = await getTocs(params.lang)
 
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
