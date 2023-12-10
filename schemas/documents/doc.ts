@@ -29,7 +29,7 @@ export default defineType({
     defineField({
       name: 'language',
       type: 'string',
-      // readOnly: true,
+      readOnly: true,
     }),
     defineField({
       name: 'overview',

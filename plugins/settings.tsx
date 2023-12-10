@@ -6,13 +6,12 @@ import { type DocumentDefinition } from 'sanity'
 import { type StructureResolver } from 'sanity/desk'
 import { Iframe } from 'sanity-plugin-iframe-pane'
 import { iframeOptions, PREVIEWABLE_DOCUMENT_TYPES } from '../sanity.config'
+import { i18n } from '../languages'
 
 export const singletonPlugin = (types: string[]) => {
   return {
     name: 'singletonPlugin',
     document: {
-      // Hide 'Singletons (such as Home)' from new document options
-      // https://user-images.githubusercontent.com/81981/195728798-e0c6cf7e-d442-4e58-af3a-8cd99d7fcc28.png
       newDocumentOptions: (prev, { creationContext }) => {
         if (creationContext.type === 'global') {
           return prev.filter(
@@ -22,7 +21,6 @@ export const singletonPlugin = (types: string[]) => {
 
         return prev
       },
-      // Removes the "duplicate" action on the Singletons (such as Home)
       actions: (prev, { schemaType }) => {
         if (types.includes(schemaType)) {
           return prev.filter(({ action }) => action !== 'duplicate')
@@ -67,14 +65,43 @@ export const pageStructure = (
         )
     })
 
-    // The default root list items (except custom ones)
     const defaultListItems = S.documentTypeListItems().filter(
       (listItem) =>
-        !typeDefArray.find((singleton) => singleton.name === listItem.getId()),
+        !typeDefArray.find(
+          (singleton) => singleton.name === listItem.getId(),
+        ) && listItem.getId() !== 'doc',
     )
+
+    const docsByLanguageItem = S.listItem()
+      .title('Docs by language')
+      .child(() =>
+        S.list()
+          .title('Languages')
+          .items([
+            ...i18n.languages.map((language) =>
+              S.listItem()
+                .title(`Docs (${language.id.toLocaleUpperCase()})`)
+                .schemaType('doc')
+                .child(
+                  S.documentList()
+                    .id(language.id)
+                    .title(`${language.title} Docs`)
+                    .schemaType('doc')
+                    .filter('_type == "doc" && language == $language')
+                    .params({ language: language.id }),
+                ),
+            ),
+          ]),
+      )
 
     return S.list()
       .title('Content')
-      .items([...singletonItems, S.divider(), ...defaultListItems])
+      .items([
+        ...singletonItems,
+        S.divider(),
+        docsByLanguageItem,
+        S.divider(),
+        ...defaultListItems,
+      ])
   }
 }

@@ -24,6 +24,7 @@ import home from 'schemas/singletons/home'
 import settings from 'schemas/singletons/settings'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import tocLink from 'schemas/objects/tocLink'
+import { i18n } from 'languages'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -104,18 +105,14 @@ export default defineConfig({
     documentInternationalization({
       // Required
       // Either: an array of supported languages...
-      supportedLanguages: [
-        { id: 'nb', title: 'Norwegian (Bokmål)' },
-        { id: 'nn', title: 'Norwegian (Nynorsk)' },
-        { id: 'en', title: 'English' },
-      ],
+      supportedLanguages: i18n.languages,
       // ...or a function that takes the client and returns a promise of an array of supported languages
       // MUST return an "id" and "title" as strings
       // supportedLanguages: (client) => client.fetch(`*[_type == "language"]{id, title}`),
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['page', 'doc'],
+      schemaTypes: ['doc'],
 
       // Optional
       // Customizes the name of the language field
@@ -132,7 +129,7 @@ export default defineConfig({
 
       // Optional
       // Adds additional fields to the metadata document
-      metadataFields: [defineField({ name: 'slug', type: 'slug' })],
+      // metadataFields: [defineField({ name: 'slug', type: 'slug' })],
 
       // Optional
       // Define API Version for all queries
