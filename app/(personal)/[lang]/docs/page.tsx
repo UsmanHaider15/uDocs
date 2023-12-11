@@ -7,31 +7,35 @@ import {
   getPagesPaths,
   getDocsPathsWithLang,
   getSettings,
+  getPageBySlugAndLang,
 } from 'lib/sanity.fetch'
-import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
+import {
+  docsBySlugAndLangQuery,
+  pageBySlugAndLangQuery,
+} from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
+import { i18n } from 'languages'
 
 export const runtime = 'edge'
 
 type Props = {
-  params: { slug: string[]; lang: string }
+  params: { lang: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug, lang } = params
+  const { lang } = params
 
-  const [settings, page, homePageTitle] = await Promise.all([
+  const [settings, page] = await Promise.all([
     getSettings(),
-    getDocBySlugAndLang(`${slug.join('/')}`, lang),
-    getHomePageTitle(),
+    getPageBySlugAndLang('docs', lang),
   ])
 
   return defineMetadata({
-    baseTitle: homePageTitle ?? undefined,
+    baseTitle: 'Docs',
     description: page?.overview ? toPlainText(page.overview) : '',
     image: settings?.ogImage,
     title: page?.title,
@@ -39,17 +43,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const docPaths = await getDocsPathsWithLang()
-  return docPaths.map(({ slug, language }) => {
+  return i18n.languages.map((language) => {
     return {
-      lang: language,
-      slug: slug.split('/'),
+      lang: language.id,
+      slug: 'docs',
     }
   })
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getDocBySlugAndLang(params.slug.join('/'), params.lang)
+  const data = await getPageBySlugAndLang('docs', params.lang)
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -58,8 +61,8 @@ export default async function PageSlugRoute({ params }: Props) {
   return (
     <LiveQuery
       enabled={draftMode().isEnabled}
-      query={docsBySlugAndLangQuery}
-      params={{ slug: params.slug.join('/'), lang: params.lang }}
+      query={pageBySlugAndLangQuery}
+      params={{ slug: 'docs', lang: params.lang }}
       initialData={data}
       as={PagePreview}
     >

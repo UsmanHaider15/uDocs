@@ -8,7 +8,6 @@ import { getTocs, token } from 'lib/sanity.fetch'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
-import Sidebar from 'components/pages/home/Sidebar'
 
 const PreviewProvider = dynamic(
   () => import('components/preview/PreviewProvider'),
@@ -22,7 +21,6 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const isDraftMode = draftMode().isEnabled
-  let toc = await getTocs(params.lang)
 
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
@@ -32,7 +30,6 @@ export default async function IndexRoute({
       </Suspense>
       <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
         <div className="flex">
-          {toc && <Sidebar groupedLinks={toc} />}
           <div className="flex-1 p-10">
             <Suspense>{children}</Suspense>
           </div>

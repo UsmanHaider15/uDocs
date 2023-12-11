@@ -59,6 +59,16 @@ export const docsBySlugAndLangQuery = groq`
   }
 `
 
+export const pageBySlugAndLangQuery = groq`
+  *[_type == "page" && slug.current == $slug && language == $lang ][0] {
+  _id,
+  body,
+  overview,
+  title,
+  "headings": body[length(style) == 2 && string::startsWith(style, "h")]
+  }
+`
+
 export const projectBySlugQuery = groq`
   *[_type == "project" && slug.current == $slug][0] {
     _id,

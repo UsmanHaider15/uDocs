@@ -13,6 +13,7 @@ import {
   projectPaths,
   settingsQuery,
   tocQuery,
+  pageBySlugAndLangQuery,
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
@@ -84,6 +85,14 @@ export function getPageBySlug(slug: string) {
 export function getDocBySlugAndLang(slug: string, lang?: string) {
   return sanityFetch<PagePayload | null>({
     query: docsBySlugAndLangQuery,
+    params: { slug, lang },
+    tags: [`page:${slug}`],
+  })
+}
+
+export function getPageBySlugAndLang(slug: string, lang?: string) {
+  return sanityFetch<PagePayload | null>({
+    query: pageBySlugAndLangQuery,
     params: { slug, lang },
     tags: [`page:${slug}`],
   })
