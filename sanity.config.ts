@@ -54,7 +54,11 @@ export const urlResolver = defineUrlResolver({
 })
 
 export const iframeOptions = {
-  url: urlResolver,
+  url: (doc, secret) => {
+    let url = urlResolver(doc, secret)
+
+    return String(url) + '&language=' + doc.language
+  },
   urlSecretId: previewSecretId,
 } satisfies IframeOptions
 

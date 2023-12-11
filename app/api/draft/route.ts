@@ -13,6 +13,7 @@ export async function GET(request: Request) {
   const secret = searchParams.get('secret')
   const slug = searchParams.get('slug')
   const documentType = searchParams.get('type')
+  const language = searchParams.get('language')
 
   if (!token) {
     throw new Error(
@@ -34,6 +35,7 @@ export async function GET(request: Request) {
   }
 
   const href = resolveHref(documentType!, slug!)
+  console.log('href', href)
   if (!href) {
     return new Response(
       'Unable to resolve preview URL based on the current document type and slug',
@@ -43,5 +45,5 @@ export async function GET(request: Request) {
 
   draftMode().enable()
 
-  redirect(href)
+  redirect('/' + language + href)
 }
