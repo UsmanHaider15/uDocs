@@ -13,7 +13,7 @@ export default async function DocsLayout({
 
   return (
     <div className="flex">
-      {toc && <Sidebar groupedLinks={toc} />}
+      {toc && <Sidebar groupedLinks={toc} languag={params.lang} />}
       <div className="flex-1 p-10">
         <Suspense>{children}</Suspense>
       </div>

@@ -6,14 +6,15 @@ import { TOCLink } from 'types'
 
 interface SidebarProps {
   groupedLinks: TOCLink[]
+  languag: string
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ groupedLinks }) => {
+const Sidebar: React.FC<SidebarProps> = ({ groupedLinks, languag }) => {
   const renderLinks = (links: TOCLink[]) => (
     <ul>
       {links.map((link) => (
         <li key={link.slug}>
-          <Link href={resolveHref('doc', link.slug) as Url} passHref>
+          <Link href={`/${languag}${resolveHref('doc', link.slug)}`} passHref>
             {link.title}
           </Link>
           {link.links && link.links.length > 0 && renderLinks(link.links)}
