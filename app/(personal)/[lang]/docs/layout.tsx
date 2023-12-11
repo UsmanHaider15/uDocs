@@ -12,12 +12,10 @@ export default async function DocsLayout({
   let toc = await getTocs(params.lang)
 
   return (
-    <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
-      <div className="flex">
-        {toc && <Sidebar groupedLinks={toc} />}
-        <div className="flex-1 p-10">
-          <Suspense>{children}</Suspense>
-        </div>
+    <div className="flex">
+      {toc && <Sidebar groupedLinks={toc} />}
+      <div className="flex-1 p-10">
+        <Suspense>{children}</Suspense>
       </div>
     </div>
   )
