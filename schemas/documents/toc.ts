@@ -1,5 +1,3 @@
-// schemas/documents/toc.js
-
 export default {
   name: 'toc',
   type: 'document',
@@ -11,15 +9,34 @@ export default {
       title: 'Title',
     },
     {
-      name: 'language',
+      name: 'value',
       type: 'string',
-      // readOnly: true,
+      title: 'Value',
+      validation: (Rule) => Rule.required(),
     },
     {
-      type: 'reference',
-      name: 'target',
+      name: 'language',
+      type: 'string',
+      readOnly: true,
+    },
+    {
       title: 'Target',
+      name: 'target',
+      type: 'reference',
       to: [{ type: 'doc' }],
+      options: {
+        filter: ({ document }) => {
+          // Use the 'value' field of the 'toc' document for filtering
+          const valueStart = document?.value ? `${document.value}*` : '*'
+          return {
+            filter: 'language == $language && slug.current match $valueStart',
+            params: {
+              language: document?.language,
+              valueStart: valueStart,
+            },
+          }
+        },
+      },
     },
     {
       type: 'array',

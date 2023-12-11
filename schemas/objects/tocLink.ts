@@ -6,10 +6,23 @@ export default {
   type: 'object',
   fields: [
     {
-      type: 'reference',
-      name: 'target',
       title: 'Target',
+      name: 'target',
+      type: 'reference',
       to: [{ type: 'doc' }],
+      options: {
+        filter: ({ document }) => {
+          // Use the 'value' field of the 'toc' document for filtering
+          const valueStart = document?.value ? `${document.value}*` : '*'
+          return {
+            filter: 'language == $language && slug.current match $valueStart',
+            params: {
+              language: document?.language,
+              valueStart: valueStart,
+            },
+          }
+        },
+      },
     },
     {
       type: 'string',
