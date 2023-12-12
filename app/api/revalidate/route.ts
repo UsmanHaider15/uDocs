@@ -26,12 +26,22 @@ import { revalidateSecret } from 'lib/sanity.api'
 import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
+import algoliasearch from 'algoliasearch'
+import { client } from 'lib/sanity.client'
+import indexer from 'sanity-algolia'
+
+const algolia = algoliasearch(
+  process.env.ALGOLIA_APPLICATION_ID,
+  process.env.ALGOLIA_ADMIN_API_KEY,
+)
 
 export async function POST(req: NextRequest) {
   try {
     const { body, isValidSignature } = await parseBody<{
       _type: string
-      slug?: string | undefined
+      _id: string
+      slug: string
+      title: string
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -46,6 +56,30 @@ export async function POST(req: NextRequest) {
     if (body.slug) {
       revalidateTag(`${body._type}:${body.slug}`)
     }
+
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algolia.initIndex('docs'),
+        },
+      },
+      (document) => {
+        switch (document._type) {
+          case 'doc':
+            return {
+              title: document.title,
+              path: document.slug.current,
+            }
+          default:
+            throw new Error(`Unknown type: ${document.type}`)
+        }
+      },
+    )
+
+    await sanityAlgolia.webhookSync(client, {
+      ids: { created: [body._id], updated: [], deleted: [] },
+    })
+
     return NextResponse.json({
       status: 200,
       revalidated: true,
