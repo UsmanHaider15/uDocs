@@ -28,7 +28,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
 import { client } from 'lib/sanity.client'
-import indexer from 'sanity-algolia'
+import indexer, { flattenBlocks } from 'sanity-algolia'
 
 const algolia = algoliasearch(
   process.env.ALGOLIA_APPLICATION_ID,
@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
       _id: string
       slug: string
       title: string
+      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -69,6 +70,7 @@ export async function POST(req: NextRequest) {
             return {
               title: document.title,
               path: document.slug.current,
+              overview: flattenBlocks(document.overview),
             }
           default:
             throw new Error(`Unknown type: ${document.type}`)
