@@ -91,3 +91,117 @@ export async function POST(req: NextRequest) {
     return new Response(err.message, { status: 500 })
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { body, isValidSignature } = await parseBody<{
+      _type: string
+      _id: string
+      slug: string
+      title: string
+    }>(req, revalidateSecret)
+    if (!isValidSignature) {
+      const message = 'Invalid signature'
+      return new Response(message, { status: 401 })
+    }
+
+    if (!body?._type) {
+      return new Response('Bad Request', { status: 400 })
+    }
+
+    revalidateTag(body._type)
+    if (body.slug) {
+      revalidateTag(`${body._type}:${body.slug}`)
+    }
+
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algolia.initIndex('docs'),
+        },
+      },
+      (document) => {
+        switch (document._type) {
+          case 'doc':
+            return {
+              title: document.title,
+              path: document.slug.current,
+            }
+          default:
+            throw new Error(`Unknown type: ${document.type}`)
+        }
+      },
+    )
+
+    await sanityAlgolia.webhookSync(client, {
+      ids: { created: [], updated: [], deleted: [body._id] },
+    })
+
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    })
+  } catch (err: any) {
+    console.error(err)
+    return new Response(err.message, { status: 500 })
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const { body, isValidSignature } = await parseBody<{
+      _type: string
+      _id: string
+      slug: string
+      title: string
+    }>(req, revalidateSecret)
+    if (!isValidSignature) {
+      const message = 'Invalid signature'
+      return new Response(message, { status: 401 })
+    }
+
+    if (!body?._type) {
+      return new Response('Bad Request', { status: 400 })
+    }
+
+    revalidateTag(body._type)
+    if (body.slug) {
+      revalidateTag(`${body._type}:${body.slug}`)
+    }
+
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algolia.initIndex('docs'),
+        },
+      },
+      (document) => {
+        switch (document._type) {
+          case 'doc':
+            return {
+              title: document.title,
+              path: document.slug.current,
+            }
+          default:
+            throw new Error(`Unknown type: ${document.type}`)
+        }
+      },
+    )
+
+    await sanityAlgolia.webhookSync(client, {
+      ids: { created: [], updated: [body._id], deleted: [] },
+    })
+
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    })
+  } catch (err: any) {
+    console.error(err)
+    return new Response(err.message, { status: 500 })
+  }
+}
