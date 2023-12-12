@@ -101,6 +101,7 @@ export async function DELETE(req: NextRequest) {
       _id: string
       slug: string
       title: string
+      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -128,6 +129,7 @@ export async function DELETE(req: NextRequest) {
             return {
               title: document.title,
               path: document.slug.current,
+              overview: flattenBlocks(document.overview),
             }
           default:
             throw new Error(`Unknown type: ${document.type}`)
@@ -158,6 +160,7 @@ export async function PATCH(req: NextRequest) {
       _id: string
       slug: string
       title: string
+      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -185,6 +188,7 @@ export async function PATCH(req: NextRequest) {
             return {
               title: document.title,
               path: document.slug.current,
+              overview: flattenBlocks(document.overview),
             }
           default:
             throw new Error(`Unknown type: ${document.type}`)
