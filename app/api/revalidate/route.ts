@@ -41,8 +41,6 @@ export async function POST(req: NextRequest) {
       _type: string
       _id: string
       slug: string
-      title: string
-      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -69,7 +67,7 @@ export async function POST(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: document.slug.current,
+              path: `${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -100,8 +98,6 @@ export async function DELETE(req: NextRequest) {
       _type: string
       _id: string
       slug: string
-      title: string
-      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -128,7 +124,7 @@ export async function DELETE(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: document.slug.current,
+              path: `${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -159,9 +155,6 @@ export async function PATCH(req: NextRequest) {
       _type: string
       _id: string
       slug: string
-      title: string
-      language: string
-      overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
