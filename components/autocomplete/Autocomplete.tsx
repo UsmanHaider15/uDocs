@@ -27,6 +27,7 @@ export function Autocomplete(props) {
 
         panelRootRef.current.render(children)
       },
+      detachedMediaQuery: '(min-width: 640px)',
       ...props,
     })
 

@@ -3,7 +3,7 @@ import React, { createElement } from 'react'
 import { getAlgoliaResults } from '@algolia/autocomplete-js'
 import algoliasearch from 'algoliasearch'
 import { Autocomplete } from './Autocomplete'
-import { ProductItem } from './ProductItem'
+import { DocItem } from './DocItem'
 import '@algolia/autocomplete-theme-classic'
 
 const appId = 'JQKUNTEZ0K'
@@ -30,7 +30,7 @@ function Search() {
           },
           templates: {
             item({ item, components }) {
-              return <ProductItem hit={item} components={components} />
+              return <DocItem hit={item} components={components} />
             },
           },
         },
