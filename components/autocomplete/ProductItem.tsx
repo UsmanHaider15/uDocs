@@ -1,14 +1,14 @@
+import Link from 'next/link'
 import React, { createElement } from 'react'
 
 export function ProductItem({ hit, components }) {
-  console.log('hit', hit)
   return (
-    <a href={hit.url} className="aa-ItemLink">
+    <Link href={hit.slug} className="aa-ItemLink">
       <div className="aa-ItemContent">
         <div className="aa-ItemTitle">
-          <components.Highlight hit={hit} attribute="name" />
+          <components.Highlight hit={hit} attribute="title" />
         </div>
       </div>
-    </a>
+    </Link>
   )
 }

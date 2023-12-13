@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: `${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -124,7 +124,7 @@ export async function DELETE(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: `${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -181,7 +181,7 @@ export async function PATCH(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: `${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
