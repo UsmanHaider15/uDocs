@@ -8,6 +8,7 @@ import { getTocs, token } from 'lib/sanity.fetch'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
+// import Search from 'components/autocomplete/Search'
 
 const PreviewProvider = dynamic(
   () => import('components/preview/PreviewProvider'),

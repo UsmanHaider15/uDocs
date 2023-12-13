@@ -160,6 +160,7 @@ export async function PATCH(req: NextRequest) {
       _id: string
       slug: string
       title: string
+      language: string
       overview: Record<string, any>[]
     }>(req, revalidateSecret)
     if (!isValidSignature) {
@@ -187,7 +188,7 @@ export async function PATCH(req: NextRequest) {
           case 'doc':
             return {
               title: document.title,
-              path: document.slug.current,
+              path: `${document.language}/docs/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:

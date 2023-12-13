@@ -1,3 +1,4 @@
+import Search from 'components/autocomplete/Search'
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import type { MenuItem, SettingsPayload } from 'types'
@@ -30,6 +31,9 @@ export default function Navbar(props: NavbarProps) {
             </Link>
           )
         })}
+      <div id="autocomplete">
+        <Search />
+      </div>
     </div>
   )
 }
