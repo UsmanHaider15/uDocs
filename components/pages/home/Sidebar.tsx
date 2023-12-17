@@ -1,7 +1,7 @@
-import { resolveHref } from 'lib/sanity.links'
-import { Url } from 'next/dist/shared/lib/router/router'
+'use client'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import React from 'react'
+import { resolveHref } from 'lib/sanity.links'
 import { TOCLink } from 'types'
 
 interface SidebarProps {
@@ -10,6 +10,11 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ groupedLinks, languag }) => {
+  // State to keep track of the selected version
+  const [selectedVersion, setSelectedVersion] = useState(
+    groupedLinks[0]?.title || '',
+  )
+
   const renderLinks = (links: TOCLink[]) => (
     <ul>
       {links.map((link) => (
@@ -23,7 +28,26 @@ const Sidebar: React.FC<SidebarProps> = ({ groupedLinks, languag }) => {
     </ul>
   )
 
-  return <nav>{renderLinks(groupedLinks)}</nav>
+  const handleVersionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedVersion(e.target.value)
+  }
+
+  // Filter the links based on the selected version
+  const filteredLinks =
+    groupedLinks.find((group) => group.title === selectedVersion)?.links || []
+
+  return (
+    <nav>
+      <select value={selectedVersion} onChange={handleVersionChange}>
+        {groupedLinks.map((group) => (
+          <option key={group.title} value={group.title}>
+            {group.title}
+          </option>
+        ))}
+      </select>
+      {renderLinks(filteredLinks)}
+    </nav>
+  )
 }
 
 export default Sidebar

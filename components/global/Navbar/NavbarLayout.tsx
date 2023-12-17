@@ -9,7 +9,7 @@ interface NavbarProps {
 export default function Navbar(props: NavbarProps) {
   const { data } = props
   const menuItems = data?.menuItems || ([] as MenuItem[])
-  console.log('menuItems', menuItems)
+
   return (
     <div className="flex justify-end px-4">
       <div className="sticky top-0 z-10 flex flex-wrap items-center gap-x-5 bg-white/80 px-4 py-4 backdrop-blur md:px-16 md:py-5 lg:px-32">

@@ -75,7 +75,7 @@ export const pageStructure = (
     )
 
     const docsByLanguageItem = S.listItem()
-      .title('Docs by language')
+      .title('Docs')
       .child(() =>
         S.list()
           .title('Languages')
@@ -97,7 +97,7 @@ export const pageStructure = (
       )
 
     const tocByLanguageItem = S.listItem()
-      .title('Toc by language')
+      .title('Table of Content')
       .child(() =>
         S.list()
           .title('Languages')
