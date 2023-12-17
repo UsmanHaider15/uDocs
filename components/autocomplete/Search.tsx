@@ -12,30 +12,32 @@ const searchClient = algoliasearch(appId, apiKey)
 
 function Search() {
   return (
-    <Autocomplete
-      openOnFocus={true}
-      getSources={({ query }) => [
-        {
-          sourceId: 'docs',
-          getItems() {
-            return getAlgoliaResults({
-              searchClient,
-              queries: [
-                {
-                  indexName: 'docs',
-                  query,
-                },
-              ],
-            })
-          },
-          templates: {
-            item({ item, components }) {
-              return <DocItem hit={item} components={components} />
+    <div id="autocomplete" className="py-4 md:py-5">
+      <Autocomplete
+        openOnFocus={true}
+        getSources={({ query }) => [
+          {
+            sourceId: 'docs',
+            getItems() {
+              return getAlgoliaResults({
+                searchClient,
+                queries: [
+                  {
+                    indexName: 'docs',
+                    query,
+                  },
+                ],
+              })
+            },
+            templates: {
+              item({ item, components }) {
+                return <DocItem hit={item} components={components} />
+              },
             },
           },
-        },
-      ]}
-    />
+        ]}
+      />
+    </div>
   )
 }
 

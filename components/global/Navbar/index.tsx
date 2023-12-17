@@ -8,6 +8,7 @@ import NavbarPreview from './NavbarPreview'
 
 export async function Navbar() {
   const data = await getSettings()
+  console.log('data', data)
 
   return (
     <LiveQuery

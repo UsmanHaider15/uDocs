@@ -16,3 +16,7 @@ ul {
 ol {
   list-style-type: disc;
 }
+
+.aa-Autocomplete {
+  width: 300px;
+}
