@@ -25,6 +25,7 @@ import settings from 'schemas/singletons/settings'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import tocLink from 'schemas/objects/tocLink'
 import { i18n } from 'languages'
+import { client } from 'lib/sanity.client'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -53,11 +54,36 @@ export const urlResolver = defineUrlResolver({
   requiresSlug: PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS,
 })
 
-export const iframeOptions = {
-  url: (doc, secret) => {
-    let url = urlResolver(doc, secret)
+async function getVersionSlugFromDoc(doc, client) {
+  // Check if the version field is set and has a reference
+  if (!doc.version || !doc.version._ref) {
+    return null // Return null or a default value if the version is not set
+  }
 
-    return String(url) + '&language=' + doc.language
+  const versionId = doc.version._ref
+  const query = `*[_id == $versionId]{slug}[0]` // Fetching slug instead of value
+  const params = { versionId }
+
+  try {
+    const tocDoc = await client.fetch(query, params)
+    return tocDoc ? tocDoc.slug.current : null // Return slug field
+  } catch (error) {
+    console.error('Error fetching version slug:', error)
+    return null
+  }
+}
+
+// Usage
+// Assuming 'doc' is the document you are working with and 'getClient' is available
+
+export const iframeOptions = {
+  url: async (doc, secret) => {
+    let url = urlResolver(doc, secret)
+    const versionValue = await getVersionSlugFromDoc(doc, client)
+
+    return (
+      String(url) + '&language=' + doc.language + '&version=' + versionValue
+    )
   },
   urlSecretId: previewSecretId,
 } satisfies IframeOptions

@@ -82,10 +82,14 @@ export function getPageBySlug(slug: string) {
   })
 }
 
-export function getDocBySlugAndLang(slug: string, lang?: string) {
+export function getDocBySlugAndLang(
+  slug: string,
+  lang?: string,
+  version?: string,
+) {
   return sanityFetch<PagePayload | null>({
     query: docsBySlugAndLangQuery,
-    params: { slug, lang },
+    params: { slug, lang, version },
     tags: [`page:${slug}`],
   })
 }
@@ -113,10 +117,14 @@ export function getHomePage() {
   })
 }
 
-export function getTocs(lang: string) {
-  return sanityFetch<TOCLink[] | null>({
+export function getTocs(lang: string, version?: string) {
+  return sanityFetch<{
+    title: string
+    slug: string
+    links: TOCLink[]
+  } | null>({
     query: tocQuery,
-    params: { lang },
+    params: { lang, version },
     tags: ['toc'],
   })
 }
@@ -137,7 +145,7 @@ export function getPagesPaths() {
 }
 
 export function getDocsPathsWithLang() {
-  return client.fetch<{ language: string; slug: string }[]>(
+  return client.fetch<{ language: string; slug: string; version: string }[]>(
     docPathsWithLang,
     {},
     { token, perspective: 'published' },

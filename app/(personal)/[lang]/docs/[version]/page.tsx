@@ -1,18 +1,8 @@
 import { toPlainText } from '@portabletext/react'
 import { Page } from 'components/pages/page/Page'
 import PagePreview from 'components/pages/page/PagePreview'
-import {
-  getHomePageTitle,
-  getDocBySlugAndLang,
-  getPagesPaths,
-  getDocsPathsWithLang,
-  getSettings,
-  getPageBySlugAndLang,
-} from 'lib/sanity.fetch'
-import {
-  docsBySlugAndLangQuery,
-  pageBySlugAndLangQuery,
-} from 'lib/sanity.queries'
+import { getSettings, getPageBySlugAndLang } from 'lib/sanity.fetch'
+import { pageBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'

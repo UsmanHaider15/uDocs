@@ -23,13 +23,28 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       options: {
-        isUnique: isUniqueOtherThanLanguage,
+        isUnique: isUniqueOtherThanLanguageAndVersion,
       },
     }),
     defineField({
       name: 'language',
       type: 'string',
       readOnly: true,
+    }),
+    defineField({
+      name: 'version',
+      type: 'reference',
+      to: [{ type: 'toc' }],
+      options: {
+        filter: ({ document }) => {
+          return {
+            filter: 'language == $language',
+            params: {
+              language: document?.language,
+            },
+          }
+        },
+      },
     }),
     defineField({
       name: 'overview',
@@ -145,32 +160,34 @@ export default defineType({
   },
 })
 
-// Create the function
-// This checks that there are no other documents
-// With this published or draft _id
-// Or this schema type
-// With the same slug and language
-export async function isUniqueOtherThanLanguage(
+export async function isUniqueOtherThanLanguageAndVersion(
   slug: string,
   context: SlugValidationContext,
 ) {
   const { document, getClient } = context
-  if (!document?.language) {
+  if (!document?.language || !document?.version) {
     return true
   }
+
   const client = getClient({ apiVersion: '2023-04-24' })
   const id = document._id.replace(/^drafts\./, '')
+  const versionId = document.version._ref || document.version._id // Assuming version is a reference to 'toc'
+
   const params = {
     draft: `drafts.${id}`,
     published: id,
     language: document.language,
+    version: versionId,
     slug,
   }
+
   const query = `!defined(*[
     !(_id in [$draft, $published]) &&
     slug.current == $slug &&
-    language == $language
+    language == $language &&
+    version._ref == $version
   ][0]._id)`
+
   const result = await client.fetch(query, params)
   return result
 }

@@ -19,7 +19,6 @@ export default function Navbar(props: NavbarProps) {
             if (!href) {
               return null
             }
-            console.log()
             return (
               <Link
                 key={key}

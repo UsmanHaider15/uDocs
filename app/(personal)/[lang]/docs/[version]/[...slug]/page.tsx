@@ -17,15 +17,15 @@ import { LiveQuery } from 'next-sanity/preview/live-query'
 export const runtime = 'edge'
 
 type Props = {
-  params: { slug: string[]; lang: string }
+  params: { slug: string[]; lang: string; version: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug, lang } = params
+  const { slug, lang, version } = params
 
   const [settings, page, homePageTitle] = await Promise.all([
     getSettings(),
-    getDocBySlugAndLang(`${slug.join('/')}`, lang),
+    getDocBySlugAndLang(`${slug.join('/')}`, lang, version),
     getHomePageTitle(),
   ])
 
@@ -39,16 +39,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const docPaths = await getDocsPathsWithLang()
-  return docPaths.map(({ slug, language }) => {
+  return docPaths.map(({ slug, language, version }) => {
     return {
       lang: language,
+      version: version,
       slug: slug.split('/'),
     }
   })
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getDocBySlugAndLang(params.slug.join('/'), params.lang)
+  const data = await getDocBySlugAndLang(
+    params.slug.join('/'),
+    params.lang,
+    params.version,
+  )
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -58,7 +63,11 @@ export default async function PageSlugRoute({ params }: Props) {
     <LiveQuery
       enabled={draftMode().isEnabled}
       query={docsBySlugAndLangQuery}
-      params={{ slug: params.slug.join('/'), lang: params.lang }}
+      params={{
+        slug: params.slug.join('/'),
+        lang: params.lang,
+        version: params.version,
+      }}
       initialData={data}
       as={PagePreview}
     >

@@ -30,7 +30,7 @@ export const pagesBySlugQuery = groq`
 `
 
 export const tocQuery = `
-*[_type == "toc" && language == $lang]
+*[_type == "toc" && language == $lang && slug.current == $version][0]
   {
     title,
     "slug": target->slug.current,
@@ -50,7 +50,7 @@ export const tocQuery = `
 `
 
 export const docsBySlugAndLangQuery = groq`
-  *[_type == "doc" && slug.current == $slug && language == $lang ][0] {
+  *[_type == "doc" && slug.current == $slug && language == $lang && version->slug.current == $version][0] {
   _id,
   body,
   overview,
@@ -95,7 +95,8 @@ export const pagePaths = groq`
 export const docPathsWithLang = groq`
   *[_type == "doc" && slug.current != null]{
     "slug": slug.current,
-    language
+    "language": language,
+    "version": version->slug.current,
   }
 `
 export const settingsQuery = groq`
