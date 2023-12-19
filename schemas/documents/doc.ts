@@ -150,11 +150,13 @@ export default defineType({
     select: {
       title: 'title',
       subtitle: 'slug.current',
+      version: 'version.slug.current',
     },
     prepare(props: any) {
+      const { version, subtitle } = props
       return {
         title: props.title,
-        subtitle: props.subtitle,
+        subtitle: `${version} - ${subtitle}`,
       }
     },
   },

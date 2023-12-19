@@ -35,7 +35,8 @@ export default {
             ? `${document.slug.current}*`
             : '*'
           return {
-            filter: 'language == $language && slug.current match $slugPattern',
+            filter:
+              'language == $language && version->slug.current match $slugPattern',
             params: {
               language: document?.language,
               slugPattern: slugPattern,
