@@ -78,12 +78,10 @@ async function getVersionSlugFromDoc(doc, client) {
 
 export const iframeOptions = {
   url: async (doc, secret) => {
+    const { language, version } = doc
     let url = urlResolver(doc, secret)
-    const versionValue = await getVersionSlugFromDoc(doc, client)
-
-    return (
-      String(url) + '&language=' + doc.language + '&version=' + versionValue
-    )
+    // @ts-ignore
+    return String(url) + '&language=' + language + '&versionRef=' + version._ref
   },
   urlSecretId: previewSecretId,
 } satisfies IframeOptions

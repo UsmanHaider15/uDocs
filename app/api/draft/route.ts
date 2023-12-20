@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   const slug = searchParams.get('slug')
   const documentType = searchParams.get('type')
   const language = searchParams.get('language')
-  const version = searchParams.get('version')
+  const versionRef = searchParams.get('versionRef')
 
   if (!token) {
     throw new Error(
@@ -35,7 +35,19 @@ export async function GET(request: Request) {
     return new Response('Invalid secret', { status: 401 })
   }
 
-  const href = resolveHref(documentType!, `${version}/${slug}`!)
+  // Fetch version slug
+  let versionSlug = ''
+  if (versionRef) {
+    const tocDoc = await authenticatedClient.fetch(
+      `*[_type == "toc" && _id == $versionRef]{slug}[0]`,
+      { versionRef },
+    )
+    versionSlug = tocDoc?.slug?.current || ''
+  }
+
+  const fullSlug = slug === '/' ? `${versionSlug}` : `${versionSlug}/${slug}`
+  const href = resolveHref(documentType!, `${fullSlug}`!)
+
   if (!href) {
     return new Response(
       'Unable to resolve preview URL based on the current document type and slug',

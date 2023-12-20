@@ -6,7 +6,7 @@ import {
   getDocBySlugAndLang,
   getDocsPathsWithLang,
 } from 'lib/sanity.fetch'
-import { pageBySlugAndLangQuery } from 'lib/sanity.queries'
+import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -70,7 +70,6 @@ export async function generateStaticParams() {
 
 export default async function PageSlugRoute({ params }: Props) {
   const data = await getDocBySlugAndLang('/', params.lang, params.version)
-
   if (!data && !draftMode().isEnabled) {
     notFound()
   }
@@ -78,8 +77,8 @@ export default async function PageSlugRoute({ params }: Props) {
   return (
     <LiveQuery
       enabled={draftMode().isEnabled}
-      query={pageBySlugAndLangQuery}
-      params={{ slug: 'docs', lang: params.lang }}
+      query={docsBySlugAndLangQuery}
+      params={{ slug: '/', lang: params.lang, version: params.version }}
       initialData={data}
       as={PagePreview}
     >

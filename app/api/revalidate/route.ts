@@ -62,14 +62,31 @@ export async function POST(req: NextRequest) {
           index: algolia.initIndex('docs'),
         },
       },
-      (document) => {
+      async (document) => {
         switch (document._type) {
           case 'doc':
+            let versionSlug = ''
+            if (document.version && document.version._ref) {
+              const versionDoc = await client.fetch(
+                `*[_id == $versionId]{slug}[0]`,
+                {
+                  versionId: document.version._ref,
+                },
+              )
+              versionSlug = versionDoc.slug.current
+            }
+
+            const fullSlug =
+              document.slug.current === '/'
+                ? versionSlug
+                : `${versionSlug}/${document.slug.current}`
+
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${fullSlug}`,
               overview: flattenBlocks(document.overview),
             }
+
           default:
             throw new Error(`Unknown type: ${document.type}`)
         }
@@ -119,12 +136,28 @@ export async function DELETE(req: NextRequest) {
           index: algolia.initIndex('docs'),
         },
       },
-      (document) => {
+      async (document) => {
         switch (document._type) {
           case 'doc':
+            let versionSlug = ''
+            if (document.version && document.version._ref) {
+              const versionDoc = await client.fetch(
+                `*[_id == $versionId]{slug}[0]`,
+                {
+                  versionId: document.version._ref,
+                },
+              )
+              versionSlug = versionDoc.slug.current
+            }
+
+            const fullSlug =
+              document.slug.current === '/'
+                ? versionSlug
+                : `${versionSlug}/${document.slug.current}`
+
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${fullSlug}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -190,9 +223,14 @@ export async function PATCH(req: NextRequest) {
               versionSlug = versionDoc.slug.current
             }
 
+            const fullSlug =
+              document.slug.current === '/'
+                ? versionSlug
+                : `${versionSlug}/${document.slug.current}`
+
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
+              slug: `/${document.language}/docs/${fullSlug}`,
               overview: flattenBlocks(document.overview),
             }
           default:
