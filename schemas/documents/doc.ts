@@ -173,6 +173,7 @@ export async function isUniqueOtherThanLanguageAndVersion(
 
   const client = getClient({ apiVersion: '2023-04-24' })
   const id = document._id.replace(/^drafts\./, '')
+  // @ts-ignore
   const versionId = document.version._ref || document.version._id // Assuming version is a reference to 'toc'
 
   const params = {

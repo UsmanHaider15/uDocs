@@ -31,8 +31,8 @@ import { client } from 'lib/sanity.client'
 import indexer, { flattenBlocks } from 'sanity-algolia'
 
 const algolia = algoliasearch(
-  process.env.ALGOLIA_APPLICATION_ID,
-  process.env.ALGOLIA_ADMIN_API_KEY,
+  process.env.ALGOLIA_APPLICATION_ID as string,
+  process.env.ALGOLIA_ADMIN_API_KEY as string,
 )
 
 export async function POST(req: NextRequest) {
@@ -176,12 +176,23 @@ export async function PATCH(req: NextRequest) {
           index: algolia.initIndex('docs'),
         },
       },
-      (document) => {
+      async (document) => {
         switch (document._type) {
           case 'doc':
+            let versionSlug = ''
+            if (document.version && document.version._ref) {
+              const versionDoc = await client.fetch(
+                `*[_id == $versionId]{slug}[0]`,
+                {
+                  versionId: document.version._ref,
+                },
+              )
+              versionSlug = versionDoc.slug.current
+            }
+
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${document.slug.current}`,
+              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:

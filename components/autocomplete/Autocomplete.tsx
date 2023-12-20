@@ -19,12 +19,15 @@ export function Autocomplete(props) {
       renderer: { createElement, Fragment, render: () => {} },
       render({ children }, root) {
         if (!panelRootRef.current || rootRef.current !== root) {
+          // @ts-ignore
           rootRef.current = root
 
+          // @ts-ignore
           panelRootRef.current?.unmount()
           panelRootRef.current = createRoot(root)
         }
 
+        // @ts-ignore
         panelRootRef.current.render(children)
       },
       detachedMediaQuery: '(min-width: 640px)',

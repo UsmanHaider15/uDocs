@@ -9,9 +9,7 @@ export default async function DocsLayout({
   params: { lang: string; version: string }
   children: React.ReactNode
 }) {
-  console.log('params', params)
   let toc = await getTocs(params.lang, params.version)
-  console.log('toc', toc)
 
   return (
     <div className="flex">

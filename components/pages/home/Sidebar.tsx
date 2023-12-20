@@ -9,6 +9,7 @@ interface SidebarProps {
     links: TOCLink[]
   }
   language: string
+  version: string
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ data, language, version }) => {
@@ -27,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ data, language, version }) => {
 
   return (
     <nav>
-      <h2>{data.title}</h2>
+      <Link href={`/${language}/docs/${version}`}>{data.title}</Link>
       {renderLinks(data.links)}
     </nav>
   )

@@ -1,7 +1,11 @@
 import { toPlainText } from '@portabletext/react'
 import { Page } from 'components/pages/page/Page'
 import PagePreview from 'components/pages/page/PagePreview'
-import { getSettings, getPageBySlugAndLang } from 'lib/sanity.fetch'
+import {
+  getSettings,
+  getDocBySlugAndLang,
+  getDocsPathsWithLang,
+} from 'lib/sanity.fetch'
 import { pageBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
@@ -13,15 +17,15 @@ import { i18n } from 'languages'
 export const runtime = 'edge'
 
 type Props = {
-  params: { lang: string }
+  params: { lang: string; version: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang } = params
+  const { lang, version } = params
 
   const [settings, page] = await Promise.all([
     getSettings(),
-    getPageBySlugAndLang('docs', lang),
+    getDocBySlugAndLang('/', lang, version),
   ])
 
   return defineMetadata({
@@ -32,17 +36,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   })
 }
 
-export async function generateStaticParams() {
-  return i18n.languages.map((language) => {
-    return {
-      lang: language.id,
-      slug: 'docs',
-    }
+interface Doc {
+  slug: string
+  language: string
+  version: string
+}
+
+interface LanguageVersionCombination {
+  lang: string
+  version: string
+}
+
+function getUniqueLanguageVersionCombinations(
+  docs: Doc[],
+): LanguageVersionCombination[] {
+  const uniqueCombinations = new Set<string>()
+
+  docs.forEach((doc) => {
+    uniqueCombinations.add(`${doc.language}-${doc.version}`)
+  })
+
+  return Array.from(uniqueCombinations).map((combination) => {
+    const [language, version] = combination.split('-')
+    return { lang: language, version }
   })
 }
 
+export async function generateStaticParams() {
+  const docPaths = await getDocsPathsWithLang()
+
+  return getUniqueLanguageVersionCombinations(docPaths)
+}
+
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getPageBySlugAndLang('docs', params.lang)
+  const data = await getDocBySlugAndLang('/', params.lang, params.version)
 
   if (!data && !draftMode().isEnabled) {
     notFound()

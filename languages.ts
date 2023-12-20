@@ -6,6 +6,7 @@ const languages = [
 
 const i18n = {
   languages,
+  // @ts-ignore
   base: languages.find((item) => item.isDefault).id,
 }
 
