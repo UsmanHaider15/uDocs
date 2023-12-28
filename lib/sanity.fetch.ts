@@ -91,7 +91,8 @@ export async function sanityFetch<QueryResponse>({
     }),
     next: {
       ...(isDraftMode && { revalidate: 30 }),
-      tags,
+      // add tags only when they are defined
+      ...(tags && tags.length > 0 && { tags }),
     },
   })
 }
