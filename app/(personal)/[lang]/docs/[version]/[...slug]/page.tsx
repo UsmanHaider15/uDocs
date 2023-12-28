@@ -14,7 +14,7 @@ import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 type Props = {
   params: { slug: string[]; lang: string; version: string }
@@ -39,13 +39,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   const docPaths = await getDocsPathsWithLang()
-  return docPaths.map(({ slug, language, version }) => {
-    return {
-      lang: language,
-      version: version,
-      slug: slug.split('/'),
-    }
-  })
+  return docPaths
+    .filter(({ slug }) => slug !== '/')
+    .map(({ slug, language, version }) => {
+      return {
+        lang: language,
+        version: version,
+        slug: slug.split('/'),
+      }
+    })
 }
 
 export default async function PageSlugRoute({ params }: Props) {
