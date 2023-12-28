@@ -188,6 +188,8 @@ export async function PATCH(req: NextRequest) {
       _type: string
       _id: string
       slug: string
+      language: string
+      version: string
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -198,9 +200,10 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    console.log("revalidating '/en/docs/v1/building-your-application'")
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    console.log(`Revalidating Path: ${pathToRevalidate}`)
 
-    revalidatePath('/en/docs/v1/building-your-application')
+    revalidatePath(pathToRevalidate)
     // revalidateTag(body._type)
     // if (body.slug) {
     //   revalidateTag(`${body._type}:${body.slug}`)
