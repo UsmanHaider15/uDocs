@@ -200,6 +200,20 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
+    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+
+    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    console.log(`Revalidating Path: ${pathToRevalidate}`)
+
+    revalidatePath(pathToRevalidate)
+
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    })
+
     const sanityAlgolia = indexer(
       {
         doc: {
@@ -238,20 +252,6 @@ export async function PATCH(req: NextRequest) {
 
     await sanityAlgolia.webhookSync(client, {
       ids: { created: [], updated: [body._id], deleted: [] },
-    })
-
-    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
-    console.log(`Revalidating Path: ${pathToRevalidate}`)
-
-    revalidatePath(pathToRevalidate)
-
-    return NextResponse.json({
-      status: 200,
-      revalidated: true,
-      now: Date.now(),
-      body,
     })
   } catch (err: any) {
     console.error(err)
