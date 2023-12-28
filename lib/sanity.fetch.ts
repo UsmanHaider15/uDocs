@@ -67,7 +67,7 @@ export async function sanityFetch<QueryResponse>({
 }: {
   query: string
   params?: QueryParams
-  tags: string[]
+  tags?: string[]
 }): Promise<QueryResponse> {
   const isDraftMode = draftMode().isEnabled
   if (isDraftMode && !token) {
@@ -119,7 +119,7 @@ export function getDocBySlugAndLang(
   return sanityFetch<PagePayload | null>({
     query: docsBySlugAndLangQuery,
     params: { slug, lang, version },
-    tags: [`page:${slug}`],
+    // tags: [`page:${slug}`],
   })
 }
 
