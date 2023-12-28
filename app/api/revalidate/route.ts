@@ -23,7 +23,7 @@
  */
 
 import { revalidateSecret } from 'lib/sanity.api'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
@@ -198,10 +198,12 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    revalidateTag(body._type)
-    if (body.slug) {
-      revalidateTag(`${body._type}:${body.slug}`)
-    }
+    console.log('revalidating path en/docs/v1')
+    revalidatePath('en/docs/v1')
+    // revalidateTag(body._type)
+    // if (body.slug) {
+    //   revalidateTag(`${body._type}:${body.slug}`)
+    // }
 
     const sanityAlgolia = indexer(
       {
