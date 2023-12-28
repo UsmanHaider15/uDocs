@@ -198,12 +198,10 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    console.log('revalidating path en/docs/v1')
-    revalidatePath('en/docs/v1')
-    // revalidateTag(body._type)
-    // if (body.slug) {
-    //   revalidateTag(`${body._type}:${body.slug}`)
-    // }
+    revalidateTag(body._type)
+    if (body.slug) {
+      revalidateTag(`${body._type}:${body.slug}`)
+    }
 
     const sanityAlgolia = indexer(
       {
