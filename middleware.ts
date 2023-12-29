@@ -16,6 +16,7 @@ type Middleware = (request: IRequest) => Response | void
 // Define your locales and default locale
 const locales = i18n.languages.map((lang) => lang.id)
 const defaultLocale = 'en'
+const defaultVersion = 'v1'
 
 // Function to get the preferred locale
 function getLocale(request: IRequest): string {
@@ -58,7 +59,7 @@ export const middleware: Middleware = (request) => {
   // Check if the pathname matches the locale pattern for /doc
   const match = pathname.match(localePattern)
   if (match) {
-    request.nextUrl.pathname = `/${match[1]}/docs/v1`
+    request.nextUrl.pathname = `/${match[1]}/docs/${defaultVersion}`
     // @ts-ignore
     return Response.redirect(request.nextUrl)
   }
