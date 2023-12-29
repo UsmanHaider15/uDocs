@@ -83,7 +83,8 @@ export async function sanityFetch<QueryResponse>({
       : client
   return sanityClient.fetch<QueryResponse>(query, params, {
     // We only cache if there's a revalidation webhook setup
-    cache: revalidateSecret ? 'force-cache' : 'no-store',
+    // cache: revalidateSecret ? 'force-cache' : 'no-store',
+    cache: 'no-store',
     ...(isDraftMode && {
       cache: undefined,
       token: token,
