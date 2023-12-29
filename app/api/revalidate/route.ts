@@ -115,6 +115,8 @@ export async function DELETE(req: NextRequest) {
       _type: string
       _id: string
       slug: string
+      language: string
+      version: string
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -169,6 +171,13 @@ export async function DELETE(req: NextRequest) {
     await sanityAlgolia.webhookSync(client, {
       ids: { created: [], updated: [], deleted: [body._id] },
     })
+
+    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+
+    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    console.log(`Revalidating Path: ${pathToRevalidate}`)
+
+    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
