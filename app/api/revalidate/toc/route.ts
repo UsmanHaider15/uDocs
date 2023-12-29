@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const layoutToRevalidate = `/${body.language}/docs/${body.slug}`
+    const layoutToRevalidate = `/(personal)/${body.language}/docs/${body.slug}`
     console.log('Layout To Revalidate: ', layoutToRevalidate)
     revalidatePath(layoutToRevalidate, 'layout')
 

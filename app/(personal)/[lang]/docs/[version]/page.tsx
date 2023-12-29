@@ -12,9 +12,6 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
-import { i18n } from 'languages'
-
-// export const runtime = 'edge'
 
 type Props = {
   params: { lang: string; version: string }
