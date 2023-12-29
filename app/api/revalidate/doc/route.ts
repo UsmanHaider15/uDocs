@@ -122,74 +122,59 @@ export async function DELETE(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    if (body._type === 'toc') {
-      const layoutToRevalidate = `/${body.language}/docs/${body.version}`
-      console.log('Layout To Revalidate: ', layoutToRevalidate)
-      revalidatePath(layoutToRevalidate, 'layout')
-
-      return NextResponse.json({
-        status: 200,
-        revalidated: true,
-        now: Date.now(),
-        body,
-      })
-    }
-
-    if (body._type === 'doc') {
-      const sanityAlgolia = indexer(
-        {
-          doc: {
-            index: algolia.initIndex('docs'),
-          },
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algolia.initIndex('docs'),
         },
-        async (document) => {
-          switch (document._type) {
-            case 'doc':
-              let versionSlug = ''
-              if (document.version && document.version._ref) {
-                const versionDoc = await client.fetch(
-                  `*[_id == $versionId]{slug}[0]`,
-                  {
-                    versionId: document.version._ref,
-                  },
-                )
-                versionSlug = versionDoc.slug.current
-              }
+      },
+      async (document) => {
+        switch (document._type) {
+          case 'doc':
+            let versionSlug = ''
+            if (document.version && document.version._ref) {
+              const versionDoc = await client.fetch(
+                `*[_id == $versionId]{slug}[0]`,
+                {
+                  versionId: document.version._ref,
+                },
+              )
+              versionSlug = versionDoc.slug.current
+            }
 
-              const fullSlug =
-                document.slug.current === '/'
-                  ? versionSlug
-                  : `${versionSlug}/${document.slug.current}`
+            const fullSlug =
+              document.slug.current === '/'
+                ? versionSlug
+                : `${versionSlug}/${document.slug.current}`
 
-              return {
-                title: document.title,
-                slug: `/${document.language}/docs/${fullSlug}`,
-                overview: flattenBlocks(document.overview),
-              }
-            default:
-              throw new Error(`Unknown type: ${document.type}`)
-          }
-        },
-      )
+            return {
+              title: document.title,
+              slug: `/${document.language}/docs/${fullSlug}`,
+              overview: flattenBlocks(document.overview),
+            }
+          default:
+            throw new Error(`Unknown type: ${document.type}`)
+        }
+      },
+    )
 
-      await sanityAlgolia.webhookSync(client, {
-        ids: { created: [], updated: [], deleted: [body._id] },
-      })
+    await sanityAlgolia.webhookSync(client, {
+      ids: { created: [], updated: [], deleted: [body._id] },
+    })
 
-      const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-      const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
-      console.log(`Path To Revalidate: ${pathToRevalidate}`)
+    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-      revalidatePath(pathToRevalidate)
+    revalidatePath(pathToRevalidate)
 
-      return NextResponse.json({
-        status: 200,
-        revalidated: true,
-        now: Date.now(),
-        body,
-      })
-    }
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    })
   } catch (err: any) {
     console.error(err)
     return new Response(err.message, { status: 500 })
@@ -214,79 +199,59 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    console.log('Body: ', body._type)
-
-    const layoutToRevalidate = `/${body.language}/docs/${body.version}`
-    console.log('Layout To Revalidate: ', layoutToRevalidate)
-
-    if (body._type === 'toc') {
-      const layoutToRevalidate = `/${body.language}/docs/${body.version}`
-      console.log('Layout To Revalidate: ', layoutToRevalidate)
-      revalidatePath(layoutToRevalidate, 'layout')
-
-      return NextResponse.json({
-        status: 200,
-        revalidated: true,
-        now: Date.now(),
-        body,
-      })
-    }
-
-    if (body._type === 'doc') {
-      const sanityAlgolia = indexer(
-        {
-          doc: {
-            index: algolia.initIndex('docs'),
-          },
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algolia.initIndex('docs'),
         },
-        async (document) => {
-          switch (document._type) {
-            case 'doc':
-              let versionSlug = ''
-              if (document.version && document.version._ref) {
-                const versionDoc = await client.fetch(
-                  `*[_id == $versionId]{slug}[0]`,
-                  {
-                    versionId: document.version._ref,
-                  },
-                )
-                versionSlug = versionDoc.slug.current
-              }
+      },
+      async (document) => {
+        switch (document._type) {
+          case 'doc':
+            let versionSlug = ''
+            if (document.version && document.version._ref) {
+              const versionDoc = await client.fetch(
+                `*[_id == $versionId]{slug}[0]`,
+                {
+                  versionId: document.version._ref,
+                },
+              )
+              versionSlug = versionDoc.slug.current
+            }
 
-              const fullSlug =
-                document.slug.current === '/'
-                  ? versionSlug
-                  : `${versionSlug}/${document.slug.current}`
+            const fullSlug =
+              document.slug.current === '/'
+                ? versionSlug
+                : `${versionSlug}/${document.slug.current}`
 
-              return {
-                title: document.title,
-                slug: `/${document.language}/docs/${fullSlug}`,
-                overview: flattenBlocks(document.overview),
-              }
-            default:
-              throw new Error(`Unknown type: ${document.type}`)
-          }
-        },
-      )
+            return {
+              title: document.title,
+              slug: `/${document.language}/docs/${fullSlug}`,
+              overview: flattenBlocks(document.overview),
+            }
+          default:
+            throw new Error(`Unknown type: ${document.type}`)
+        }
+      },
+    )
 
-      await sanityAlgolia.webhookSync(client, {
-        ids: { created: [], updated: [body._id], deleted: [] },
-      })
+    await sanityAlgolia.webhookSync(client, {
+      ids: { created: [], updated: [body._id], deleted: [] },
+    })
 
-      const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-      const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
-      console.log(`Path To Revalidate: ${pathToRevalidate}`)
+    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-      revalidatePath(pathToRevalidate)
+    revalidatePath(pathToRevalidate)
 
-      return NextResponse.json({
-        status: 200,
-        revalidated: true,
-        now: Date.now(),
-        body,
-      })
-    }
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
+    })
   } catch (err: any) {
     console.error(err)
     return new Response(err.message, { status: 500 })
