@@ -20,9 +20,13 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const layoutToRevalidate = `/${body.language}/docs/${body.slug}`
-    console.log('Layout To Revalidate: ', layoutToRevalidate)
-    revalidatePath(layoutToRevalidate, 'layout')
+    console.log('Revalidate Root Layout')
+
+    revalidatePath('/', 'layout')
+
+    // const layoutToRevalidate = `/${body.language}/docs/${body.slug}`
+    // console.log('Layout To Revalidate: ', layoutToRevalidate)
+    // revalidatePath(layoutToRevalidate, 'layout')
 
     return NextResponse.json({
       status: 200,
