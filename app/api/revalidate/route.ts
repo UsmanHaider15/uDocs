@@ -214,6 +214,11 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
+    console.log('Body: ', body._type)
+
+    const layoutToRevalidate = `/${body.language}/docs/${body.version}`
+    console.log('Layout To Revalidate: ', layoutToRevalidate)
+
     if (body._type === 'toc') {
       const layoutToRevalidate = `/${body.language}/docs/${body.version}`
       console.log('Layout To Revalidate: ', layoutToRevalidate)
