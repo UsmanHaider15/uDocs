@@ -155,7 +155,7 @@ export function getTocs(lang: string, version?: string) {
   } | null>({
     query: tocQuery,
     params: { lang, version },
-    tags: ['toc'],
+    // tags: ['toc'],
   })
 }
 
