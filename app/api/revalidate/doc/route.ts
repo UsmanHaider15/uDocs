@@ -164,10 +164,10 @@ export async function DELETE(req: NextRequest) {
 
     const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    const pathToRevalidate = `/(personal)/${body.language}/docs/${body.version}${revalidateSlug}`
     console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-    revalidatePath(pathToRevalidate)
+    revalidatePath(pathToRevalidate, 'page')
 
     return NextResponse.json({
       status: 200,
@@ -241,10 +241,10 @@ export async function PATCH(req: NextRequest) {
 
     const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    const pathToRevalidate = `/(personal)/${body.language}/docs/${body.version}${revalidateSlug}`
     console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-    revalidatePath(pathToRevalidate)
+    revalidatePath(pathToRevalidate, 'page')
 
     return NextResponse.json({
       status: 200,
