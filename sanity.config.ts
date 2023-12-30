@@ -16,7 +16,6 @@ import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import page from 'schemas/documents/page'
 import doc from 'schemas/documents/doc'
 import toc from 'schemas/documents/toc'
-import project from 'schemas/documents/project'
 import duration from 'schemas/objects/duration'
 import milestone from 'schemas/objects/milestone'
 import timeline from 'schemas/objects/timeline'
@@ -36,14 +35,12 @@ export const PREVIEWABLE_DOCUMENT_TYPES = [
   page.name,
   doc.name,
   toc.name,
-  project.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
   page.name,
   doc.name,
   toc.name,
-  project.name,
 ] satisfies typeof PREVIEWABLE_DOCUMENT_TYPES
 
 // Used to generate URLs for drafts and live previews
@@ -101,7 +98,6 @@ export default defineConfig({
       duration,
       page,
       doc,
-      project,
       toc,
       // Objects
       milestone,

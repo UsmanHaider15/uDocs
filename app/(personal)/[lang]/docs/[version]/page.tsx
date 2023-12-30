@@ -66,7 +66,6 @@ export async function generateStaticParams() {
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  console.log('I am in page.tsx')
   const data = await getDocBySlugAndLang('/', params.lang, params.version)
   if (!data && !draftMode().isEnabled) {
     notFound()

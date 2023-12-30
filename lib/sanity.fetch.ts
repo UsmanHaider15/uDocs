@@ -9,8 +9,6 @@ import {
   docPathsWithLang,
   docsBySlugAndLangQuery,
   pagesBySlugQuery,
-  projectBySlugQuery,
-  projectPaths,
   settingsQuery,
   tocQuery,
   pageBySlugAndLangQuery,
@@ -19,7 +17,6 @@ import { draftMode } from 'next/headers'
 import type {
   HomePagePayload,
   PagePayload,
-  ProjectPayload,
   SettingsPayload,
   TOCLink,
 } from 'types'
@@ -100,7 +97,7 @@ export async function sanityFetch<QueryResponse>({
 export function getSettings() {
   return sanityFetch<SettingsPayload>({
     query: settingsQuery,
-    tags: ['settings', 'home', 'page', 'project'],
+    tags: ['settings', 'home', 'page'],
   })
 }
 
@@ -131,18 +128,10 @@ export function getPageBySlugAndLang(slug: string, lang?: string) {
   })
 }
 
-export function getProjectBySlug(slug: string) {
-  return sanityFetch<ProjectPayload | null>({
-    query: projectBySlugQuery,
-    params: { slug },
-    tags: [`project:${slug}`],
-  })
-}
-
 export function getHomePage() {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
-    tags: ['home', 'project'],
+    tags: ['home'],
   })
 }
 
@@ -175,14 +164,6 @@ export function getPagesPaths() {
 export function getDocsPathsWithLang() {
   return client.fetch<{ language: string; slug: string; version: string }[]>(
     docPathsWithLang,
-    {},
-    { token, perspective: 'published' },
-  )
-}
-
-export function getProjectsPaths() {
-  return client.fetch<string[]>(
-    projectPaths,
     {},
     { token, perspective: 'published' },
   )

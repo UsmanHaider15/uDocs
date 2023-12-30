@@ -8,7 +8,7 @@ export interface HomePageProps {
 
 export function HomePage({ data }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { overview = [], showcaseProjects = [], title = '' } = data ?? {}
+  const { overview = [], title = '' } = data ?? {}
 
   return (
     <div className="flex">
@@ -17,31 +17,6 @@ export function HomePage({ data }: HomePageProps) {
       </div>
     </div>
   )
-
-  // return (
-  //   <div className="space-y-20">
-  //     {/* Header */}
-  //     {title && <Header centered title={title} description={overview} />}
-  //     {JSON.stringify(categories)}
-
-  //     {/* Showcase projects */}
-  //     {/* {showcaseProjects && showcaseProjects.length > 0 && (
-  //       <div className="mx-auto max-w-[100rem] rounded-md border">
-  //         {showcaseProjects.map((project, key) => {
-  //           const href = resolveHref(project._type, project.slug)
-  //           if (!href) {
-  //             return null
-  //           }
-  //           return (
-  //             <Link key={key} href={href}>
-  //               <ProjectListItem project={project} odd={key % 2} />
-  //             </Link>
-  //           )
-  //         })}
-  //       </div>
-  //     )} */}
-  //   </div>
-  // )
 }
 
 export default HomePage

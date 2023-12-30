@@ -4,14 +4,6 @@ export const homePageQuery = groq`
   *[_type == "home"][0]{
     _id,
     overview,
-    showcaseProjects[]->{
-      _type,
-      coverImage,
-      overview,
-      "slug": slug.current,
-      tags,
-      title,
-    },
     title,
   }
 `
@@ -67,25 +59,6 @@ export const pageBySlugAndLangQuery = groq`
   title,
   "headings": body[length(style) == 2 && string::startsWith(style, "h")]
   }
-`
-
-export const projectBySlugQuery = groq`
-  *[_type == "project" && slug.current == $slug][0] {
-    _id,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
-    "slug": slug.current,
-    tags,
-    title,
-  }
-`
-
-export const projectPaths = groq`
-  *[_type == "project" && slug.current != null].slug.current
 `
 
 export const pagePaths = groq`
