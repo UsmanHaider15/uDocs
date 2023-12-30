@@ -23,7 +23,7 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       options: {
-        isUnique: isUniqueOtherThanLanguage,
+        isUnique: isUniqueOtherThanLanguageAndDocSchemaType,
       },
     }),
     defineField({
@@ -152,12 +152,12 @@ export default defineType({
 // With this published or draft _id
 // Or this schema type
 // With the same slug and language
-export async function isUniqueOtherThanLanguage(
+export async function isUniqueOtherThanLanguageAndDocSchemaType(
   slug: string,
   context: SlugValidationContext,
 ) {
   const { document, getClient } = context
-  if (!document?.language) {
+  if (!document?.language || !document?._type) {
     return true
   }
   const client = getClient({ apiVersion: '2023-04-24' })
@@ -166,12 +166,14 @@ export async function isUniqueOtherThanLanguage(
     draft: `drafts.${id}`,
     published: id,
     language: document.language,
+    type: document._type,
     slug,
   }
   const query = `!defined(*[
     !(_id in [$draft, $published]) &&
     slug.current == $slug &&
-    language == $language
+    language == $language &&
+    _type == $type
   ][0]._id)`
   const result = await client.fetch(query, params)
   return result

@@ -51,34 +51,28 @@ export const urlResolver = defineUrlResolver({
   requiresSlug: PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS,
 })
 
-async function getVersionSlugFromDoc(doc, client) {
-  // Check if the version field is set and has a reference
-  if (!doc.version || !doc.version._ref) {
-    return null // Return null or a default value if the version is not set
-  }
-
-  const versionId = doc.version._ref
-  const query = `*[_id == $versionId]{slug}[0]` // Fetching slug instead of value
-  const params = { versionId }
-
-  try {
-    const tocDoc = await client.fetch(query, params)
-    return tocDoc ? tocDoc.slug.current : null // Return slug field
-  } catch (error) {
-    console.error('Error fetching version slug:', error)
-    return null
-  }
-}
-
 // Usage
 // Assuming 'doc' is the document you are working with and 'getClient' is available
 
 export const iframeOptions = {
   url: async (doc, secret) => {
-    const { language, version } = doc
-    let url = urlResolver(doc, secret)
-    // @ts-ignore
-    return String(url) + '&language=' + language + '&versionRef=' + version._ref
+    if (doc._type === 'doc') {
+      const { language, version } = doc
+      let url = urlResolver(doc, secret)
+      // @ts-ignore
+      return (
+        String(url) + '&language=' + language + '&versionRef=' + version._ref
+      )
+    } else if (doc._type === 'page') {
+      console.log('page', doc.language)
+
+      const { language } = doc
+      let url = urlResolver(doc, secret)
+      // @ts-ignore
+      return String(url) + '&language=' + language
+    } else {
+      return urlResolver(doc, secret)
+    }
   },
   urlSecretId: previewSecretId,
 } satisfies IframeOptions

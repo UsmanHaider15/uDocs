@@ -13,49 +13,86 @@ export async function GET(request: Request) {
   const secret = searchParams.get('secret')
   const slug = searchParams.get('slug')
   const documentType = searchParams.get('type')
-  const language = searchParams.get('language')
-  const versionRef = searchParams.get('versionRef')
+  if (documentType === 'doc') {
+    const language = searchParams.get('language')
+    const versionRef = searchParams.get('versionRef')
+    if (!token) {
+      throw new Error(
+        'The `SANITY_API_READ_TOKEN` environment variable is required.',
+      )
+    }
+    if (!secret) {
+      return new Response('Invalid secret', { status: 401 })
+    }
 
-  if (!token) {
-    throw new Error(
-      'The `SANITY_API_READ_TOKEN` environment variable is required.',
+    const authenticatedClient = client.withConfig({ token })
+    const validSecret = await isValidSecret(
+      authenticatedClient,
+      previewSecretId,
+      secret,
     )
-  }
-  if (!secret) {
-    return new Response('Invalid secret', { status: 401 })
+    if (!validSecret) {
+      return new Response('Invalid secret', { status: 401 })
+    }
+
+    // Fetch version slug
+    let versionSlug = ''
+    if (versionRef) {
+      const tocDoc = await authenticatedClient.fetch(
+        `*[_type == "toc" && _id == $versionRef]{slug}[0]`,
+        { versionRef },
+      )
+      versionSlug = tocDoc?.slug?.current || ''
+    }
+
+    const fullSlug = slug === '/' ? `${versionSlug}` : `${versionSlug}/${slug}`
+    const href = resolveHref(documentType!, `${fullSlug}`!)
+    console.log('href: ', `/${language}${href}`)
+    if (!href) {
+      return new Response(
+        'Unable to resolve preview URL based on the current document type and slug',
+        { status: 400 },
+      )
+    }
+
+    draftMode().enable()
+
+    redirect(`/${language}${href}`)
   }
 
-  const authenticatedClient = client.withConfig({ token })
-  const validSecret = await isValidSecret(
-    authenticatedClient,
-    previewSecretId,
-    secret,
-  )
-  if (!validSecret) {
-    return new Response('Invalid secret', { status: 401 })
-  }
+  if (documentType === 'page') {
+    const language = searchParams.get('language')
+    console.log('language: ', language)
 
-  // Fetch version slug
-  let versionSlug = ''
-  if (versionRef) {
-    const tocDoc = await authenticatedClient.fetch(
-      `*[_type == "toc" && _id == $versionRef]{slug}[0]`,
-      { versionRef },
+    if (!token) {
+      throw new Error(
+        'The `SANITY_API_READ_TOKEN` environment variable is required.',
+      )
+    }
+    if (!secret) {
+      return new Response('Invalid secret', { status: 401 })
+    }
+
+    const authenticatedClient = client.withConfig({ token })
+    const validSecret = await isValidSecret(
+      authenticatedClient,
+      previewSecretId,
+      secret,
     )
-    versionSlug = tocDoc?.slug?.current || ''
+    if (!validSecret) {
+      return new Response('Invalid secret', { status: 401 })
+    }
+
+    const resolvedHref = resolveHref(documentType!, slug!)
+    if (!resolvedHref) {
+      return new Response(
+        'Unable to resolve preview URL based on the current document type and slug',
+        { status: 400 },
+      )
+    }
+
+    draftMode().enable()
+
+    redirect(`/${language}${resolvedHref}`)
   }
-
-  const fullSlug = slug === '/' ? `${versionSlug}` : `${versionSlug}/${slug}`
-  const href = resolveHref(documentType!, `${fullSlug}`!)
-
-  if (!href) {
-    return new Response(
-      'Unable to resolve preview URL based on the current document type and slug',
-      { status: 400 },
-    )
-  }
-
-  draftMode().enable()
-
-  redirect('/' + language + href)
 }

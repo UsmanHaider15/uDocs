@@ -4,10 +4,11 @@ import PagePreview from 'components/pages/page/PagePreview'
 import {
   getHomePageTitle,
   getPageBySlug,
+  getPageBySlugAndLang,
   getPagesPaths,
   getSettings,
 } from 'lib/sanity.fetch'
-import { pagesBySlugQuery } from 'lib/sanity.queries'
+import { pageBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -17,7 +18,7 @@ import { LiveQuery } from 'next-sanity/preview/live-query'
 export const runtime = 'edge'
 
 type Props = {
-  params: { slug: string }
+  params: { slug: string; lang: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -43,8 +44,7 @@ export async function generateStaticParams() {
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const data = await getPageBySlug(params.slug)
-
+  const data = await getPageBySlugAndLang(params.slug, params.lang)
   if (!data && !draftMode().isEnabled) {
     notFound()
   }
@@ -52,7 +52,7 @@ export default async function PageSlugRoute({ params }: Props) {
   return (
     <LiveQuery
       enabled={draftMode().isEnabled}
-      query={pagesBySlugQuery}
+      query={pageBySlugAndLangQuery}
       params={params}
       initialData={data}
       as={PagePreview}
