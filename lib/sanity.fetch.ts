@@ -117,7 +117,6 @@ export function getDocBySlugAndLang(
   return sanityFetch<PagePayload | null>({
     query: docsBySlugAndLangQuery,
     params: { slug, lang, version },
-    tags: [`doc:${lang}${version}`],
   })
 }
 
