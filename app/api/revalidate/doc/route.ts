@@ -23,7 +23,7 @@
  */
 
 import { revalidateSecret } from 'lib/sanity.api'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
@@ -239,12 +239,15 @@ export async function PATCH(req: NextRequest) {
       ids: { created: [], updated: [body._id], deleted: [] },
     })
 
-    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+    // const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
-    console.log(`Path To Revalidate: ${pathToRevalidate}`)
+    // const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    // console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-    revalidatePath(pathToRevalidate)
+    // revalidatePath(pathToRevalidate)
+
+    console.log('revalidating tag', `doc:${body.language}${body.version}`)
+    revalidateTag(`doc:${body.language}${body.version}`)
 
     return NextResponse.json({
       status: 200,
