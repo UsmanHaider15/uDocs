@@ -12,13 +12,13 @@ export default async function DocsLayout({
   let toc = await getTocs(params.lang, params.version)
 
   return (
-    <div className="flex">
-      {toc && (
-        <Sidebar data={toc} language={params.lang} version={params.version} />
-      )}
-      <div className="flex-1 p-10">
-        <Suspense>{children}</Suspense>
+    <div className="relative mx-auto max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
+      <div className="sticky top-[121px] hidden h-[calc(100vh-121px)] w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between">
+        {toc && (
+          <Sidebar data={toc} language={params.lang} version={params.version} />
+        )}
       </div>
+      <Suspense>{children}</Suspense>
     </div>
   )
 }

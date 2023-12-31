@@ -60,26 +60,21 @@ export function Page({ data }: PageProps) {
   const { body, overview, title, headings } = data ?? {}
 
   return (
-    <div className="flex">
-      {/* Main Content */}
-      <div className="flex-grow mb-14">
-        {/* Header */}
-        {/* <Header title={title} description={overview} /> */}
-
-        {/* Body */}
+    <>
+      <nav className="order-last hidden w-56 shrink-0 lg:block">
+        <div className="sticky top-[126px] h-[calc(100vh-121px)]">
+          {headings ? <TableOfContents headings={headings} /> : null}
+        </div>
+      </nav>
+      <article className="mt-4 w-full min-w-0 max-w-6xl px-1 md:px-6">
         {body && (
           <CustomPortableText
             paragraphClasses="font-serif max-w-3xl text-gray-600 text-xl"
             value={body}
           />
         )}
-      </div>
-
-      {/* Table of Contents */}
-      <div className="sticky top-0 h-screen overflow-y-auto">
-        {headings ? <TableOfContents headings={headings} /> : null}
-      </div>
-    </div>
+      </article>
+    </>
   )
 }
 

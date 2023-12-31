@@ -239,15 +239,12 @@ export async function PATCH(req: NextRequest) {
       ids: { created: [], updated: [body._id], deleted: [] },
     })
 
-    // const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
+    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
 
-    // const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
-    // console.log(`Path To Revalidate: ${pathToRevalidate}`)
+    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
-    // revalidatePath(pathToRevalidate)
-
-    console.log('revalidating tag')
-    revalidateTag(`doc:${body.language}${body.version}`)
+    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
