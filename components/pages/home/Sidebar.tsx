@@ -1,36 +1,52 @@
-import React from 'react'
-import Link from 'next/link'
-import { TOCLink } from 'types'
+'use client'
+import React, { useState, FC } from 'react'
 
-interface SidebarProps {
-  data: {
-    title: string
-    slug: string
-    links: TOCLink[]
-  }
-  language: string
-  version: string
+// Define the interface for the link structure
+interface Link {
+  title: string
+  slug: string
+  links?: Link[]
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ data, language, version }) => {
-  const renderLinks = (links: TOCLink[]) => (
-    <ul>
-      {links.map((link) => (
-        <li key={link.slug}>
-          <Link href={`/${language}/docs/${version}/${link.slug}`}>
-            {link.title}
-          </Link>
-          {link.links && link.links.length > 0 && renderLinks(link.links)}
-        </li>
-      ))}
-    </ul>
-  )
+interface SidebarProps {
+  links: Link[]
+}
+
+// The NavigationLink component that can recursively render itself to support nested links
+const NavigationLink: FC<{ link: Link }> = ({ link }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const hasNestedLinks = link.links && link.links.length > 0
 
   return (
-    <nav>
-      <Link href={`/${language}/docs/${version}`}>{data.title}</Link>
-      {renderLinks(data.links)}
-    </nav>
+    <div>
+      <button
+        className={`w-full text-left ${
+          hasNestedLinks ? 'font-bold' : 'font-normal'
+        }`}
+        onClick={() => hasNestedLinks && setIsOpen(!isOpen)}
+      >
+        {link.title}
+      </button>
+      {hasNestedLinks && isOpen && (
+        <div className="pl-4">
+          {link.links &&
+            link.links.map((nestedLink) => (
+              <NavigationLink key={nestedLink.slug} link={nestedLink} />
+            ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// The Sidebar component that takes in the links props and renders the NavigationLink component
+const Sidebar: FC<SidebarProps> = ({ links }) => {
+  return (
+    <aside>
+      {links.map((link) => (
+        <NavigationLink key={link.slug} link={link} />
+      ))}
+    </aside>
   )
 }
 
