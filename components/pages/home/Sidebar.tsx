@@ -1,5 +1,5 @@
-'use client'
-import React, { useState, FC } from 'react'
+import Link from 'next/link'
+import React, { FC } from 'react'
 
 // Define the interface for the link structure
 interface Link {
@@ -10,29 +10,38 @@ interface Link {
 
 interface SidebarProps {
   links: Link[]
+  language: string
+  version: string
 }
 
-// The NavigationLink component that can recursively render itself to support nested links
-const NavigationLink: FC<{ link: Link }> = ({ link }) => {
-  const [isOpen, setIsOpen] = useState(false)
+// The NavigationLink component as a stateless component
+const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
+  link,
+  language,
+  version,
+}) => {
   const hasNestedLinks = link.links && link.links.length > 0
 
   return (
     <div>
-      <button
+      <Link
         className={`w-full text-left ${
           hasNestedLinks ? 'font-bold' : 'font-normal'
         }`}
-        onClick={() => hasNestedLinks && setIsOpen(!isOpen)}
+        href={`/${language}/docs/${version}/${link.slug}`}
       >
         {link.title}
-      </button>
-      {hasNestedLinks && isOpen && (
+      </Link>
+      {hasNestedLinks && (
         <div className="pl-4">
-          {link.links &&
-            link.links.map((nestedLink) => (
-              <NavigationLink key={nestedLink.slug} link={nestedLink} />
-            ))}
+          {link.links?.map((nestedLink) => (
+            <NavigationLink
+              key={nestedLink.slug}
+              link={nestedLink}
+              language={language}
+              version={version}
+            />
+          ))}
         </div>
       )}
     </div>
@@ -40,11 +49,16 @@ const NavigationLink: FC<{ link: Link }> = ({ link }) => {
 }
 
 // The Sidebar component that takes in the links props and renders the NavigationLink component
-const Sidebar: FC<SidebarProps> = ({ links }) => {
+const Sidebar: FC<SidebarProps> = ({ links, language, version }) => {
   return (
     <aside>
       {links.map((link) => (
-        <NavigationLink key={link.slug} link={link} />
+        <NavigationLink
+          key={link.slug}
+          link={link}
+          language={language}
+          version={version}
+        />
       ))}
     </aside>
   )

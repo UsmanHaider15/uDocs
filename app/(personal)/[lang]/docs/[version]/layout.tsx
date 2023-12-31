@@ -10,7 +10,6 @@ export default async function DocsLayout({
   children: React.ReactNode
 }) {
   let toc = await getTocs(params.lang, params.version)
-  console.log('toc', toc)
 
   return (
     <div className="relative mx-auto max-w-screen-xl px-4 py-10 md:flex md:flex-row md:py-10">
@@ -18,8 +17,8 @@ export default async function DocsLayout({
         {toc && (
           <Sidebar
             links={toc.links}
-            // language={params.lang}
-            // version={params.version}
+            language={params.lang}
+            version={params.version}
           />
         )}
       </div>
