@@ -1,6 +1,6 @@
 import { toPlainText } from '@portabletext/react'
-import { Page } from 'components/pages/page/Page'
-import PagePreview from 'components/pages/page/PagePreview'
+import { DocPage } from 'components/pages/doc_page/DocPage'
+import DocPagePreview from 'components/pages/doc_page/DocPagePreview'
 import {
   getHomePageTitle,
   getDocBySlugAndLang,
@@ -69,9 +69,9 @@ export default async function PageSlugRoute({ params }: Props) {
         version: params.version,
       }}
       initialData={data}
-      as={PagePreview}
+      as={DocPagePreview}
     >
-      <Page data={data} />
+      <DocPage data={data} />
     </LiveQuery>
   )
 }

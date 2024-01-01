@@ -1,5 +1,4 @@
 import { CustomPortableText } from 'components/shared/CustomPortableText'
-import { Header } from 'components/shared/Header'
 import type { PagePayload } from 'types'
 
 export interface PageProps {
@@ -56,20 +55,16 @@ const TableOfContents = ({ headings }) => {
   )
 }
 
-export function Page({ data }: PageProps) {
-  const { body, overview, title } = data ?? {}
+export function DocPage({ data }: PageProps) {
+  const { body, headings } = data ?? {}
 
   return (
     <>
-      {title && <Header title={title} />}
-      {overview && (
-        <div className="w-full min-w-0 max-w-6xl px-1 md:px-6">
-          <CustomPortableText
-            paragraphClasses="font-serif max-w-3xl text-gray-600 text-xl"
-            value={overview}
-          />
+      <nav className="order-last hidden w-56 shrink-0 lg:block">
+        <div className="sticky top-[126px] h-[calc(100vh-121px)]">
+          {headings ? <TableOfContents headings={headings} /> : null}
         </div>
-      )}
+      </nav>
       <article className="mt-4 w-full min-w-0 max-w-6xl px-1 md:px-6">
         {body && (
           <CustomPortableText
@@ -82,4 +77,4 @@ export function Page({ data }: PageProps) {
   )
 }
 
-export default Page
+export default DocPage

@@ -64,8 +64,6 @@ export const iframeOptions = {
         String(url) + '&language=' + language + '&versionRef=' + version._ref
       )
     } else if (doc._type === 'page') {
-      console.log('page', doc.language)
-
       const { language } = doc
       let url = urlResolver(doc, secret)
       // @ts-ignore

@@ -62,7 +62,6 @@ export async function GET(request: Request) {
 
   if (documentType === 'page') {
     const language = searchParams.get('language')
-    console.log('language: ', language)
 
     if (!token) {
       throw new Error(
