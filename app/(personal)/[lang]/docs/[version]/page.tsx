@@ -1,6 +1,4 @@
 import { toPlainText } from '@portabletext/react'
-import { Page } from 'components/pages/page/Page'
-import PagePreview from 'components/pages/page/PagePreview'
 import {
   getSettings,
   getDocBySlugAndLang,
@@ -12,6 +10,8 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
+import DocPage from 'components/pages/doc_page/DocPage'
+import DocPagePreview from 'components/pages/doc_page/DocPagePreview'
 
 type Props = {
   params: { lang: string; version: string }
@@ -77,9 +77,9 @@ export default async function PageSlugRoute({ params }: Props) {
       query={docsBySlugAndLangQuery}
       params={{ slug: '/', lang: params.lang, version: params.version }}
       initialData={data}
-      as={PagePreview}
+      as={DocPagePreview}
     >
-      <Page data={data} />
+      <DocPage data={data} />
     </LiveQuery>
   )
 }

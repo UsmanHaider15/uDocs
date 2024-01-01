@@ -34,13 +34,11 @@ export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
   page.name,
   doc.name,
-  toc.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
   page.name,
   doc.name,
-  toc.name,
 ] satisfies typeof PREVIEWABLE_DOCUMENT_TYPES
 
 // Used to generate URLs for drafts and live previews
@@ -59,8 +57,8 @@ export const iframeOptions = {
     if (doc._type === 'doc') {
       const { language, version } = doc
       let url = urlResolver(doc, secret)
-      // @ts-ignore
       return (
+        // @ts-ignore
         String(url) + '&language=' + language + '&versionRef=' + version._ref
       )
     } else if (doc._type === 'page') {
