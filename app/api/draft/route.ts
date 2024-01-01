@@ -13,29 +13,30 @@ export async function GET(request: Request) {
   const secret = searchParams.get('secret')
   const slug = searchParams.get('slug')
   const documentType = searchParams.get('type')
-  if (documentType === 'doc') {
-    const language = searchParams.get('language')
-    const versionRef = searchParams.get('versionRef')
-    if (!token) {
-      throw new Error(
-        'The `SANITY_API_READ_TOKEN` environment variable is required.',
-      )
-    }
-    if (!secret) {
-      return new Response('Invalid secret', { status: 401 })
-    }
+  const language = searchParams.get('language')
 
-    const authenticatedClient = client.withConfig({ token })
-    const validSecret = await isValidSecret(
-      authenticatedClient,
-      previewSecretId,
-      secret,
+  if (!token) {
+    throw new Error(
+      'The `SANITY_API_READ_TOKEN` environment variable is required.',
     )
-    if (!validSecret) {
-      return new Response('Invalid secret', { status: 401 })
-    }
+  }
+  if (!secret) {
+    return new Response('Invalid secret', { status: 401 })
+  }
 
-    // Fetch version slug
+  const authenticatedClient = client.withConfig({ token })
+  const validSecret = await isValidSecret(
+    authenticatedClient,
+    previewSecretId,
+    secret,
+  )
+  if (!validSecret) {
+    return new Response('Invalid secret', { status: 401 })
+  }
+
+  if (documentType === 'doc') {
+    const versionRef = searchParams.get('versionRef')
+
     let versionSlug = ''
     if (versionRef) {
       const tocDoc = await authenticatedClient.fetch(
@@ -61,27 +62,6 @@ export async function GET(request: Request) {
   }
 
   if (documentType === 'page') {
-    const language = searchParams.get('language')
-
-    if (!token) {
-      throw new Error(
-        'The `SANITY_API_READ_TOKEN` environment variable is required.',
-      )
-    }
-    if (!secret) {
-      return new Response('Invalid secret', { status: 401 })
-    }
-
-    const authenticatedClient = client.withConfig({ token })
-    const validSecret = await isValidSecret(
-      authenticatedClient,
-      previewSecretId,
-      secret,
-    )
-    if (!validSecret) {
-      return new Response('Invalid secret', { status: 401 })
-    }
-
     const resolvedHref = resolveHref(documentType!, slug!)
     if (!resolvedHref) {
       return new Response(
