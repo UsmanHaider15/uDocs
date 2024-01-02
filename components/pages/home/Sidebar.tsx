@@ -14,7 +14,6 @@ interface SidebarProps {
   version: string
 }
 
-// The NavigationLink component as a stateless component
 const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
   link,
   language,
@@ -23,17 +22,19 @@ const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
   const hasNestedLinks = link.links && link.links.length > 0
 
   return (
-    <div>
+    <div className={`mt-1 ${hasNestedLinks ? 'mb-1' : ''}`}>
+      {' '}
       <Link
-        className={`w-full text-left ${
-          hasNestedLinks ? 'font-bold' : 'font-normal'
-        }`}
+        className={`block px-2 py-1 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 ${
+          hasNestedLinks ? 'font-semibold' : 'font-normal'
+        }`} // Reduced padding and smaller text size
         href={`/${language}/docs/${version}/${link.slug}`}
       >
         {link.title}
       </Link>
       {hasNestedLinks && (
-        <div className="pl-4">
+        <div className="ml-2">
+          {' '}
           {link.links?.map((nestedLink) => (
             <NavigationLink
               key={nestedLink.slug}
@@ -48,10 +49,10 @@ const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
   )
 }
 
-// The Sidebar component that takes in the links props and renders the NavigationLink component
 const Sidebar: FC<SidebarProps> = ({ links, language, version }) => {
   return (
-    <aside>
+    <aside className="bg-white w-64 min-h-screen border-r border-gray-200 p-2">
+      {' '}
       {links.map((link) => (
         <NavigationLink
           key={link.slug}

@@ -30,6 +30,8 @@ import algoliasearch from 'algoliasearch'
 import { client } from 'lib/sanity.client'
 import indexer, { flattenBlocks } from 'sanity-algolia'
 
+export const runtime = 'nodejs'
+
 const algolia = algoliasearch(
   process.env.ALGOLIA_APPLICATION_ID as string,
   process.env.ALGOLIA_ADMIN_API_KEY as string,
