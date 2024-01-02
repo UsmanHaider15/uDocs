@@ -6,7 +6,7 @@ import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { isValidSecret } from 'sanity-plugin-iframe-pane/is-valid-secret'
 
-export const runtime = 'edge'
+export const runtime = 'nodejs'
 
 async function authenticateClient(secret) {
   if (!token) {
@@ -52,6 +52,7 @@ async function resolveAndRedirect(documentType, slug, language) {
   }
 
   draftMode().enable()
+  console.log('draftMode().isEnabled()', draftMode().isEnabled)
   redirect(`/${language}${resolvedHref}`)
 }
 
