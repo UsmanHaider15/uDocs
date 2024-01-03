@@ -36,7 +36,7 @@ export interface PagePayload {
 export interface TOCLink {
   title: string
   slug: string
-  links?: TOCLink[]
+  links?: TOCLink[] | null
 }
 
 export interface SettingsPayload {

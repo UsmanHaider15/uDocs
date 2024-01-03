@@ -137,11 +137,7 @@ export function getHomePage() {
 }
 
 export function getTocs(lang: string, version?: string) {
-  return sanityFetch<{
-    title: string
-    slug: string
-    links: TOCLink[]
-  } | null>({
+  return sanityFetch<TOCLink | null>({
     query: tocQuery,
     params: { lang, version },
   })

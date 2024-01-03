@@ -6,6 +6,7 @@ import {
   getDocBySlugAndLang,
   getDocsPathsWithLang,
   getSettings,
+  getTocs,
 } from 'lib/sanity.fetch'
 import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
@@ -13,6 +14,7 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
+import { TOCLink } from 'types'
 
 type Props = {
   params: { slug: string[]; lang: string; version: string }
@@ -54,6 +56,8 @@ export default async function PageSlugRoute({ params }: Props) {
     params.lang,
     params.version,
   )
+  let toc = await getTocs(params.lang, params.version)
+  const docNavigation = findSlugWithParents(toc, params.slug.join('/'))
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -71,7 +75,40 @@ export default async function PageSlugRoute({ params }: Props) {
       initialData={data}
       as={DocPagePreview}
     >
-      <DocPage data={data} />
+      <DocPage data={data} docNavigation={docNavigation} />
     </LiveQuery>
   )
+}
+
+function findSlugWithParents(data: TOCLink, slug: string): TOCLink[] | null {
+  function search(node: TOCLink, path: TOCLink[]): TOCLink[] | null {
+    // Add the current node to the path
+    path.push({ title: node.title, slug: node.slug })
+
+    // Check if the current node is the target slug
+    if (node.slug === slug) {
+      return path
+    }
+
+    // If this node has links, search them recursively
+    if (node.links) {
+      for (const link of node.links) {
+        const result = search(link, path.slice())
+        if (result) return result
+      }
+    }
+
+    // Slug not found in this branch
+    return null
+  }
+
+  // Start the search from each child of the root node
+  if (data.links) {
+    for (const link of data.links) {
+      const result = search(link, [])
+      if (result) return result
+    }
+  }
+
+  return null
 }

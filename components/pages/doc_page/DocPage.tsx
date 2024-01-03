@@ -1,8 +1,10 @@
 import { CustomPortableText } from 'components/shared/CustomPortableText'
-import type { PagePayload } from 'types'
+import Link from 'next/link'
+import type { PagePayload, TOCLink } from 'types'
 
 export interface PageProps {
   data: PagePayload | null
+  docNavigation: TOCLink[] | null
 }
 
 function createToC(headings: any[]) {
@@ -70,7 +72,7 @@ const TableOfContents = ({ headings }) => {
   )
 }
 
-export function DocPage({ data }: PageProps) {
+export function DocPage({ data, docNavigation }: PageProps) {
   const { body, title, headings } = data ?? {}
 
   return (
@@ -82,6 +84,12 @@ export function DocPage({ data }: PageProps) {
       </nav>
 
       <article className="w-full min-w-0 max-w-6xl mx-auto">
+        {docNavigation &&
+          docNavigation.map((link) => (
+            <Link href={`/en/docs/v1/${link.slug}`} className="pr-2">
+              {link.title}
+            </Link>
+          ))}
         {title && (
           <h1 className="text-4xl font-bold mb-4 text-gray-800">{title}</h1>
         )}

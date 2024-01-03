@@ -25,7 +25,7 @@ export const tocQuery = `
 *[_type == "toc" && language == $lang && slug.current == $version][0]
   {
     title,
-    "slug": target->slug.current,
+    "slug": slug.current,
     links[] {
       "title": target->title,
       "slug": target->slug.current,
