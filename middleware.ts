@@ -54,12 +54,17 @@ export const middleware: Middleware = (request) => {
     return
   }
 
-  const localePattern = /^\/([a-z]{2})\/docs$/ // Regex to match /xx/docs where xx is any two-letter code
+  // Updated Regex to match /xx/docs or /xx/docs/{version}
+  // where xx is any two-letter code and {version} is optional
+  const localePatternWithVersion = /^\/([a-z]{2})\/docs(\/([a-zA-Z0-9-]+))?$/
 
-  // Check if the pathname matches the locale pattern for /doc
-  const match = pathname.match(localePattern)
+  const match = pathname.match(localePatternWithVersion)
   if (match) {
-    request.nextUrl.pathname = `/${match[1]}/docs/${defaultVersion}/introduction`
+    // Extract the locale and the version, if available
+    const locale = match[1]
+    const version = match[3] || defaultVersion // Use defaultVersion if version is not in the URL
+
+    request.nextUrl.pathname = `/${locale}/docs/${version}/introduction`
     // @ts-ignore
     return Response.redirect(request.nextUrl)
   }
