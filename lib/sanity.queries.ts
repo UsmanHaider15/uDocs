@@ -43,11 +43,11 @@ export const tocQuery = `
 
 export const docsBySlugAndLangQuery = groq`
   *[_type == "doc" && slug.current == $slug && language == $lang && version->slug.current == $version][0] {
-  _id,
-  body,
-  overview,
-  title,
-  "headings": body[length(style) == 2 && string::startsWith(style, "h")]
+    _id,
+    body,
+    overview,
+    title,
+    "headings": body[length(style) == 2 && string::startsWith(style, "h")]
   }
 `
 

@@ -19,6 +19,11 @@ export function CustomPortableText({
           {children}
         </p>
       ),
+      blockquote: ({ children }) => (
+        <blockquote className="p-3 my-4 mx-0 text-sm not-italic font-normal leading-5 text-gray-800 rounded-md border border-solid border-stone-900">
+          {children}
+        </blockquote>
+      ),
       h1: ({ children, value }) => (
         <h1 id={value._key} className="text-4xl font-bold my-4 text-gray-900">
           {children}
@@ -48,20 +53,18 @@ export function CustomPortableText({
       ),
     },
     types: {
-      image: ({ value }) => (
-        <div className="my-8 mx-auto">
-          <ImageBox
-            image={value}
-            alt={value.alt}
-            classesWrapper="relative w-full h-auto aspect-auto"
-          />
-          {value?.caption && (
-            <p className="text-sm text-gray-500 text-center mt-2">
-              {value.caption}
-            </p>
-          )}
-        </div>
-      ),
+      image: ({ value }) => {
+        return (
+          <div className="my-5 mx-auto">
+            <ImageBox image={value} alt={value.alt} classesWrapper="" />
+            {value?.caption && (
+              <p className="text-sm text-gray-500 text-center mt-2">
+                {value.caption}
+              </p>
+            )}
+          </div>
+        )
+      },
       // The timeline remains unchanged unless you want to apply specific styling
       timeline: ({ value }) => {
         const { items } = value || {}
