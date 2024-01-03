@@ -73,14 +73,9 @@ export async function POST(req: NextRequest) {
               versionSlug = versionDoc.slug.current
             }
 
-            const fullSlug =
-              document.slug.current === '/'
-                ? versionSlug
-                : `${versionSlug}/${document.slug.current}`
-
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${fullSlug}`,
+              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
 
@@ -144,14 +139,9 @@ export async function DELETE(req: NextRequest) {
               versionSlug = versionDoc.slug.current
             }
 
-            const fullSlug =
-              document.slug.current === '/'
-                ? versionSlug
-                : `${versionSlug}/${document.slug.current}`
-
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${fullSlug}`,
+              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -164,9 +154,7 @@ export async function DELETE(req: NextRequest) {
       ids: { created: [], updated: [], deleted: [body._id] },
     })
 
-    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
     console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
     revalidatePath(pathToRevalidate)
@@ -220,15 +208,9 @@ export async function PATCH(req: NextRequest) {
               )
               versionSlug = versionDoc.slug.current
             }
-
-            const fullSlug =
-              document.slug.current === '/'
-                ? versionSlug
-                : `${versionSlug}/${document.slug.current}`
-
             return {
               title: document.title,
-              slug: `/${document.language}/docs/${fullSlug}`,
+              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
               overview: flattenBlocks(document.overview),
             }
           default:
@@ -241,9 +223,7 @@ export async function PATCH(req: NextRequest) {
       ids: { created: [], updated: [body._id], deleted: [] },
     })
 
-    const revalidateSlug = body.slug === '/' ? '' : `/${body.slug}`
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}${revalidateSlug}`
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
     console.log(`Path To Revalidate: ${pathToRevalidate}`)
 
     revalidatePath(pathToRevalidate)

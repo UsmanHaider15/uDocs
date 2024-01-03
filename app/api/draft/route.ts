@@ -68,7 +68,7 @@ export async function GET(request) {
   if (documentType === 'doc') {
     const versionRef = searchParams.get('versionRef')
     const versionSlug = await fetchVersionSlug(authenticatedClient, versionRef)
-    const fullSlug = slug === '/' ? versionSlug : `${versionSlug}/${slug}`
+    const fullSlug = `${versionSlug}/${slug}`
     await resolveAndRedirect(documentType, fullSlug, language)
   } else if (documentType === 'page') {
     await resolveAndRedirect(documentType, slug, language)

@@ -24,28 +24,6 @@ export default {
       },
     },
     {
-      title: 'Target',
-      name: 'target',
-      type: 'reference',
-      to: [{ type: 'doc' }],
-      options: {
-        filter: ({ document }) => {
-          // Use the 'slug.current' field of the 'toc' document for filtering
-          const slugPattern = document?.slug?.current
-            ? `${document.slug.current}*`
-            : '*'
-          return {
-            filter:
-              'language == $language && version->slug.current match $slugPattern',
-            params: {
-              language: document?.language,
-              slugPattern: slugPattern,
-            },
-          }
-        },
-      },
-    },
-    {
       type: 'array',
       name: 'links',
       title: 'Links',
