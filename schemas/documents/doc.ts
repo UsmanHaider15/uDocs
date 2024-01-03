@@ -143,6 +143,11 @@ export default defineType({
             }),
           ],
         }),
+        defineField({
+          type: 'code',
+          name: 'code',
+          title: 'Code',
+        }),
       ],
     }),
   ],

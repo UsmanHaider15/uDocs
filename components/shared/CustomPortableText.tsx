@@ -2,6 +2,8 @@ import { PortableText, PortableTextComponents } from '@portabletext/react'
 import type { PortableTextBlock } from '@portabletext/types'
 import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Image } from 'sanity'
 
 export function CustomPortableText({
@@ -15,7 +17,7 @@ export function CustomPortableText({
     block: {
       // Adjusted typography and whitespace
       normal: ({ children }) => (
-        <p className={`leading-relaxed mb-2 text-gray-700 ${paragraphClasses}`}>
+        <p className={`leading-relaxed mb-2 text-gray-800 ${paragraphClasses}`}>
           {children}
         </p>
       ),
@@ -25,7 +27,7 @@ export function CustomPortableText({
         </blockquote>
       ),
       h1: ({ children, value }) => (
-        <h1 id={value._key} className="text-4xl font-bold my-4 text-gray-900">
+        <h1 id={value._key} className="text-4xl font-bold my-4 text-gray-800">
           {children}
         </h1>
       ),
@@ -37,7 +39,22 @@ export function CustomPortableText({
           {children}
         </h2>
       ),
-      // ... Other heading styles remain similar with adjusted margins
+      list: {
+        bullet: ({ children }) => {
+          return (
+            <ul className="list-disc list-inside text-base sm:text-lg text-gray-800">
+              {children}
+            </ul>
+          )
+        },
+        number: ({ children }) => {
+          return (
+            <ol className="list-decimal list-inside text-base sm:text-lg">
+              {children}
+            </ol>
+          )
+        },
+      },
     },
     marks: {
       // Improved interactivity with a clear visual change on hover
@@ -65,6 +82,9 @@ export function CustomPortableText({
           </div>
         )
       },
+      code: ({ value }) => {
+        return <SyntaxHighlighter style={docco}>{value.code}</SyntaxHighlighter>
+      },
       // The timeline remains unchanged unless you want to apply specific styling
       timeline: ({ value }) => {
         const { items } = value || {}
@@ -74,13 +94,4 @@ export function CustomPortableText({
   }
 
   return <PortableText components={components} value={value} />
-}
-
-{
-  /* <h2
-  id="accessibility"
-  data-docs-heading=""
-  class="px-0 pt-10 pb-0 mx-0 mt-8 mb-4 text-2xl font-semibold text-gray-200 border-b-0 border-t border-solid border-x-0 border-stone-900"
-  style="border-width: 0px; line-height: 1.33333; scroll-margin-top: 11px;"
-></h2> */
 }

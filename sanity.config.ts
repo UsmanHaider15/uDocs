@@ -24,7 +24,7 @@ import settings from 'schemas/singletons/settings'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import tocLink from 'schemas/objects/tocLink'
 import { i18n } from 'languages'
-import { client } from 'lib/sanity.client'
+import { codeInput } from '@sanity/code-input'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -96,6 +96,7 @@ export default defineConfig({
     ],
   },
   plugins: [
+    codeInput(),
     deskTool({
       structure: pageStructure([home, settings]),
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane

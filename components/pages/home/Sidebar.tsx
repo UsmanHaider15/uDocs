@@ -25,7 +25,7 @@ const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
     <div className={`mt-1 ${hasNestedLinks ? 'mb-1' : ''}`}>
       {' '}
       <Link
-        className={`block px-2 py-1 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 ${
+        className={`block px-2 py-1 text-sm text-gray-800 hover:bg-blue-50 hover:text-blue-700 ${
           hasNestedLinks ? 'font-semibold' : 'font-normal'
         }`} // Reduced padding and smaller text size
         href={`/${language}/docs/${version}/${link.slug}`}

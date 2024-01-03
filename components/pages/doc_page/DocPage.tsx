@@ -83,7 +83,7 @@ export function DocPage({ data }: PageProps) {
 
       <article className="w-full min-w-0 max-w-6xl mx-auto">
         {title && (
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">{title}</h1>
+          <h1 className="text-4xl font-bold mb-4 text-gray-800">{title}</h1>
         )}
         {body && (
           <CustomPortableText
