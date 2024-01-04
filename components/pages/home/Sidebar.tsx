@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { FC } from 'react'
+import { TOCLink } from 'types'
 
 // Define the interface for the link structure
 interface Link {
@@ -9,16 +10,16 @@ interface Link {
 }
 
 interface SidebarProps {
-  links: Link[]
+  toc: TOCLink
   language: string
   version: string
 }
 
-const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
-  link,
-  language,
-  version,
-}) => {
+const NavigationLink: FC<{
+  link: TOCLink
+  language: string
+  version: string
+}> = ({ link, language, version }) => {
   const hasNestedLinks = link.links && link.links.length > 0
 
   return (
@@ -49,18 +50,19 @@ const NavigationLink: FC<{ link: Link; language: string; version: string }> = ({
   )
 }
 
-const Sidebar: FC<SidebarProps> = ({ links, language, version }) => {
+const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   return (
     <aside className="bg-white w-64 min-h-screen border-r border-gray-200 p-2">
       {' '}
-      {links.map((link) => (
-        <NavigationLink
-          key={link.slug}
-          link={link}
-          language={language}
-          version={version}
-        />
-      ))}
+      {toc.links &&
+        toc.links.map((link) => (
+          <NavigationLink
+            key={link.slug}
+            link={link}
+            language={language}
+            version={version}
+          />
+        ))}
     </aside>
   )
 }
