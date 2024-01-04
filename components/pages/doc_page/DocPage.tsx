@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { CustomPortableText } from 'components/shared/CustomPortableText'
 import Link from 'next/link'
 import type { PagePayload, TOCLink } from 'types'
@@ -84,12 +85,21 @@ export function DocPage({ data, docNavigation }: PageProps) {
       </nav>
 
       <article className="w-full min-w-0 max-w-6xl mx-auto">
-        {docNavigation &&
-          docNavigation.map((link) => (
-            <Link href={`/en/docs/v1/${link.slug}`} className="pr-2">
-              {link.title}
-            </Link>
-          ))}
+        <div className="mt-4 mb-7 md:mt-2 md:mb-10 flex space-x-2">
+          {docNavigation &&
+            docNavigation.map((link, index) => (
+              <React.Fragment key={link.slug}>
+                {index > 0 && <span className="text-gray-500">/</span>}
+                <Link
+                  href={`/en/docs/v1/${link.slug}`}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  {link.title}
+                </Link>
+              </React.Fragment>
+            ))}
+        </div>
+
         {title && (
           <h1 className="text-4xl font-bold mb-4 text-gray-800">{title}</h1>
         )}
