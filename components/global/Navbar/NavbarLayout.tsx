@@ -2,12 +2,16 @@ import Search from 'components/autocomplete/Search'
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import type { MenuItem, SettingsPayload } from 'types'
+import LanugageDropdown from './LanguageDropdown'
+import VersionDropdown from './VersionDropdown'
 
 interface NavbarProps {
   data: SettingsPayload
+  lang: string
+  version: string
 }
 export default function Navbar(props: NavbarProps) {
-  const { data } = props
+  const { data, lang, version } = props
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
@@ -48,6 +52,13 @@ export default function Navbar(props: NavbarProps) {
 
         <div className="flex gap-6 items-center w-full border-0 border-solid border-stone-900">
           My Docs
+        </div>
+
+        <div className="mr-2">
+          <LanugageDropdown lang={lang} />
+        </div>
+        <div className="mr-2">
+          <VersionDropdown lang={lang} version={version} />
         </div>
         <div className="flex gap-3 items-center border-0 border-solid border-stone-900">
           <Search />

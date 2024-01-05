@@ -1,7 +1,7 @@
 import 'styles/index.css'
 
 import { Footer } from 'components/global/Footer'
-import { Navbar } from 'components/global/Navbar'
+// import { Navbar } from 'components/global/Navbar'
 import { PreviewBanner } from 'components/preview/PreviewBanner'
 import IntroTemplate from 'intro-template'
 import { token } from 'lib/sanity.fetch'
@@ -26,12 +26,12 @@ export default async function IndexRoute({
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}
-      <Suspense>
+      {/* <Suspense>
         <Navbar />
-      </Suspense>
+      </Suspense> */}
       <div>
         <div className="flex">
-          <div className="flex-1 p-10">
+          <div className="flex-1">
             <Suspense>{children}</Suspense>
           </div>
         </div>
