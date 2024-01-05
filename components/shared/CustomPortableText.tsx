@@ -83,7 +83,11 @@ export function CustomPortableText({
         )
       },
       code: ({ value }) => {
-        return <SyntaxHighlighter style={docco}>{value.code}</SyntaxHighlighter>
+        return (
+          <SyntaxHighlighter language={value.language} style={docco}>
+            {value.code}
+          </SyntaxHighlighter>
+        )
       },
       // The timeline remains unchanged unless you want to apply specific styling
       timeline: ({ value }) => {
