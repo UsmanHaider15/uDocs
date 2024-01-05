@@ -23,7 +23,7 @@ import home from 'schemas/singletons/home'
 import settings from 'schemas/singletons/settings'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import tocLink from 'schemas/objects/tocLink'
-import { i18n } from 'languages'
+import { i18n } from 'settings'
 import { codeInput } from '@sanity/code-input'
 
 const title =

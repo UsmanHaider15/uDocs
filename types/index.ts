@@ -44,3 +44,15 @@ export interface SettingsPayload {
   menuItems?: MenuItem[]
   ogImage?: Image
 }
+
+export interface Language {
+  id: string
+  title: string
+  isDefault?: boolean // Optional property
+}
+
+export interface Version {
+  id: string
+  title: string
+  isDefault?: boolean // Optional property
+}

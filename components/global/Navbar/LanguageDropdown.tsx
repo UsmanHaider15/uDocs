@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { googleTranslateLanguages } from 'languages'
+import { googleTranslateLanguages } from 'settings'
 import { useRouter } from 'next/navigation'
 
 interface LanguageDropdownProps {

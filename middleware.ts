@@ -1,5 +1,5 @@
 import { match } from '@formatjs/intl-localematcher'
-import { i18n } from 'languages'
+import { i18n, versions } from 'settings'
 import Negotiator from 'negotiator'
 
 // Define the type for the Request object
@@ -15,8 +15,8 @@ type Middleware = (request: IRequest) => Response | void
 
 // Define your locales and default locale
 const locales = i18n.languages.map((lang) => lang.id)
-const defaultLocale = 'en'
-const defaultVersion = 'v1'
+const defaultLocale = i18n.languages.find((lang) => lang.isDefault)?.id || 'en'
+const defaultVersion = versions.find((version) => version.isDefault)?.id || 'v1'
 
 // Function to get the preferred locale
 function getLocale(request: IRequest): string {
