@@ -69,6 +69,13 @@ export function CustomPortableText({
           {children}
         </a>
       ),
+      code: ({ children }) => {
+        return (
+          <code className="inline py-px px-1 m-0 font-mono text-sm text-left text-gray-600 rounded-md border border-solid border-neutral-700 bg-zinc-800 content-none">
+            {children}
+          </code>
+        )
+      },
     },
     types: {
       image: ({ value }) => {
