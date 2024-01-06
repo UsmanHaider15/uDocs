@@ -78,13 +78,13 @@ export function DocPage({ data, docNavigation }: PageProps) {
 
   return (
     <>
-      <nav className="order-last hidden w-56 shrink-0 lg:block">
+      <nav className="order-last hidden w-56 shrink-0 lg:block p-2">
         <div className="sticky top-[126px] h-[calc(100vh-121px)]">
           {headings ? <TableOfContents headings={headings} /> : null}
         </div>
       </nav>
 
-      <article className="w-full min-w-0 max-w-6xl mx-auto">
+      <article className="w-full min-w-0 max-w-6xl mx-auto p-2">
         <div className="mt-4 mb-7 md:mt-2 md:mb-10 flex space-x-2">
           {docNavigation &&
             docNavigation.map((link, index) => (
