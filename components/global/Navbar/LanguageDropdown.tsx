@@ -38,7 +38,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
   return (
     <select
       id="language-select"
-      className="p-1 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      className="border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       value={selectedLanguage}
       onChange={handleLanguageChange}
     >

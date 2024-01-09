@@ -17,6 +17,14 @@ ol {
   list-style-type: disc;
 }
 
-.aa-Autocomplete {
-  width: 300px;
+.flex-item {
+  flex: 0 0 33.33%;
+  overflow: hidden; /* Adjust as needed */
+  max-width: 100%;
+  /* Ensure there's no excessive padding or margin inside the flex-item */
 }
+
+#autocomplete {
+  width: 150px; 
+}
+

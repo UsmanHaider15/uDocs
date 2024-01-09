@@ -12,7 +12,7 @@ const searchClient = algoliasearch(appId, apiKey)
 
 function Search() {
   return (
-    <div id="autocomplete" className="py-4 md:py-5">
+    <div id="autocomplete">
       <Autocomplete
         openOnFocus={true}
         getSources={({ query }) => [

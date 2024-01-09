@@ -30,7 +30,7 @@ export function Autocomplete(props) {
         // @ts-ignore
         panelRootRef.current.render(children)
       },
-      detachedMediaQuery: '(min-width: 640px)',
+      detachedMediaQuery: '(min-width: 220px)',
       ...props,
     })
 
