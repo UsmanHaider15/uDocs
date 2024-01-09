@@ -24,7 +24,9 @@ ol {
   /* Ensure there's no excessive padding or margin inside the flex-item */
 }
 
-#autocomplete {
-  width: 150px; 
+.aa-DetachedSearchButton
+{
+  width: 140px !important;
+  height: 30px !important;
+  border-radius: 30px !important;
 }
-

@@ -15,8 +15,8 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0">
-      <nav className="flex justify-end border-0 border-solid border-stone-900 bg-white">
+    <header className="sticky top-0 bg-white py-2 md:py-3 z-10">
+      <nav className="flex justify-end max-w-screen-xl ">
         {/* {menuItems &&
           menuItems.map((menuItem, key) => {
             const href = resolveHref(menuItem?._type, menuItem?.slug)
@@ -43,10 +43,10 @@ export default function Navbar(props: NavbarProps) {
         <div className="mr-2">
           <Search />
         </div>
-        <div className="mr-2">
+        <div className="mr-2 self-center">
           <LanugageDropdown lang={lang} />
         </div>
-        <div className="mr-2">
+        <div className="mr-2 self-center">
           <VersionDropdown lang={lang} version={version} />
         </div>
       </nav>
