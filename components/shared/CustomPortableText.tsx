@@ -17,27 +17,22 @@ export function CustomPortableText({
     block: {
       // Adjusted typography and whitespace
       normal: ({ children }) => (
-        <p className={`leading-relaxed mb-2 text-gray-800 ${paragraphClasses}`}>
-          {children}
-        </p>
+        <p className={`mb-2 ${paragraphClasses}`}>{children}</p>
       ),
       blockquote: ({ children }) => (
-        <blockquote className="font-sans p-3 my-4 mx-0 text-sm not-italic font-normal leading-5 text-gray-800 rounded-md border border-solid border-stone-900">
+        <blockquote className="p-3 my-4 mx-0 text-sm not-italic font-normal rounded-md border border-solid border-stone-900">
           {children}
         </blockquote>
       ),
       h1: ({ children, value }) => (
-        <h1
-          id={value._key}
-          className="font-sans text-4xl font-bold my-4 text-gray-800"
-        >
+        <h1 id={value._key} className="text-4xl font-bold my-4">
           {children}
         </h1>
       ),
       h2: ({ children, value }) => (
         <h2
           id={value._key}
-          className="font-sans mt-6 mb-4 border-t pt-10 px-0 border-b-0 pb-0 mx-0 text-2xl font-semibold  border-solid border-x-0 border-stone-900"
+          className="mt-6 mb-4 border-t pt-10 px-0 border-b-0 pb-0 mx-0 text-2xl font-semibold  border-solid border-x-0 border-stone-900"
         >
           {children}
         </h2>
@@ -46,7 +41,7 @@ export function CustomPortableText({
     list: {
       bullet: ({ children }) => {
         return (
-          <ul className="list-disc pl-1 my-2 leading-7 text-left text-gray-800 border-0 border-solid border-stone-900">
+          <ul className="font-serif list-disc pl-1 my-2 text-left border-0 border-solid border-stone-900">
             {children}
           </ul>
         )
@@ -54,14 +49,14 @@ export function CustomPortableText({
     },
     listItem: {
       bullet: ({ children }) => {
-        return <li className="mb-2 text-gray-800">{children}</li>
+        return <li className="mb-2">{children}</li>
       },
     },
     marks: {
       // Improved interactivity with a clear visual change on hover
       link: ({ children, value }) => (
         <a
-          className="font-sans text-blue-400 hover:text-blue-600 transition duration-300 ease-in-out"
+          className="text-blue-400 hover:text-blue-600 transition duration-300 ease-in-out"
           href={value?.href}
           target="_blank"
           rel="noreferrer noopener"

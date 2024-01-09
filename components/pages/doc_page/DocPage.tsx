@@ -105,7 +105,7 @@ export function DocPage({ data, docNavigation }: PageProps) {
         )}
         {body && (
           <CustomPortableText
-            paragraphClasses="font-serif leading-relaxed max-w-3xl mx-auto text-lg mb-4"
+            paragraphClasses="max-w-3xl mx-auto mb-4"
             value={body}
           />
         )}
