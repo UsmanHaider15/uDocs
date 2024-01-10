@@ -129,9 +129,10 @@ export function getPageBySlugAndLang(slug: string, lang?: string) {
   })
 }
 
-export function getHomePage() {
+export function getHomePage(lang) {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
+    params: { lang },
     tags: ['home'],
   })
 }

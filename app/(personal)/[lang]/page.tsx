@@ -22,7 +22,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const [settings, page] = await Promise.all([
     getSettings(),
-    getPageBySlugAndLang('/', params.lang),
+    getHomePage(params.lang),
   ])
 
   return defineMetadata({
@@ -33,7 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function IndexRoute({ params }: Props) {
-  const [data] = await Promise.all([getPageBySlugAndLang('/', params.lang)])
+  const data = await getHomePage(params.lang)
+
+  console.log('draftMode().isEnabled', draftMode().isEnabled)
 
   if (!data && !draftMode().isEnabled) {
     return (
@@ -54,6 +56,9 @@ export default async function IndexRoute({ params }: Props) {
     <LiveQuery
       enabled={draftMode().isEnabled}
       query={homePageQuery}
+      params={{
+        lang: params.lang,
+      }}
       initialData={data}
       as={HomePagePreview}
     >

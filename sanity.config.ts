@@ -61,13 +61,11 @@ export const iframeOptions = {
         // @ts-ignore
         String(url) + '&language=' + language + '&versionRef=' + version._ref
       )
-    } else if (doc._type === 'page') {
+    } else {
       const { language } = doc
       let url = urlResolver(doc, secret)
       // @ts-ignore
       return String(url) + '&language=' + language
-    } else {
-      return urlResolver(doc, secret)
     }
   },
   urlSecretId: previewSecretId,

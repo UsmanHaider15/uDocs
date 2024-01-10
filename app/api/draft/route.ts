@@ -52,7 +52,6 @@ async function resolveAndRedirect(documentType, slug, language) {
   }
 
   draftMode().enable()
-  console.log('draftMode().isEnabled()', draftMode().isEnabled)
   redirect(`/${language}${resolvedHref}`)
 }
 
@@ -62,15 +61,19 @@ export async function GET(request) {
   const slug = searchParams.get('slug')
   const documentType = searchParams.get('type')
   const language = searchParams.get('language')
-
   const authenticatedClient = await authenticateClient(secret)
 
-  if (documentType === 'doc') {
+  if (documentType === 'home') {
+    draftMode().enable()
+    redirect(`/${language}`)
+  } else if (documentType === 'doc') {
     const versionRef = searchParams.get('versionRef')
     const versionSlug = await fetchVersionSlug(authenticatedClient, versionRef)
     const fullSlug = `${versionSlug}/${slug}`
     await resolveAndRedirect(documentType, fullSlug, language)
   } else if (documentType === 'page') {
     await resolveAndRedirect(documentType, slug, language)
+  } else {
+    throw new Response('Invalid document type', { status: 400 })
   }
 }

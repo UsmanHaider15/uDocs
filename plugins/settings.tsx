@@ -41,28 +41,66 @@ export const pageStructure = (
     // Goes through all of the singletons that were provided and translates them into something the
     // Desktool can understand
     const singletonItems = typeDefArray.map((typeDef) => {
-      return S.listItem()
-        .title(typeDef.title!)
-        .icon(typeDef.icon)
-        .child(
-          S.editor()
-            .id(typeDef.name)
-            .schemaType(typeDef.name)
-            .documentId(typeDef.name)
-            .views([
-              // Default form view
-              S.view.form(),
-              // Preview
-              ...(PREVIEWABLE_DOCUMENT_TYPES.includes(typeDef.name as any)
-                ? [
-                    S.view
-                      .component(Iframe)
-                      .options(iframeOptions)
-                      .title('Preview'),
-                  ]
-                : []),
-            ]),
-        )
+      // Check if the current type is 'home'
+      if (typeDef.name === 'home') {
+        return S.listItem()
+          .title(typeDef.title!)
+          .icon(typeDef.icon)
+          .child(
+            S.list()
+              .title('Languages')
+              .items(
+                i18n.languages.map((language) =>
+                  S.listItem()
+                    .id(`${typeDef.name}-${language.id}`)
+                    .title(`${typeDef.title} (${language.title})`)
+                    .child(
+                      // Use a function to return a specific editor for each language version
+                      () =>
+                        S.editor()
+                          .id(`${typeDef.name}-${language.id}`)
+                          .schemaType(typeDef.name)
+                          .documentId(`${typeDef.name}-${language.id}`)
+                          .views([
+                            S.view.form(),
+                            ...(PREVIEWABLE_DOCUMENT_TYPES.includes(
+                              typeDef.name as any,
+                            )
+                              ? [
+                                  S.view
+                                    .component(Iframe)
+                                    .options(iframeOptions)
+                                    .title('Preview'),
+                                ]
+                              : []),
+                          ]),
+                    ),
+                ),
+              ),
+          )
+      } else {
+        // For other types, use the existing behavior
+        return S.listItem()
+          .title(typeDef.title!)
+          .icon(typeDef.icon)
+          .child(
+            S.editor()
+              .id(typeDef.name)
+              .schemaType(typeDef.name)
+              .documentId(typeDef.name)
+              .views([
+                S.view.form(),
+                ...(PREVIEWABLE_DOCUMENT_TYPES.includes(typeDef.name as any)
+                  ? [
+                      S.view
+                        .component(Iframe)
+                        .options(iframeOptions)
+                        .title('Preview'),
+                    ]
+                  : []),
+              ]),
+          )
+      }
     })
 
     const defaultListItems = S.documentTypeListItems().filter(
