@@ -1,13 +1,7 @@
-import Link from 'next/link'
-import React, { FC } from 'react'
+'use client'
+import React, { useState, FC } from 'react'
 import { TOCLink } from 'types'
-
-// Define the interface for the link structure
-interface Link {
-  title: string
-  slug: string
-  links?: Link[]
-}
+import NavigationLink from './NavigationLink'
 
 interface SidebarProps {
   toc: TOCLink
@@ -15,55 +9,37 @@ interface SidebarProps {
   version: string
 }
 
-const NavigationLink: FC<{
-  link: TOCLink
-  language: string
-  version: string
-}> = ({ link, language, version }) => {
-  const hasNestedLinks = link.links && link.links.length > 0
+const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
+  // State to manage the visibility of the sidebar on small screens
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className={`mt-1 ${hasNestedLinks ? 'mb-1' : ''}`}>
-      {' '}
-      <Link
-        className={`block px-2 py-1 text-sm text-gray-800 hover:bg-blue-50 hover:text-blue-700 ${
-          hasNestedLinks ? 'font-semibold' : 'font-normal'
-        }`} // Reduced padding and smaller text size
-        href={`/${language}/docs/${version}/${link.slug}`}
+    <div className="md:sticky md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between">
+      {/* Button to toggle sidebar visibility on small screens */}
+      <button
+        className="md:hidden"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        {link.title}
-      </Link>
-      {hasNestedLinks && (
-        <div className="ml-2">
-          {' '}
-          {link.links?.map((nestedLink) => (
+        {isSidebarOpen ? 'Close' : 'Menu'}
+      </button>
+
+      {/* Sidebar */}
+      <aside
+        className={`bg-white w-full md:w-64 min-h-screen border-r border-gray-200 p-2 transition-all ease-in-out duration-300 ${
+          isSidebarOpen ? 'w-64' : 'hidden md:block'
+        }`}
+      >
+        {toc.links &&
+          toc.links.map((link) => (
             <NavigationLink
-              key={nestedLink.slug}
-              link={nestedLink}
+              key={link.slug}
+              link={link}
               language={language}
               version={version}
             />
           ))}
-        </div>
-      )}
+      </aside>
     </div>
-  )
-}
-
-const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
-  return (
-    <aside className="bg-white w-64 min-h-screen border-r border-gray-200 p-2">
-      {' '}
-      {toc.links &&
-        toc.links.map((link) => (
-          <NavigationLink
-            key={link.slug}
-            link={link}
-            language={language}
-            version={version}
-          />
-        ))}
-    </aside>
   )
 }
 

@@ -85,7 +85,7 @@ export function DocPage({ data, docNavigation }: PageProps) {
       </nav>
 
       <article className="w-full min-w-0 max-w-6xl mx-auto p-2">
-        <div className="mt-4 mb-7 md:mt-2 md:mb-10 flex space-x-2">
+        <div className="py-2">
           {docNavigation &&
             docNavigation.map((link, index) => (
               <React.Fragment key={link.slug}>
