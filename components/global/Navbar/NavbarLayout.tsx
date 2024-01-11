@@ -15,8 +15,8 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-white py-2 md:py-3 z-10">
-      <nav className="flex justify-end max-w-screen-xl ">
+    <header className="sticky top-0 bg-white py-2 md:py-4 z-10 border-b-2">
+      <nav className="flex justify-end  mx-auto max-w-screen-xl">
         {/* {menuItems &&
           menuItems.map((menuItem, key) => {
             const href = resolveHref(menuItem?._type, menuItem?.slug)

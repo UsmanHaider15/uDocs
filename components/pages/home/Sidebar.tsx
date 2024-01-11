@@ -15,11 +15,11 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
-    <div className="md:sticky md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between">
+    <div className="md:sticky md:top-[126px] md:h-[calc(100vh-121px)] md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between border-b-2">
       {/* Button to toggle sidebar visibility on small screens */}
-      <div className="w-full p-2">
+      <div className="w-full pb-2">
         <button
-          className="md:hidden flex align-center justify-center"
+          className="md:hidden flex items-center justify-center"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}{' '}
