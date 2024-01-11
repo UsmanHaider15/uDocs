@@ -15,6 +15,7 @@ import {
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
+  DocPagePayload,
   HomePagePayload,
   PagePayload,
   SettingsPayload,
@@ -115,7 +116,7 @@ export function getDocBySlugAndLang(
   lang?: string,
   version?: string,
 ) {
-  return sanityFetch<PagePayload | null>({
+  return sanityFetch<DocPagePayload | null>({
     query: docsBySlugAndLangQuery,
     params: { slug, lang, version },
   })
