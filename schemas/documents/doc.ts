@@ -150,6 +150,22 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'previousDoc',
+      title: 'Previous Doc',
+      type: 'reference',
+      to: [{ type: 'doc' }],
+      description: 'Reference to the previous document',
+    }),
+
+    // Field for the next document
+    defineField({
+      name: 'nextDoc',
+      title: 'Next Doc',
+      type: 'reference',
+      to: [{ type: 'doc' }],
+      description: 'Reference to the next document',
+    }),
   ],
   preview: {
     select: {

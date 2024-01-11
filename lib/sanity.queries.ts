@@ -47,7 +47,9 @@ export const docsBySlugAndLangQuery = groq`
     body,
     overview,
     title,
-    "headings": body[length(style) == 2 && string::startsWith(style, "h")]
+    "headings": body[length(style) == 2 && string::startsWith(style, "h")],
+    "previousDoc": {"title": previousDoc->title, "slug": previousDoc->slug.current},
+    "nextDoc": {"title": nextDoc->title, "slug": nextDoc->slug.current}
   }
 `
 

@@ -74,7 +74,10 @@ const TableOfContents = ({ headings }) => {
 }
 
 export function DocPage({ data, docNavigation }: PageProps) {
-  const { body, title, headings } = data ?? {}
+  const { body, title, headings, previousDoc, nextDoc } = data ?? {}
+
+  console.log('previousDoc', previousDoc)
+  console.log('nextDoc', nextDoc)
 
   return (
     <>
@@ -109,6 +112,25 @@ export function DocPage({ data, docNavigation }: PageProps) {
             value={body}
           />
         )}
+        <div className="flex justify-between px-2 py-4">
+          {previousDoc?.title && (
+            <Link
+              href={`/en/docs/v1/${previousDoc.slug}`}
+              className="text-blue-600 hover:text-blue-800"
+            >
+              ← {previousDoc.title}
+            </Link>
+          )}
+
+          {nextDoc?.title && (
+            <Link
+              href={`/en/docs/v1/${nextDoc.slug}`}
+              className="text-blue-600 hover:text-blue-800"
+            >
+              {nextDoc.title} →
+            </Link>
+          )}
+        </div>
       </article>
     </>
   )

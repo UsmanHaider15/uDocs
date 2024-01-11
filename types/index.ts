@@ -31,6 +31,8 @@ export interface PagePayload {
   headings?: PortableTextBlock[]
   title?: string
   slug?: string
+  previousDoc?: PagePayload // Adding the previousDoc field
+  nextDoc?: PagePayload // Adding the nextDoc field
 }
 
 export interface TOCLink {
