@@ -2,6 +2,7 @@
 import React, { useState, FC } from 'react'
 import { TOCLink } from 'types'
 import NavigationLink from './NavigationLink'
+import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io'
 
 interface SidebarProps {
   toc: TOCLink
@@ -16,12 +17,15 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   return (
     <div className="md:sticky md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between">
       {/* Button to toggle sidebar visibility on small screens */}
-      <button
-        className="md:hidden"
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      >
-        {isSidebarOpen ? 'Close' : 'Menu'}
-      </button>
+      <div className="w-full p-2">
+        <button
+          className="md:hidden flex align-center justify-center"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? <IoIosArrowDown /> : <IoIosArrowForward />}{' '}
+          <span>Menu</span>
+        </button>
+      </div>
 
       {/* Sidebar */}
       <aside

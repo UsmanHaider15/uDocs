@@ -35,8 +35,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IndexRoute({ params }: Props) {
   const data = await getHomePage(params.lang)
 
-  console.log('draftMode().isEnabled', draftMode().isEnabled)
-
   if (!data && !draftMode().isEnabled) {
     return (
       <div className="text-center">
