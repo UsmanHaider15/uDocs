@@ -27,6 +27,7 @@
     "@sanity/document-internationalization": "^2.0.2",
     "@sanity/icons": "^2.7.0",
     "@sanity/image-url": "1.0.2",
+    "@sanity/types": "^3.24.1",
     "@sanity/ui": "^1.9.3",
     "@sanity/vision": "3.19.0",
     "@tailwindcss/typography": "0.5.10",

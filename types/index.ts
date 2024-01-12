@@ -19,9 +19,17 @@ export interface MilestoneItem {
 }
 
 export interface HomePagePayload {
-  footer?: PortableTextBlock[]
-  overview?: PortableTextBlock[]
   title?: string
+  overview?: PortableTextBlock[]
+  body?: PortableTextBlock[]
+  features?: Feature[]
+  footer?: PortableTextBlock[]
+}
+
+interface Feature {
+  title: string
+  description: string
+  image: Image
 }
 
 export interface PagePayload {

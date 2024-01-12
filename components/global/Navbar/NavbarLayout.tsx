@@ -15,7 +15,7 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-white py-2 md:py-4 z-10 border-b-2">
+    <header className="sticky top-0 bg-white py-2 z-10 border-b-2">
       <nav className="flex justify-end mx-auto max-w-screen-xl">
         {/* {menuItems &&
           menuItems.map((menuItem, key) => {

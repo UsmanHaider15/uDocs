@@ -3,8 +3,10 @@ import { groq } from 'next-sanity'
 export const homePageQuery = groq`
   *[_type == "home" && language == $lang][0]{
     _id,
-    overview,
     title,
+    overview,
+    body,
+    features
   }
 `
 
