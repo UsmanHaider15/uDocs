@@ -16,20 +16,25 @@ export function HomePage({ data }: HomePageProps) {
       <div>
         {title && <Header centered title={title} description={overview} />}
       </div>
-      <div className="flex">
-        {features &&
-          features.map(({ title, description, image }) => {
-            console.log('image', image)
-            return (
-              <div className="flex flex-col">
-                <div>
-                  <ImageBox image={image} alt={'value.alt'} classesWrapper="" />
+      <div className="mx-auto max-w-screen-2xl p-2 md:p-0">
+        <div className="grid md:grid-cols-4 gap-4">
+          {features &&
+            features.map(({ title, description, image }) => {
+              return (
+                <div className="flex flex-col">
+                  <div>
+                    <ImageBox
+                      image={image}
+                      alt={'value.alt'}
+                      classesWrapper=""
+                    />
+                  </div>
+                  <div className="text-3xl">{title}</div>
+                  <div>{description}</div>
                 </div>
-                <div className="text-3xl">{title}</div>
-                <div>{description}</div>
-              </div>
-            )
-          })}
+              )
+            })}
+        </div>
       </div>
     </div>
   )
