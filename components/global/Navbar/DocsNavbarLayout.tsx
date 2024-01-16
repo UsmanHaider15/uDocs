@@ -16,7 +16,7 @@ export default function Navbar(props: NavbarProps) {
 
   return (
     <header className="sticky top-0 bg-white py-2 z-10 border-b-2">
-      <nav className="flex justify-end mx-auto max-w-screen-xl">
+      <nav className="flex justify-start flex-row-reverse mx-auto max-w-screen-xl">
         {/* {menuItems &&
           menuItems.map((menuItem, key) => {
             const href = resolveHref(menuItem?._type, menuItem?.slug)

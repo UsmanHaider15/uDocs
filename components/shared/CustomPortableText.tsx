@@ -7,7 +7,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Image } from 'sanity'
 
 export function CustomPortableText({
-  paragraphClasses,
+  paragraphClasses = '',
   value,
 }: {
   paragraphClasses?: string

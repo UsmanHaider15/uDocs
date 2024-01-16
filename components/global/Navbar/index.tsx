@@ -3,8 +3,8 @@ import { settingsQuery } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import { LiveQuery } from 'next-sanity/preview/live-query'
 
-import NavbarLayout from './NavbarLayout'
-import NavbarPreview from './NavbarPreview'
+import NavbarLayout from './DocsNavbarLayout'
+import NavbarPreview from './DocsNavbarPreview'
 
 export async function Navbar({
   lang,

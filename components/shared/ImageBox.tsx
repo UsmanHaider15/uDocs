@@ -21,7 +21,7 @@ export default function ImageBox({
   const imageUrl = image && urlForImage(image)?.fit('crop').url()
 
   return (
-    <div className={`overflow-hidden rounded-[3px] ${classesWrapper}`}>
+    <div className={`overflow-hidden rounded-lg ${classesWrapper}`}>
       {imageUrl && (
         <Image
           alt={alt}

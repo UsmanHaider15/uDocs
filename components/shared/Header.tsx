@@ -20,7 +20,7 @@ export function Header(props: HeaderProps) {
       )}
       {/* Description */}
       {description && (
-        <div className="mt-4 font-serif text-xl text-gray-600">
+        <div className="py-2 font-serif text-xl text-gray-600">
           <CustomPortableText value={description} />
         </div>
       )}
