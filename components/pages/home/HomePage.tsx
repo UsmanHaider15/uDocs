@@ -16,21 +16,21 @@ export function HomePage({ data }: HomePageProps) {
       <div>
         {title && <Header centered title={title} description={overview} />}
       </div>
-      <div className="mx-auto max-w-screen-2xl p-2 md:p-0">
-        <div className="grid md:grid-cols-4 gap-4">
+      <div className="mx-auto max-w-screen-2xl md:p-24">
+        <div className="grid md:grid-cols-3 md:gap-16">
           {features &&
             features.map(({ title, description, image }) => {
               return (
                 <div className="flex flex-col">
-                  <div>
-                    <ImageBox
-                      image={image}
-                      alt={'value.alt'}
-                      classesWrapper=""
-                    />
+                  <ImageBox
+                    image={image}
+                    alt={'value.alt'}
+                    classesWrapper="p-2"
+                  />
+                  <div className="font-bold text-2xl text-center py-3">
+                    {title}
                   </div>
-                  <div className="text-3xl">{title}</div>
-                  <div>{description}</div>
+                  <div className="text-center text-base">{description}</div>
                 </div>
               )
             })}
