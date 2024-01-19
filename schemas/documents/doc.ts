@@ -23,6 +23,8 @@ export default defineType({
       name: 'slug',
       title: 'Slug',
       options: {
+        source: 'title',
+        maxLength: 96,
         isUnique: isUniqueOtherThanLanguageAndVersion,
       },
     }),

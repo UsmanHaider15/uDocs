@@ -60,7 +60,7 @@ export default async function IndexRoute({ params }: Props) {
       initialData={data}
       as={HomePagePreview}
     >
-      <HomePage data={data} />
+      <HomePage data={data} lang={params.lang} />
     </LiveQuery>
   )
 }

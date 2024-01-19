@@ -7,9 +7,11 @@ import { TableOfContents } from 'components/shared/TableOfContent'
 export interface DocPageProps {
   data: DocPagePayload | null
   docNavigation: TOCLink[] | null
+  lang: string
+  version: string
 }
 
-export function DocPage({ data, docNavigation }: DocPageProps) {
+export function DocPage({ data, docNavigation, lang, version }: DocPageProps) {
   const { body, title, headings, previousDoc, nextDoc } = data ?? {}
 
   return (
@@ -27,7 +29,7 @@ export function DocPage({ data, docNavigation }: DocPageProps) {
               <React.Fragment key={link.slug}>
                 {index > 0 && <span className="text-gray-500">/</span>}
                 <Link
-                  href={`/en/docs/v1/${link.slug}`}
+                  href={`/${lang}/docs/${version}/${link.slug}`}
                   className="text-blue-600 hover:text-blue-800"
                 >
                   {link.title}
@@ -48,7 +50,7 @@ export function DocPage({ data, docNavigation }: DocPageProps) {
         <div className="flex justify-between px-2 py-4">
           {previousDoc?.title && (
             <Link
-              href={`/en/docs/v1/${previousDoc.slug}`}
+              href={`/${lang}/docs/${version}/${previousDoc.slug}`}
               className="text-blue-600 hover:text-blue-800"
             >
               ← {previousDoc.title}
@@ -57,7 +59,7 @@ export function DocPage({ data, docNavigation }: DocPageProps) {
 
           {nextDoc?.title && (
             <Link
-              href={`/en/docs/v1/${nextDoc.slug}`}
+              href={`/${lang}/docs/${version}/${nextDoc.slug}`}
               className="text-blue-600 hover:text-blue-800"
             >
               {nextDoc.title} →

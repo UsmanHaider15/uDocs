@@ -5,9 +5,10 @@ import type { HomePagePayload } from 'types'
 
 export interface HomePageProps {
   data: HomePagePayload | null
+  lang: string
 }
 
-export function HomePage({ data }: HomePageProps) {
+export function HomePage({ data, lang }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { features, overview = [], title = '' } = data ?? {}
 
@@ -22,7 +23,7 @@ export function HomePage({ data }: HomePageProps) {
           <button type="button">
             <Link
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              href="/en/docs/v1/introduction"
+              href={`/${lang}/docs/v1/introduction`}
             >
               Get Started
             </Link>

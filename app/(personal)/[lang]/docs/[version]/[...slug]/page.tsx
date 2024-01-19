@@ -75,7 +75,12 @@ export default async function PageSlugRoute({ params }: Props) {
       initialData={data}
       as={DocPagePreview}
     >
-      <DocPage data={data} docNavigation={docNavigation} />
+      <DocPage
+        data={data}
+        docNavigation={docNavigation}
+        lang={params.lang}
+        version={params.version}
+      />
     </LiveQuery>
   )
 }

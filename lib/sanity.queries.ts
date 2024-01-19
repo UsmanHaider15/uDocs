@@ -29,13 +29,13 @@ export const tocQuery = `
     title,
     "slug": slug.current,
     links[] {
-      "title": target->title,
+      "title": title,
       "slug": target->slug.current,
       links[] {
-        "title": target->title,
+        "title": title,
         "slug": target->slug.current,
         links[] {
-          "title": target->title,
+          "title": title,
           "slug": target->slug.current,
         }
       }
