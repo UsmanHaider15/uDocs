@@ -115,7 +115,6 @@ export default defineType({
             { title: 'Number', value: 'number' },
           ],
         }),
-        // Custom blocks or images can also go here
         defineField({
           type: 'image',
           icon: ImageIcon,
@@ -150,6 +149,29 @@ export default defineType({
           name: 'code',
           title: 'Code',
         }),
+        defineField({
+          title: 'Button',
+          name: 'button',
+          type: 'object',
+          fields: [
+            {
+              name: 'text',
+              type: 'string',
+              title: 'Button Text',
+            },
+            {
+              name: 'href',
+              type: 'url',
+              title: 'Button Href',
+            },
+            {
+              name: 'style',
+              type: 'string',
+              title: 'Button Style',
+              description: 'CSS class for styling the button',
+            },
+          ],
+        }),
       ],
     }),
     defineField({
@@ -158,15 +180,33 @@ export default defineType({
       type: 'reference',
       to: [{ type: 'doc' }],
       description: 'Reference to the previous document',
+      options: {
+        filter: ({ document }) => {
+          return {
+            filter: 'language == $language',
+            params: {
+              language: document?.language,
+            },
+          }
+        },
+      },
     }),
-
-    // Field for the next document
     defineField({
       name: 'nextDoc',
       title: 'Next Doc',
       type: 'reference',
       to: [{ type: 'doc' }],
       description: 'Reference to the next document',
+      options: {
+        filter: ({ document }) => {
+          return {
+            filter: 'language == $language',
+            params: {
+              language: document?.language,
+            },
+          }
+        },
+      },
     }),
   ],
   preview: {

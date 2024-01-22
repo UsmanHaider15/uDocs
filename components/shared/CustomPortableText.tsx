@@ -85,6 +85,20 @@ export function CustomPortableText({
           </div>
         )
       },
+      button: ({ value }) => {
+        console.log(value)
+        return (
+          <button
+            type="button"
+            className={value?.style}
+            rel="noreferrer noopener"
+          >
+            <a href={value?.href} target="_blank">
+              {value?.text}
+            </a>
+          </button>
+        )
+      },
       code: ({ value }) => {
         return (
           <SyntaxHighlighter language={value.language} style={docco}>
