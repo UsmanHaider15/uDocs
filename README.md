@@ -146,3 +146,15 @@ You can remove it by deleting the `IntroTemplate` component in `/app/(personal)/
 [vercel-github]: https://github.com/vercel/next.js/discussions
 [personal-website-pages]: https://github.com/sanity-io/template-nextjs-personal-website
 [app-dir]: https://beta.nextjs.org/docs/routing/fundamentals#the-app-directory
+
+export
+
+```
+sanity dataset export production ./production.tar.gz --asset-concurrency
+```
+
+import
+
+```
+sanity dataset import production.tar.gz production
+```
