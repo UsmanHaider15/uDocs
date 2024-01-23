@@ -45,13 +45,19 @@ export async function sanityFetch<QueryResponse>({
     )
   }
 
-  const sanityClient = client.withConfig({
-    useCdn: false,
-    token: isDraftMode ? token : undefined,
-  })
-
+  // @TODO this won't be necessary after https://github.com/sanity-io/client/pull/299 lands
+  const sanityClient =
+    client.config().useCdn && isDraftMode
+      ? client.withConfig({ useCdn: false })
+      : client
   return sanityClient.fetch<QueryResponse>(query, params, {
-    cache: 'no-store', // Always disable caching
+    // We only cache if there's a revalidation webhook setup
+    cache: revalidateSecret ? 'force-cache' : 'no-store',
+    ...(isDraftMode && {
+      cache: undefined,
+      token: token,
+      perspective: 'previewDrafts',
+    }),
     next: {
       ...(isDraftMode && { revalidate: 30 }),
       tags,
