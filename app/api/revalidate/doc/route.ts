@@ -23,7 +23,7 @@
  */
 
 import { revalidateSecret } from 'lib/sanity.api'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
       _type: string
       _id: string
       slug: string
+      language: string
+      version: string
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
@@ -53,111 +55,44 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const sanityAlgolia = indexer(
-      {
-        doc: {
-          index: algolia.initIndex('docs'),
-        },
-      },
-      async (document) => {
-        switch (document._type) {
-          case 'doc':
-            let versionSlug = ''
-            if (document.version && document.version._ref) {
-              const versionDoc = await client.fetch(
-                `*[_id == $versionId]{slug}[0]`,
-                {
-                  versionId: document.version._ref,
-                },
-              )
-              versionSlug = versionDoc.slug.current
-            }
+    // const sanityAlgolia = indexer(
+    //   {
+    //     doc: {
+    //       index: algolia.initIndex('docs'),
+    //     },
+    //   },
+    //   async (document) => {
+    //     switch (document._type) {
+    //       case 'doc':
+    //         let versionSlug = ''
+    //         if (document.version && document.version._ref) {
+    //           const versionDoc = await client.fetch(
+    //             `*[_id == $versionId]{slug}[0]`,
+    //             {
+    //               versionId: document.version._ref,
+    //             },
+    //           )
+    //           versionSlug = versionDoc.slug.current
+    //         }
 
-            return {
-              title: document.title,
-              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
-              overview: flattenBlocks(document.overview),
-            }
+    //         return {
+    //           title: document.title,
+    //           slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
+    //           overview: flattenBlocks(document.overview),
+    //         }
 
-          default:
-            throw new Error(`Unknown type: ${document.type}`)
-        }
-      },
-    )
+    //       default:
+    //         throw new Error(`Unknown type: ${document.type}`)
+    //     }
+    //   },
+    // )
 
-    await sanityAlgolia.webhookSync(client, {
-      ids: { created: [body._id], updated: [], deleted: [] },
-    })
+    // await sanityAlgolia.webhookSync(client, {
+    //   ids: { created: [body._id], updated: [], deleted: [] },
+    // })
 
-    return NextResponse.json({
-      status: 200,
-      revalidated: true,
-      now: Date.now(),
-      body,
-    })
-  } catch (err: any) {
-    console.error(err)
-    return new Response(err.message, { status: 500 })
-  }
-}
-
-export async function DELETE(req: NextRequest) {
-  try {
-    const { body, isValidSignature } = await parseBody<{
-      _type: string
-      _id: string
-      slug: string
-      language: string
-      version: string
-    }>(req, revalidateSecret)
-    if (!isValidSignature) {
-      const message = 'Invalid signature'
-      return new Response(message, { status: 401 })
-    }
-
-    if (!body?._type || !body?.slug || !body?.language || !body?.version) {
-      return new Response('Bad Request', { status: 400 })
-    }
-
-    const sanityAlgolia = indexer(
-      {
-        doc: {
-          index: algolia.initIndex('docs'),
-        },
-      },
-      async (document) => {
-        switch (document._type) {
-          case 'doc':
-            let versionSlug = ''
-            if (document.version && document.version._ref) {
-              const versionDoc = await client.fetch(
-                `*[_id == $versionId]{slug}[0]`,
-                {
-                  versionId: document.version._ref,
-                },
-              )
-              versionSlug = versionDoc.slug.current
-            }
-
-            return {
-              title: document.title,
-              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
-              overview: flattenBlocks(document.overview),
-            }
-          default:
-            throw new Error(`Unknown type: ${document.type}`)
-        }
-      },
-    )
-
-    await sanityAlgolia.webhookSync(client, {
-      ids: { created: [], updated: [], deleted: [body._id] },
-    })
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    console.log(`Path To Revalidate: ${pathToRevalidate}`)
-
-    revalidatePath(pathToRevalidate)
+    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidateTag(tagToRevalidate)
 
     return NextResponse.json({
       status: 200,
@@ -189,44 +124,111 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const sanityAlgolia = indexer(
-      {
-        doc: {
-          index: algolia.initIndex('docs'),
-        },
-      },
-      async (document) => {
-        switch (document._type) {
-          case 'doc':
-            let versionSlug = ''
-            if (document.version && document.version._ref) {
-              const versionDoc = await client.fetch(
-                `*[_id == $versionId]{slug}[0]`,
-                {
-                  versionId: document.version._ref,
-                },
-              )
-              versionSlug = versionDoc.slug.current
-            }
-            return {
-              title: document.title,
-              slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
-              overview: flattenBlocks(document.overview),
-            }
-          default:
-            throw new Error(`Unknown type: ${document.type}`)
-        }
-      },
-    )
+    // const sanityAlgolia = indexer(
+    //   {
+    //     doc: {
+    //       index: algolia.initIndex('docs'),
+    //     },
+    //   },
+    //   async (document) => {
+    //     switch (document._type) {
+    //       case 'doc':
+    //         let versionSlug = ''
+    //         if (document.version && document.version._ref) {
+    //           const versionDoc = await client.fetch(
+    //             `*[_id == $versionId]{slug}[0]`,
+    //             {
+    //               versionId: document.version._ref,
+    //             },
+    //           )
+    //           versionSlug = versionDoc.slug.current
+    //         }
+    //         return {
+    //           title: document.title,
+    //           slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
+    //           overview: flattenBlocks(document.overview),
+    //         }
+    //       default:
+    //         throw new Error(`Unknown type: ${document.type}`)
+    //     }
+    //   },
+    // )
 
-    await sanityAlgolia.webhookSync(client, {
-      ids: { created: [], updated: [body._id], deleted: [] },
+    // await sanityAlgolia.webhookSync(client, {
+    //   ids: { created: [], updated: [body._id], deleted: [] },
+    // })
+
+    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidateTag(tagToRevalidate)
+
+    return NextResponse.json({
+      status: 200,
+      revalidated: true,
+      now: Date.now(),
+      body,
     })
+  } catch (err: any) {
+    console.error(err)
+    return new Response(err.message, { status: 500 })
+  }
+}
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    console.log(`Path To Revalidate: ${pathToRevalidate}`)
+export async function DELETE(req: NextRequest) {
+  try {
+    const { body, isValidSignature } = await parseBody<{
+      _type: string
+      _id: string
+      slug: string
+      language: string
+      version: string
+    }>(req, revalidateSecret)
+    if (!isValidSignature) {
+      const message = 'Invalid signature'
+      return new Response(message, { status: 401 })
+    }
 
-    revalidatePath(pathToRevalidate)
+    if (!body?._type || !body?.slug || !body?.language || !body?.version) {
+      return new Response('Bad Request', { status: 400 })
+    }
+
+    // const sanityAlgolia = indexer(
+    //   {
+    //     doc: {
+    //       index: algolia.initIndex('docs'),
+    //     },
+    //   },
+    //   async (document) => {
+    //     switch (document._type) {
+    //       case 'doc':
+    //         let versionSlug = ''
+    //         if (document.version && document.version._ref) {
+    //           const versionDoc = await client.fetch(
+    //             `*[_id == $versionId]{slug}[0]`,
+    //             {
+    //               versionId: document.version._ref,
+    //             },
+    //           )
+    //           versionSlug = versionDoc.slug.current
+    //         }
+
+    //         return {
+    //           title: document.title,
+    //           slug: `/${document.language}/docs/${versionSlug}/${document.slug.current}`,
+    //           overview: flattenBlocks(document.overview),
+    //         }
+    //       default:
+    //         throw new Error(`Unknown type: ${document.type}`)
+    //     }
+    //   },
+    // )
+
+    // await sanityAlgolia.webhookSync(client, {
+    //   ids: { created: [], updated: [], deleted: [body._id] },
+    // })
+
+    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+
+    revalidateTag(tagToRevalidate)
 
     return NextResponse.json({
       status: 200,
