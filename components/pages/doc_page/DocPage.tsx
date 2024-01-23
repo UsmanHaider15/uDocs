@@ -6,12 +6,12 @@ import { TableOfContents } from 'components/shared/TableOfContent'
 
 export interface DocPageProps {
   data: DocPagePayload | null
-  docNavigation: TOCLink[] | null
+  // docNavigation: TOCLink[] | null
   lang: string
   version: string
 }
 
-export function DocPage({ data, docNavigation, lang, version }: DocPageProps) {
+export function DocPage({ data, lang, version }: DocPageProps) {
   const { body, title, headings, previousDoc, nextDoc } = data ?? {}
 
   return (
@@ -23,7 +23,7 @@ export function DocPage({ data, docNavigation, lang, version }: DocPageProps) {
       </nav>
 
       <article className="w-full min-w-0 max-w-6xl mx-auto p-2">
-        <div className="py-2">
+        {/* <div className="py-2">
           {docNavigation &&
             docNavigation.map((link, index) => (
               <React.Fragment key={link.slug}>
@@ -36,7 +36,7 @@ export function DocPage({ data, docNavigation, lang, version }: DocPageProps) {
                 </Link>
               </React.Fragment>
             ))}
-        </div>
+        </div> */}
 
         {title && (
           <h1 className="text-4xl font-bold mb-4 text-gray-800">{title}</h1>
