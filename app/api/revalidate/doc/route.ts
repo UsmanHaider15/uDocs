@@ -55,6 +55,9 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidatePath(pathToRevalidate)
+
     const sanityAlgolia = indexer(
       {
         doc: {
@@ -89,12 +92,9 @@ export async function POST(req: NextRequest) {
       },
     )
 
-    sanityAlgolia.webhookSync(client, {
+    await sanityAlgolia.webhookSync(client, {
       ids: { created: [body._id], updated: [], deleted: [] },
     })
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
@@ -126,6 +126,9 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidatePath(pathToRevalidate)
+
     const sanityAlgolia = indexer(
       {
         doc: {
@@ -158,12 +161,9 @@ export async function PATCH(req: NextRequest) {
       },
     )
 
-    sanityAlgolia.webhookSync(client, {
+    await sanityAlgolia.webhookSync(client, {
       ids: { created: [], updated: [body._id], deleted: [] },
     })
-
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
