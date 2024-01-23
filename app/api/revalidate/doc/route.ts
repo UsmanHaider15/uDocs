@@ -55,8 +55,8 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidatePath(pathToRevalidate)
+    // const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    // revalidatePath(pathToRevalidate)
 
     const sanityAlgolia = indexer(
       {
@@ -126,8 +126,8 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidatePath(pathToRevalidate)
+    // const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    // revalidatePath(pathToRevalidate)
 
     const sanityAlgolia = indexer(
       {
@@ -231,7 +231,6 @@ export async function DELETE(req: NextRequest) {
     })
 
     const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-
     revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
