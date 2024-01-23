@@ -23,7 +23,7 @@
  */
 
 import { revalidateSecret } from 'lib/sanity.api'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
@@ -91,8 +91,8 @@ export async function POST(req: NextRequest) {
     //   ids: { created: [body._id], updated: [], deleted: [] },
     // })
 
-    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidateTag(tagToRevalidate)
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
@@ -158,8 +158,8 @@ export async function PATCH(req: NextRequest) {
     //   ids: { created: [], updated: [body._id], deleted: [] },
     // })
 
-    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
-    revalidateTag(tagToRevalidate)
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
@@ -226,9 +226,9 @@ export async function DELETE(req: NextRequest) {
     //   ids: { created: [], updated: [], deleted: [body._id] },
     // })
 
-    const tagToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
+    const pathToRevalidate = `/${body.language}/docs/${body.version}/${body.slug}`
 
-    revalidateTag(tagToRevalidate)
+    revalidatePath(pathToRevalidate)
 
     return NextResponse.json({
       status: 200,
