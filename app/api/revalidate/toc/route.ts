@@ -20,10 +20,7 @@ export async function PATCH(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    revalidatePath(
-      `/(personal)/${body?.language}/docs/${body?.slug}/[...slug]`,
-      'layout',
-    )
+    revalidatePath(`/${body.language}/docs/${body.slug}/[...slug]`, 'layout')
 
     return NextResponse.json({
       status: 200,

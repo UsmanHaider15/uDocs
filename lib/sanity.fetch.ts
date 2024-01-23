@@ -82,7 +82,7 @@ export function getDocBySlugAndLang(
   return sanityFetch<DocPagePayload | null>({
     query: docsBySlugAndLangQuery,
     params: { slug, lang, version },
-    tags: [`/${lang}/doc/${version}/${slug}`],
+    tags: [`/${lang}/docs/${version}/${slug}`],
   })
 }
 
@@ -106,6 +106,7 @@ export function getTocs(lang: string, version?: string) {
   return sanityFetch<TOCLink | null>({
     query: tocQuery,
     params: { lang, version },
+    tags: [`/${lang}/docs/${version}/[...slug]`],
   })
 }
 
