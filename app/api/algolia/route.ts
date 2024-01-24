@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const algoliaIndex = algolia.initIndex(process.env.ALGOLIA_INDEX as string)
+    const algoliaIndex = algolia.initIndex('docs')
     const fullSlug = `/${body.language}/docs/${body.version}/${body.slug}`
 
     const sanityAlgolia = indexer(
@@ -95,7 +95,7 @@ export async function DELETE(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const algoliaIndex = algolia.initIndex(process.env.ALGOLIA_INDEX as string)
+    const algoliaIndex = algolia.initIndex('docs')
 
     const sanityAlgolia = indexer(
       {
