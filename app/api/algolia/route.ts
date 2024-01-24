@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
     const { body, isValidSignature } = await parseBody<{
       _type: string
       _id: string
-      _deleted: boolean
       title: string
       slug: string
       language: string
@@ -33,7 +32,7 @@ export async function POST(req: NextRequest) {
       return new Response('Bad Request', { status: 400 })
     }
 
-    const algoliaIndex = algolia.initIndex('docs')
+    const algoliaIndex = algolia.initIndex(process.env.ALGOLIA_INDEX as string)
     const fullSlug = `/${body.language}/docs/${body.version}/${body.slug}`
 
     const sanityAlgolia = indexer(
@@ -64,6 +63,66 @@ export async function POST(req: NextRequest) {
     return sanityAlgolia
       .webhookSync(client, {
         ids: { created: [], updated: [body._id], deleted: [] },
+      })
+      .then(() => {
+        return NextResponse.json({
+          status: 200,
+          now: Date.now(),
+          body,
+        })
+      })
+      .catch((err) => {
+        return new Response(err.message, { status: 500 })
+      })
+  } catch (err: any) {
+    console.error(err)
+    return new Response(err.message, { status: 500 })
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const { body, isValidSignature } = await parseBody<{
+      _type: string
+      _id: string
+    }>(req, revalidateSecret)
+    if (!isValidSignature) {
+      const message = 'Invalid signature'
+      return new Response(message, { status: 401 })
+    }
+
+    if (!body?._id) {
+      return new Response('Bad Request', { status: 400 })
+    }
+
+    const algoliaIndex = algolia.initIndex(process.env.ALGOLIA_INDEX as string)
+
+    const sanityAlgolia = indexer(
+      {
+        doc: {
+          index: algoliaIndex,
+          projection: `{
+            title,
+            "path": slug.current,
+            "overview": pt::text(overview),
+            "body": pt::text(body)
+          }`,
+        },
+      },
+
+      (document: SanityDocumentStub) => {
+        switch (document._type) {
+          case 'doc':
+            return Object.assign({}, document)
+          default:
+            return document
+        }
+      },
+    )
+
+    return sanityAlgolia
+      .webhookSync(client, {
+        ids: { created: [], updated: [], deleted: [body._id] },
       })
       .then(() => {
         return NextResponse.json({
