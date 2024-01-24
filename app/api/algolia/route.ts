@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
           index: algoliaIndex,
           projection: `{
           title,
-          "path": slug.current,
           "overview": pt::text(overview),
           "body": pt::text(body)
         }`,
@@ -103,7 +102,6 @@ export async function DELETE(req: NextRequest) {
           index: algoliaIndex,
           projection: `{
             title,
-            "path": slug.current,
             "overview": pt::text(overview),
             "body": pt::text(body)
           }`,
