@@ -17,7 +17,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
   return (
     <>
       <nav className="order-last hidden w-56 shrink-0 lg:block p-2">
-        <div className="sticky top-[126px] h-[calc(100vh-121px)]">
+        <div className="sticky top-[72px] h-[calc(100vh-121px)]">
           {headings ? <TableOfContents headings={headings} /> : null}
         </div>
       </nav>

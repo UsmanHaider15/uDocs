@@ -17,7 +17,7 @@ export default async function DocsLayout({
       <Suspense>
         <Navbar lang={params.lang} version={params.version} />
       </Suspense>
-      <div className="relative mx-auto max-w-screen-xl px-2 md:px-4 py-2 md:flex md:flex-row md:py-10">
+      <div className="relative mx-auto max-w-screen-xl px-2 md:px-4 py-2 md:flex md:flex-row md:py-4">
         {toc && (
           <Sidebar toc={toc} language={params.lang} version={params.version} />
         )}
