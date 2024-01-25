@@ -66,7 +66,7 @@ export function CustomPortableText({
       ),
       code: ({ children }) => {
         return (
-          <code className="inline py-px px-1 m-0 font-mono text-sm text-left text-gray-600 rounded-md border border-solid border-neutral-700 bg-zinc-800 content-none">
+          <code className="inline py-px px-1 m-0 font-mono text-sm text-left rounded-md border border-solid border-neutral-700 bg-zinc-800 content-none">
             {children}
           </code>
         )
@@ -78,9 +78,7 @@ export function CustomPortableText({
           <div className="my-5 mx-auto">
             <ImageBox image={value} alt={value.alt} classesWrapper="" />
             {value?.caption && (
-              <p className="text-sm text-gray-500 text-center mt-2">
-                {value.caption}
-              </p>
+              <p className="text-sm text-center mt-2">{value.caption}</p>
             )}
           </div>
         )

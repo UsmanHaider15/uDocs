@@ -49,7 +49,7 @@ export default memo(function IntroTemplate() {
             alt="An illustration of a browser window, a terminal window, the Sanity.io logo and the NextJS logo"
             src={cover}
           />
-          <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
+          <div className="mt-10 hidden px-14 text-xs md:block">
             <RemoveBlock url={removeBlockURL} />
           </div>
         </div>
@@ -90,7 +90,7 @@ export default memo(function IntroTemplate() {
                   </div>
 
                   {isLocalHost ? (
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xs">
                       Start editing your content structure in
                       <div className="bg-slate-200 w-fit px-2">
                         <pre>sanity.config.ts</pre>
@@ -98,7 +98,7 @@ export default memo(function IntroTemplate() {
                     </div>
                   ) : (
                     <>
-                      <div className="text-xs text-gray-700">
+                      <div className="text-xs">
                         Your code can be found at
                         <a
                           className="mx-1 underline hover:text-blue-800"
@@ -133,7 +133,7 @@ export default memo(function IntroTemplate() {
                   <div className="col-span-2 mb-2 mt-1 font-semibold">
                     Create content with Sanity Studio
                   </div>
-                  <div className="text-xs text-gray-700">
+                  <div className="text-xs">
                     Your Sanity Studio is deployed at
                     <Link
                       className="mx-1 underline hover:text-blue-800"
@@ -186,7 +186,7 @@ export default memo(function IntroTemplate() {
               }
             />
           </ol>
-          <div className="text-center text-xs text-gray-700 md:invisible">
+          <div className="text-center text-xs md:invisible">
             <RemoveBlock url={removeBlockURL} />
           </div>
         </div>

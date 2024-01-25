@@ -56,8 +56,8 @@ export default async function PageSlugRoute({ params }: Props) {
     params.lang,
     params.version,
   )
-  // let toc = await getTocs(params.lang, params.version)
-  // const docNavigation = findSlugWithParents(toc, params.slug.join('/'))
+  let toc = await getTocs(params.lang, params.version)
+  const docNavigation = findSlugWithParents(toc, params.slug.join('/'))
 
   if (!data && !draftMode().isEnabled) {
     notFound()
@@ -77,7 +77,7 @@ export default async function PageSlugRoute({ params }: Props) {
     >
       <DocPage
         data={data}
-        // docNavigation={docNavigation}
+        docNavigation={docNavigation}
         lang={params.lang}
         version={params.version}
       />

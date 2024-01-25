@@ -32,14 +32,14 @@ export const TableOfContents = ({ headings }) => {
 
   return (
     <ul
-      className="overflow-y-auto py-2 px-0 m-0 text-sm leading-5 text-gray-800"
+      className="overflow-y-auto py-2 px-0 m-0 text-sm leading-5"
       style={{ listStyle: 'none', maxHeight: '70vh' }}
     >
       {toc.map((h2) => (
         <li key={h2.id} className="mt-2 mb-0">
           <a
             href={`#${h2.id}`}
-            className="block text-gray-800 hover:text-blue-400 transition-colors duration-200 ease-in-out"
+            className="block hover:text-blue-400 transition-colors duration-200 ease-in-out"
             style={{ textDecoration: 'none', lineHeight: '1.6' }}
           >
             {h2.title}

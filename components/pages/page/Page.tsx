@@ -65,7 +65,7 @@ export function Page({ data }: PageProps) {
       {overview && (
         <div className="w-full min-w-0 max-w-6xl px-1 md:px-6">
           <CustomPortableText
-            paragraphClasses="font-serif max-w-3xl text-gray-600 text-xl"
+            paragraphClasses="font-serif max-w-3xl text-xl"
             value={overview}
           />
         </div>
@@ -73,7 +73,7 @@ export function Page({ data }: PageProps) {
       <article className="mt-4 w-full min-w-0 max-w-6xl px-1 md:px-6">
         {body && (
           <CustomPortableText
-            paragraphClasses="font-serif max-w-3xl text-gray-600 text-xl"
+            paragraphClasses="font-serif max-w-3xl text-xl"
             value={body}
           />
         )}
