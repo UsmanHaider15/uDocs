@@ -84,7 +84,6 @@ export function CustomPortableText({
         )
       },
       button: ({ value }) => {
-        console.log(value)
         return (
           <button
             type="button"

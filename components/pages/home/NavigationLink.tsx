@@ -10,7 +10,6 @@ const NavigationLink: FC<{
   version: string
 }> = ({ link, language, version }) => {
   const pathname = usePathname()
-  console.log(pathname)
 
   const hasNestedLinks = link.links && link.links.length > 0
 

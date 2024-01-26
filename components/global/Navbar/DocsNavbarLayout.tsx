@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { MenuItem, SettingsPayload } from 'types'
 import LanugageDropdown from './LanguageDropdown'
 import VersionDropdown from './VersionDropdown'
+import DocuSearch from 'components/DocSearch'
 
 interface NavbarProps {
   data: SettingsPayload
@@ -41,7 +42,7 @@ export default function Navbar(props: NavbarProps) {
           })} */}
 
         <div className="mr-2">
-          <Search />
+          <DocuSearch />
         </div>
         <div className="mr-2 self-center">
           <LanugageDropdown lang={lang} />

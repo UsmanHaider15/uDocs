@@ -5,7 +5,7 @@ export const TableOfContents = ({ headings }) => {
   const [activeId, setActiveId] = React.useState('')
   const toc = createToC(headings)
 
-  const findActiveHeader = () => {
+  const findActiveHeader = React.useCallback(() => {
     let lastPassedHeaderId = ''
     for (let heading of headings) {
       const element = document.getElementById(heading._key)
@@ -20,7 +20,7 @@ export const TableOfContents = ({ headings }) => {
       }
     }
     return lastPassedHeaderId
-  }
+  }, [headings])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +32,7 @@ export const TableOfContents = ({ headings }) => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [headings, activeId])
+  }, [findActiveHeader, activeId])
 
   return (
     <ul

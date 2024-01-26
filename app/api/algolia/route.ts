@@ -40,19 +40,33 @@ export async function POST(req: NextRequest) {
         doc: {
           index: algoliaIndex,
           projection: `{
-          title,
-          "overview": pt::text(overview),
-          "body": pt::text(body)
-        }`,
+            title,
+            "overview": pt::text(overview),
+            "body": pt::text(body),
+            language,
+            "version": version->slug.current
+          }`,
         },
       },
-
       (document: SanityDocumentStub) => {
         switch (document._type) {
           case 'doc':
+            // Transform the document into the desired Algolia record structure
             return Object.assign({}, document, {
-              slug: fullSlug,
+              objectID: document._id,
+              hierarchy: {
+                lvl0: document.title,
+                lvl1: document.title, // or some other field from your document
+                lvl2: document.title, // or some other field from your document
+              },
+              content: document.body,
+              url: fullSlug,
+              // anchor: document.slug, // or any other suitable field
+              // type: 'lvl2', // Adjust based on your data
+              language: document.language,
+              version: document.version,
             })
+
           default:
             return document
         }
@@ -136,4 +150,20 @@ export async function DELETE(req: NextRequest) {
     console.error(err)
     return new Response(err.message, { status: 500 })
   }
+}
+
+const doc = {
+  objectID: 'subsection-003',
+  hierarchy: {
+    lvl0: 'Introduction to Our Product',
+    lvl1: 'Getting Started',
+    lvl2: 'Installation Guide',
+  },
+  content:
+    'Detailed step-by-step guide on how to install our product on various platforms.',
+  url: 'https://example.com/docs/introduction/getting-started/installation',
+  anchor: 'installation-guide',
+  type: 'lvl2',
+  tags: ['installation', 'guide'],
+  language: 'en',
 }

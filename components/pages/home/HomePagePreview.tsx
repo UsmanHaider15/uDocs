@@ -18,5 +18,6 @@ export default function HomePagePreview({ data }: HomePageProps) {
     )
   }
 
+  // @ts-ignore
   return <HomePage data={data} />
 }

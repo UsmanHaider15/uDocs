@@ -37,7 +37,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           {features &&
             features.map(({ title, description, image }) => {
               return (
-                <div className="flex flex-col">
+                <div className="flex flex-col" key={title}>
                   <ImageBox
                     image={image}
                     alt={'value.alt'}

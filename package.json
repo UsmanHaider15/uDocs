@@ -17,6 +17,8 @@
   "dependencies": {
     "@algolia/autocomplete-js": "^1.12.2",
     "@algolia/autocomplete-theme-classic": "^1.12.2",
+    "@docsearch/js": "^3.5.2",
+    "@docsearch/react": "^3.5.2",
     "@formatjs/intl-localematcher": "^0.5.2",
     "@next/env": "^14.0.3",
     "@portabletext/react": "3.0.11",
