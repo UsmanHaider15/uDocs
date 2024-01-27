@@ -8,6 +8,7 @@ import { token } from 'lib/sanity.fetch'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
+import { Navbar } from 'components/global/Navbar'
 // import Search from 'components/autocomplete/Search'
 
 const PreviewProvider = dynamic(
@@ -27,7 +28,7 @@ export default async function IndexRoute({
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}
       {/* <Suspense>
-        <Navbar />
+        <Navbar lang={params.lang} version="v1" />
       </Suspense> */}
       <div>
         <div className="flex">

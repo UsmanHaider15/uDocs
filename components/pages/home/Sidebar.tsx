@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   return (
-    <div className="md:sticky md:top-[72px] md:h-[calc(100vh-121px)] md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between border-b-2">
+    <div className="md:sticky md:top-[72px] md:h-[calc(100vh-121px)] md:w-[284px] md:flex md:shrink-0 md:flex-col md:justify-between">
       {/* Sidebar */}
       <aside className="bg-white w-full md:w-64 min-h-screen border-r border-gray-200 p-2">
         {toc.links &&
