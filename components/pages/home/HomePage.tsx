@@ -2,8 +2,6 @@ import { Header } from 'components/shared/Header'
 import ImageBox from 'components/shared/ImageBox'
 import Link from 'next/link'
 import type { HomePagePayload } from 'types'
-import { Suspense } from 'react'
-import { Navbar } from 'components/global/Navbar'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -16,7 +14,6 @@ export function HomePage({ data, lang }: HomePageProps) {
 
   return (
     <div>
-      <div></div>
       <div className="flex flex-col py-4">
         <div className="py-6">
           <div>

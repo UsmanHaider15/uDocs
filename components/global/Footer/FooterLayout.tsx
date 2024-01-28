@@ -1,6 +1,7 @@
 import type { PortableTextBlock } from '@portabletext/types'
 import { CustomPortableText } from 'components/shared/CustomPortableText'
 import type { SettingsPayload } from 'types'
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
 
 interface FooterProps {
   data: SettingsPayload
@@ -14,9 +15,15 @@ export default function Footer(props: FooterProps) {
       <div className="flex justify-between">
         <div>Powered by uDocs</div>
         <div className="flex">
-          <div className="px-2">fb</div>
-          <div className="px-2">tw</div>
-          <div className="px-2">ig</div>
+          <div className="px-2">
+            <FaFacebookF />
+          </div>
+          <div className="px-2">
+            <FaTwitter />
+          </div>
+          <div className="px-2">
+            <FaInstagram />
+          </div>
         </div>
       </div>
     </footer>
