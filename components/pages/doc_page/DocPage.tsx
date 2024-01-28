@@ -16,7 +16,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <article className="py-6">
+      <article className="py-4">
         <div className="">
           {docNavigation &&
             docNavigation.map((link, index) => (
@@ -59,7 +59,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           )}
         </div>
       </article>
-      <nav className="sticky top-28 h-screen">
+      <nav className="sticky top-20 h-screen">
         <div className="">
           {headings ? <TableOfContents headings={headings} /> : null}
         </div>

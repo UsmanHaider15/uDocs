@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   return (
-    <div className="sticky top-28 h-screen">
+    <div className="sticky top-20 h-screen">
       {/* Sidebar */}
       <aside>
         {toc.links &&
