@@ -2,6 +2,7 @@ import Sidebar from 'components/pages/home/Sidebar'
 import { getTocs, token } from 'lib/sanity.fetch'
 import { Suspense } from 'react'
 import { Navbar } from 'components/global/Navbar'
+import { Footer } from 'components/global/Footer'
 
 export default async function DocsLayout({
   params,
@@ -17,12 +18,15 @@ export default async function DocsLayout({
       <Suspense>
         <Navbar lang={params.lang} version={params.version} />
       </Suspense>
-      <div className="relative mx-auto max-w-screen-xl py-2 md:flex md:flex-row md:py-4">
+      <div className="max-w-screen-xl mx-auto flex">
         {toc && (
           <Sidebar toc={toc} language={params.lang} version={params.version} />
         )}
         <Suspense>{children}</Suspense>
       </div>
+      <Suspense>
+        <Footer />
+      </Suspense>
     </div>
   )
 }

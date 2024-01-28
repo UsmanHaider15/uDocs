@@ -16,12 +16,6 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <nav className="order-last hidden w-56 shrink-0 lg:block p-2">
-        <div className="sticky top-[72px] h-[calc(100vh-121px)]">
-          {headings ? <TableOfContents headings={headings} /> : null}
-        </div>
-      </nav>
-
       <article className="w-full min-w-0 max-w-6xl mx-auto p-2">
         <div className="py-2">
           {docNavigation &&
@@ -65,6 +59,11 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           )}
         </div>
       </article>
+      <nav className="sticky top-0 h-screen">
+        <div className="">
+          {headings ? <TableOfContents headings={headings} /> : null}
+        </div>
+      </nav>
     </>
   )
 }
