@@ -16,7 +16,7 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-white z-20 py-2">
+    <header className="sticky top-0 bg-white z-20 py-2 border-b-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="self-center">
           <div>uDocs</div>

@@ -36,7 +36,7 @@ export const TableOfContents = ({ headings }) => {
 
   return (
     <ul
-      className="overflow-y-auto py-2 px-0 m-0 text-sm leading-5"
+      className="overflow-y-auto px-0 m-0 text-sm leading-5"
       style={{ listStyle: 'none', maxHeight: '70vh' }}
     >
       {toc.map((h2) => (

@@ -16,8 +16,8 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <article className="w-full min-w-0 max-w-6xl mx-auto p-2">
-        <div className="py-2">
+      <article className="py-6">
+        <div className="">
           {docNavigation &&
             docNavigation.map((link, index) => (
               <React.Fragment key={link.slug}>
@@ -59,7 +59,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           )}
         </div>
       </article>
-      <nav className="sticky top-0 h-screen">
+      <nav className="sticky top-28 h-screen">
         <div className="">
           {headings ? <TableOfContents headings={headings} /> : null}
         </div>

@@ -10,9 +10,9 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   return (
-    <div className="sticky top-0 h-screen">
+    <div className="sticky top-28 h-screen">
       {/* Sidebar */}
-      <aside className="bg-white w-full md:w-64 min-h-screen border-r border-gray-200 p-2">
+      <aside>
         {toc.links &&
           toc.links.map((link) => (
             <NavigationLink
