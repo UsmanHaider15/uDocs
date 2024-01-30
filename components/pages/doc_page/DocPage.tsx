@@ -16,7 +16,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <article className="grow p-4">
+      <article className="grow p-3">
         <div className="">
           {docNavigation &&
             docNavigation.map((link, index) => (
@@ -56,7 +56,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           )}
         </div>
       </article>
-      <nav className="flex-none w-56 sticky py-4 h-screen">
+      <nav className="flex-none w-56 sticky top-20 h-screen">
         <div>
           {headings && headings.length ? (
             <TableOfContents headings={headings} />
