@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       { id: body._id },
     )
 
-    deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+    await deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
     console.log('doc', generateAlgoliaRecords(doc))
     algoliaIndex
       .saveObjects(generateAlgoliaRecords(doc), {
@@ -174,35 +174,38 @@ function generateAlgoliaRecords(doc) {
   return records
 }
 
-// Function to delete records by sanityDocumentId
 async function deleteRecordsBySanityDocumentId(sanityDocumentId, algoliaIndex) {
-  // First, search for all records matching the sanityDocumentId
-  const hits: any = []
-  algoliaIndex
-    .browseObjects({
-      query: '', // Empty query will match all records
-      filters: `sanityDocumentId:${sanityDocumentId}`,
-      batch: (batch) => hits.push(...batch),
-    })
-    .then(() => {
-      // Extract objectIDs from the hits
-      console.log('hits', hits)
-      const objectIDs = hits.map((hit) => hit.objectID)
+  try {
+    // Custom function to asynchronously accumulate hits from browsing
+    async function accumulateHits() {
+      let hits: any = []
+      await algoliaIndex.browseObjects({
+        query: '', // Empty query will match all records
+        filters: `sanityDocumentId:${sanityDocumentId}`,
+        batch: (batch) => {
+          hits = hits.concat(batch)
+        },
+      })
+      return hits
+    }
 
-      console.log('objectIDs', objectIDs)
-      // Then, use the list of objectIDs to delete the records
-      algoliaIndex
-        .deleteObjects(objectIDs)
-        .then(() => {
-          console.log(
-            `Deleted records with sanityDocumentId: ${sanityDocumentId}`,
-          )
-        })
-        .catch((err) => {
-          console.error('Error deleting records:', err)
-        })
-    })
-    .catch((err) => {
-      console.error('Error searching records:', err)
-    })
+    // Use the custom function to get all hits
+    const hits = await accumulateHits()
+    console.log('hits', hits)
+
+    // Extract objectIDs from the hits
+    const objectIDs = hits.map((hit) => hit.objectID)
+    console.log('objectIDs', objectIDs)
+
+    // Check if there are any objectIDs to delete
+    if (objectIDs.length > 0) {
+      // Use the list of objectIDs to delete the records
+      await algoliaIndex.deleteObjects(objectIDs)
+      console.log(`Deleted records with sanityDocumentId: ${sanityDocumentId}`)
+    } else {
+      console.log('No records found to delete.')
+    }
+  } catch (err) {
+    console.error('Error during deletion process:', err)
+  }
 }
