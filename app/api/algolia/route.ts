@@ -82,15 +82,8 @@ export async function DELETE(req: NextRequest) {
     }
 
     const algoliaIndex = algolia.initIndex('docs')
-    // get document of type doc by id
-    const doc = await client.fetch(
-      `*[_type == "doc" && _id == $id][0] {
-          _id,
-        }`,
-      { id: body._id },
-    )
 
-    await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
+    await deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
 
     return NextResponse.json({
       status: 200,
