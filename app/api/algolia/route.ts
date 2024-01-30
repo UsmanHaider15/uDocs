@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       { id: body._id },
     )
 
-    await deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+    await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
     console.log('doc', generateAlgoliaRecords(doc))
     algoliaIndex
       .saveObjects(generateAlgoliaRecords(doc), {
@@ -90,7 +90,7 @@ export async function DELETE(req: NextRequest) {
       { id: body._id },
     )
 
-    deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+    await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
 
     return NextResponse.json({
       status: 200,
@@ -101,22 +101,6 @@ export async function DELETE(req: NextRequest) {
     console.error(err)
     return new Response(err.message, { status: 500 })
   }
-}
-
-const doc = {
-  objectID: 'subsection-003',
-  hierarchy: {
-    lvl0: 'Introduction to Our Product',
-    lvl1: 'Getting Started',
-    lvl2: 'Installation Guide',
-  },
-  content:
-    'Detailed step-by-step guide on how to install our product on various platforms.',
-  url: 'https://example.com/docs/introduction/getting-started/installation',
-  anchor: 'installation-guide',
-  type: 'lvl2',
-  tags: ['installation', 'guide'],
-  language: 'en',
 }
 
 // Function to generate Algolia records from a Sanity document
