@@ -16,7 +16,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <article className="py-4">
+      <article className="grow p-4">
         <div className="">
           {docNavigation &&
             docNavigation.map((link, index) => (
@@ -34,10 +34,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
         {title && <h1 className="text-4xl font-bold mb-4">{title}</h1>}
         {body && (
-          <CustomPortableText
-            paragraphClasses="max-w-3xl mx-auto mb-4"
-            value={body}
-          />
+          <CustomPortableText paragraphClasses="max-w-3xl mb-4" value={body} />
         )}
         <div className="flex justify-between px-2 py-4">
           {previousDoc?.title && (
@@ -59,9 +56,11 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           )}
         </div>
       </article>
-      <nav className="sticky top-20 h-screen">
-        <div className="">
-          {headings ? <TableOfContents headings={headings} /> : null}
+      <nav className="flex-none w-56 sticky py-4 h-screen">
+        <div>
+          {headings && headings.length ? (
+            <TableOfContents headings={headings} />
+          ) : null}
         </div>
       </nav>
     </>

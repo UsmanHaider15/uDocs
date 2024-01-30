@@ -35,41 +35,44 @@ export const TableOfContents = ({ headings }) => {
   }, [findActiveHeader, activeId])
 
   return (
-    <ul
-      className="overflow-y-auto px-0 m-0 text-sm leading-5"
-      style={{ listStyle: 'none', maxHeight: '70vh' }}
-    >
-      {toc.map((h2) => (
-        <li key={h2.id} className="mt-2 mb-0">
-          <a
-            href={`#${h2.id}`}
-            className={`block hover:text-blue-400 transition-colors duration-200 ease-in-out ${
-              activeId === h2.id ? 'text-blue-600 font-bold' : ''
-            }`}
-            style={{ textDecoration: 'none', lineHeight: '1.6' }}
-          >
-            {h2.title}
-          </a>
-          {h2.children.length > 0 && (
-            <ul className="pl-3">
-              {h2.children.map((h3) => (
-                <li key={h3.id} className="mt-2 mb-0">
-                  <a
-                    href={`#${h3.id}`}
-                    className={`block text-neutral-400 hover:text-blue-400 transition-colors duration-200 ease-in-out ${
-                      activeId === h3.id ? 'text-blue-600 font-bold' : ''
-                    }`}
-                    style={{ textDecoration: 'none', lineHeight: '1.6' }}
-                  >
-                    {h3.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))}
-    </ul>
+    <>
+      <div className="font-medium">On this page</div>
+      <ul
+        className="overflow-y-auto px-0 m-0 text-sm leading-5"
+        style={{ listStyle: 'none', maxHeight: '70vh' }}
+      >
+        {toc.map((h2) => (
+          <li key={h2.id} className="mt-2 mb-0">
+            <a
+              href={`#${h2.id}`}
+              className={`block hover:text-blue-400 transition-colors duration-200 ease-in-out ${
+                activeId === h2.id ? 'text-blue-600 font-bold' : ''
+              }`}
+              style={{ textDecoration: 'none', lineHeight: '1.6' }}
+            >
+              {h2.title}
+            </a>
+            {h2.children.length > 0 && (
+              <ul className="pl-3">
+                {h2.children.map((h3) => (
+                  <li key={h3.id} className="mt-2 mb-0">
+                    <a
+                      href={`#${h3.id}`}
+                      className={`block text-neutral-400 hover:text-blue-400 transition-colors duration-200 ease-in-out ${
+                        activeId === h3.id ? 'text-blue-600 font-bold' : ''
+                      }`}
+                      style={{ textDecoration: 'none', lineHeight: '1.6' }}
+                    >
+                      {h3.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 
