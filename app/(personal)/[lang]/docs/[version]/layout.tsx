@@ -1,7 +1,7 @@
 import Sidebar from 'components/pages/home/Sidebar'
 import { getTocs, token } from 'lib/sanity.fetch'
 import { Suspense } from 'react'
-import { Navbar } from 'components/global/Navbar'
+import { DocsNavbar } from 'components/global/DcoNavbar'
 import { Footer } from 'components/global/Footer'
 
 export default async function DocsLayout({
@@ -16,7 +16,7 @@ export default async function DocsLayout({
   return (
     <div>
       <Suspense>
-        <Navbar lang={params.lang} version={params.version} />
+        <DocsNavbar lang={params.lang} version={params.version} />
       </Suspense>
       <div className="flex max-w-screen-xl mx-auto py-4">
         {toc && (
