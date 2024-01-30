@@ -35,58 +35,31 @@ export async function POST(req: NextRequest) {
     const algoliaIndex = algolia.initIndex('docs')
     const fullSlug = `/${body.language}/docs/${body.version}/${body.slug}`
 
-    const sanityAlgolia = indexer(
-      {
-        doc: {
-          index: algoliaIndex,
-          projection: `{
-            title,
-            "overview": pt::text(overview),
-            "body": pt::text(body),
-            language,
-            "version": version->slug.current
-          }`,
-        },
-      },
-      (document: SanityDocumentStub) => {
-        switch (document._type) {
-          case 'doc':
-            // Transform the document into the desired Algolia record structure
-            return Object.assign({}, document, {
-              objectID: document._id,
-              hierarchy: {
-                lvl0: document.title,
-                lvl1: document.title, // or some other field from your document
-                lvl2: document.title, // or some other field from your document
-              },
-              content: document.body,
-              url: fullSlug,
-              // anchor: document.slug, // or any other suitable field
-              // type: 'lvl2', // Adjust based on your data
-              language: document.language,
-              version: document.version,
-            })
-
-          default:
-            return document
-        }
-      },
+    // get document of type doc by id
+    const doc = await client.fetch(
+      `*[_type == "doc" && _id == $id][0] {
+        _id,
+        title,
+        body,
+        "slug": slug.current,
+        "headings": body[length(style) == 2 && string::startsWith(style, "h")],
+      }`,
+      { id: body._id },
     )
 
-    return sanityAlgolia
-      .webhookSync(client, {
-        ids: { created: [], updated: [body._id], deleted: [] },
+    deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+    console.log('doc', generateAlgoliaRecords(doc))
+    algoliaIndex
+      .saveObjects(generateAlgoliaRecords(doc), {
+        autoGenerateObjectIDIfNotExist: true,
       })
-      .then(() => {
-        return NextResponse.json({
-          status: 200,
-          now: Date.now(),
-          body,
-        })
-      })
-      .catch((err) => {
-        return new Response(err.message, { status: 500 })
-      })
+      .wait()
+
+    return NextResponse.json({
+      status: 200,
+      now: Date.now(),
+      body,
+    })
   } catch (err: any) {
     console.error(err)
     return new Response(err.message, { status: 500 })
@@ -109,43 +82,21 @@ export async function DELETE(req: NextRequest) {
     }
 
     const algoliaIndex = algolia.initIndex('docs')
-
-    const sanityAlgolia = indexer(
-      {
-        doc: {
-          index: algoliaIndex,
-          projection: `{
-            title,
-            "overview": pt::text(overview),
-            "body": pt::text(body)
-          }`,
-        },
-      },
-
-      (document: SanityDocumentStub) => {
-        switch (document._type) {
-          case 'doc':
-            return Object.assign({}, document)
-          default:
-            return document
-        }
-      },
+    // get document of type doc by id
+    const doc = await client.fetch(
+      `*[_type == "doc" && _id == $id][0] {
+          _id,
+        }`,
+      { id: body._id },
     )
 
-    return sanityAlgolia
-      .webhookSync(client, {
-        ids: { created: [], updated: [], deleted: [body._id] },
-      })
-      .then(() => {
-        return NextResponse.json({
-          status: 200,
-          now: Date.now(),
-          body,
-        })
-      })
-      .catch((err) => {
-        return new Response(err.message, { status: 500 })
-      })
+    deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+
+    return NextResponse.json({
+      status: 200,
+      now: Date.now(),
+      body,
+    })
   } catch (err: any) {
     console.error(err)
     return new Response(err.message, { status: 500 })
@@ -166,4 +117,92 @@ const doc = {
   type: 'lvl2',
   tags: ['installation', 'guide'],
   language: 'en',
+}
+
+// Function to generate Algolia records from a Sanity document
+function generateAlgoliaRecords(doc) {
+  const records: any = []
+
+  // Assuming 'doc.title' contains the lvl1 heading (e.g., 'Installation')
+  const baseHierarchy = {
+    lvl0: 'Getting Started', // This seems to be static in your examples
+    lvl1: doc.title,
+  }
+
+  // Base record structure for easier reuse
+  const baseRecord = {
+    hierarchy: { ...baseHierarchy },
+    url: `/en/docs/v1/${doc.slug}`, // Assuming 'slug' can be used to generate the URL
+    type: '',
+    language: 'en',
+    version: 'v1',
+    sanityDocumentId: doc._id, // Adding a unique identifier for the Sanity document
+  }
+
+  const pageRecord = {
+    ...baseRecord,
+    type: 'lvl1',
+  }
+
+  records.push(pageRecord)
+
+  // Assuming doc.body is an array of blocks (Portable Text or similar)
+  doc.body.forEach((block) => {
+    // Checking if the block is a heading (h2)
+    if (block._type === 'block' && block.style === 'h2') {
+      const headingRecord = {
+        ...baseRecord,
+        hierarchy: {
+          ...baseRecord.hierarchy,
+          lvl2: block.children?.[0]?.text, // Assuming first child contains the heading text
+        },
+        url: `${baseRecord.url}#${block._key}`, // Assuming '_key' can serve as an anchor
+        type: 'lvl2',
+      }
+      records.push(headingRecord)
+    } else if (block._type === 'block') {
+      // Assuming this block is content
+      const contentRecord = {
+        ...baseRecord,
+        type: 'content',
+        content: block.children?.[0]?.text, // Assuming first child contains the content text
+      }
+      records.push(contentRecord)
+    }
+  })
+
+  return records
+}
+
+// Function to delete records by sanityDocumentId
+async function deleteRecordsBySanityDocumentId(sanityDocumentId, algoliaIndex) {
+  // First, search for all records matching the sanityDocumentId
+  const hits: any = []
+  algoliaIndex
+    .browseObjects({
+      query: '', // Empty query will match all records
+      filters: `sanityDocumentId:${sanityDocumentId}`,
+      batch: (batch) => hits.push(...batch),
+    })
+    .then(() => {
+      // Extract objectIDs from the hits
+      console.log('hits', hits)
+      const objectIDs = hits.map((hit) => hit.objectID)
+
+      console.log('objectIDs', objectIDs)
+      // Then, use the list of objectIDs to delete the records
+      algoliaIndex
+        .deleteObjects(objectIDs)
+        .then(() => {
+          console.log(
+            `Deleted records with sanityDocumentId: ${sanityDocumentId}`,
+          )
+        })
+        .catch((err) => {
+          console.error('Error deleting records:', err)
+        })
+    })
+    .catch((err) => {
+      console.error('Error searching records:', err)
+    })
 }
