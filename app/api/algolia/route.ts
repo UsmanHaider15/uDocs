@@ -51,9 +51,7 @@ export async function POST(req: NextRequest) {
     console.log('doc', generateAlgoliaRecords(doc))
     try {
       const response = await algoliaIndex
-        .saveObjects(generateAlgoliaRecords(doc), {
-          autoGenerateObjectIDIfNotExist: true,
-        })
+        .saveObjects(generateAlgoliaRecords(doc))
         .wait()
       console.log('Algolia response', response)
     } catch (error) {
