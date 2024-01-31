@@ -102,54 +102,55 @@ export async function DELETE(req: NextRequest) {
   }
 }
 
-// Function to generate Algolia records from a Sanity document
 function generateAlgoliaRecords(doc) {
   const records: any = []
+  // Initialize baseObjectID with a high-resolution timestamp to ensure uniqueness
+  let baseObjectID = Date.now() * 1000 // Multiply to simulate a higher resolution
 
-  // Assuming 'doc.title' contains the lvl1 heading (e.g., 'Installation')
   const baseHierarchy = {
-    lvl0: 'Getting Started', // This seems to be static in your examples
+    lvl0: 'Getting Started',
     lvl1: doc.title,
   }
 
-  // Base record structure for easier reuse
   const baseRecord = {
     hierarchy: { ...baseHierarchy },
-    url: `/en/docs/v1/${doc.slug}`, // Assuming 'slug' can be used to generate the URL
-    type: '',
+    url: `/en/docs/v1/${doc.slug}`,
     language: 'en',
     version: 'v1',
-    sanityDocumentId: doc._id, // Adding a unique identifier for the Sanity document
+    sanityDocumentId: doc._id,
   }
 
+  // First record for lvl1
   const pageRecord = {
     ...baseRecord,
     type: 'lvl1',
+    objectID: `${baseObjectID--}`, // Ensure descending order
   }
 
   records.push(pageRecord)
 
-  // Assuming doc.body is an array of blocks (Portable Text or similar)
   doc.body.forEach((block) => {
-    // Checking if the block is a heading (h2)
     if (block._type === 'block' && block.style === 'h2') {
+      // Record for lvl2
       const headingRecord = {
         ...baseRecord,
         hierarchy: {
           ...baseRecord.hierarchy,
-          lvl2: block.children?.[0]?.text, // Assuming first child contains the heading text
+          lvl2: block.children?.[0]?.text,
         },
-        url: `${baseRecord.url}#${block._key}`, // Assuming '_key' can serve as an anchor
+        url: `${baseRecord.url}#${block._key}`,
         type: 'lvl2',
+        objectID: `${baseObjectID--}`,
       }
       records.push(headingRecord)
     } else if (block._type === 'block' && block.children?.[0]?.text !== '') {
-      // Assuming this block is content
+      // Record for content
       const contentRecord = {
         ...baseRecord,
-        url: `${baseRecord.url}#${block._key}`, // Assuming '_key' can serve as an anchor
+        url: `${baseRecord.url}#${block._key}`,
         type: 'content',
-        content: block.children?.[0]?.text, // Assuming first child contains the content text
+        content: block.children?.[0]?.text,
+        objectID: `${baseObjectID--}`,
       }
       records.push(contentRecord)
     }
