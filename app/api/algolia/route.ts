@@ -35,25 +35,31 @@ export async function POST(req: NextRequest) {
     const algoliaIndex = algolia.initIndex('docs')
     const fullSlug = `/${body.language}/docs/${body.version}/${body.slug}`
 
-    let doc
-    // Usage inside your POST function
-    try {
-      // Replace the direct fetch call with a retry mechanism
-      doc = await fetchDocumentWithRetry(body._id)
-      // Proceed with your logic after successfully fetching the document
-    } catch (error) {
-      // Handle the case where document could not be fetched after retries
-      console.error('Failed to fetch document with retries:', error)
-      return new Response('Document fetch failed', { status: 500 })
-    }
+    // get document of type doc by id
+    const doc = await client.fetch(
+      `*[_type == "doc" && _id == $id][0] {
+        _id,
+        title,
+        body,
+        "slug": slug.current,
+        "headings": body[length(style) == 2 && string::startsWith(style, "h")],
+      }`,
+      { id: body._id },
+    )
 
     await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
     console.log('doc', generateAlgoliaRecords(doc))
-    algoliaIndex
-      .saveObjects(generateAlgoliaRecords(doc), {
-        autoGenerateObjectIDIfNotExist: true,
-      })
-      .wait()
+    try {
+      const response = await algoliaIndex
+        .saveObjects(generateAlgoliaRecords(doc), {
+          autoGenerateObjectIDIfNotExist: true,
+        })
+        .wait()
+      console.log('Algolia response', response)
+    } catch (error) {
+      console.error('Algolia error', error)
+      return new Response('Error updating Algolia', { status: 500 })
+    }
 
     return NextResponse.json({
       status: 200,
@@ -185,32 +191,4 @@ async function deleteRecordsBySanityDocumentId(sanityDocumentId, algoliaIndex) {
   } catch (err) {
     console.error('Error during deletion process:', err)
   }
-}
-
-// Helper function to delay execution
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-// Function to fetch document with retry logic
-async function fetchDocumentWithRetry(id, attempts = 3, delayDuration = 1000) {
-  for (let i = 0; i < attempts; i++) {
-    try {
-      const doc = await client.fetch(
-        `*[_type == "doc" && _id == $id][0] {
-          _id,
-          title,
-          body,
-          "slug": slug.current,
-          "headings": body[length(style) == 2 && string::startsWith(style, "h")],
-        }`,
-        { id },
-      )
-      if (doc) return doc // Document found, return it
-    } catch (err) {
-      console.error(err) // Log error (optional)
-    }
-    await delay(delayDuration) // Wait before retrying
-  }
-  throw new Error('Document fetch failed after retries')
 }
