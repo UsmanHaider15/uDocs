@@ -143,10 +143,11 @@ function generateAlgoliaRecords(doc) {
         type: 'lvl2',
       }
       records.push(headingRecord)
-    } else if (block._type === 'block') {
+    } else if (block._type === 'block' && block.children?.[0]?.text !== '') {
       // Assuming this block is content
       const contentRecord = {
         ...baseRecord,
+        url: `${baseRecord.url}#${block._key}`, // Assuming '_key' can serve as an anchor
         type: 'content',
         content: block.children?.[0]?.text, // Assuming first child contains the content text
       }

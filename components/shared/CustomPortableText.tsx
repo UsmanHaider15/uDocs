@@ -16,8 +16,10 @@ export function CustomPortableText({
   const components: PortableTextComponents = {
     block: {
       // Adjusted typography and whitespace
-      normal: ({ children }) => (
-        <p className={`mb-2 ${paragraphClasses}`}>{children}</p>
+      normal: ({ children, value }) => (
+        <p id={value._key} className={`mb-2 ${paragraphClasses}`}>
+          {children}
+        </p>
       ),
       blockquote: ({ children }) => (
         <blockquote className="p-3 my-4 mx-0 text-sm not-italic font-normal rounded-md border border-solid border-stone-900">
