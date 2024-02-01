@@ -156,5 +156,5 @@ sanity dataset export production ./production.tar.gz --asset-concurrency
 import
 
 ```
-sanity dataset import production.tar.gz production
+sanity dataset import uDoc.tar.gz production
 ```
