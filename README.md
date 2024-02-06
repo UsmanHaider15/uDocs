@@ -3,6 +3,9 @@
 Simple, powerful and flexible site generation framework
 with everything you love from Next.js and Sanity CMS.
 
+![uDocs Logo](uDocs.png)
+
+
 ## Features
 - Documentation Localization
 - Documentation Versioning
@@ -22,7 +25,7 @@ with everything you love from Next.js and Sanity CMS.
 
 Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration].
 
-[![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/UsmanHaider15/uDocs&project-name=uDocs&repository-name=uDocs&demo-title=uDocs&demo-description=Nextjs+Sanity-powered+Documentation+website+with+built-in+content+editing+and+instant+previews&demo-url=https://u-docs-theta.vercel.app/&demo-image=https://i.ibb.co/ZLNf7kh/uDocs.png&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx&external-id=nextjs)
 
 ### Step 2. Set up the project locally
 
