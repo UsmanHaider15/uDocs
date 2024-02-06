@@ -27,7 +27,10 @@ export default function Navbar(props: NavbarProps) {
                 return null
               }
               return (
-                <div className="hidden border-0 border-solid border-stone-900">
+                <div
+                  key={key}
+                  className="hidden border-0 border-solid border-stone-900"
+                >
                   <Link
                     key={key}
                     className={`text-lg hover:text-black md:text-xl ${
