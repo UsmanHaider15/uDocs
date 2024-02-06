@@ -3,6 +3,9 @@
 Simple, powerful and flexible site generation framework
 with everything you love from Next.js and Sanity CMS.
 
+![uDocs Logo](uDocs.png)
+
+
 ## Features
 - Documentation Localization
 - Documentation Versioning
