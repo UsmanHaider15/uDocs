@@ -5,6 +5,7 @@ import { TimelineSection } from 'components/shared/TimelineSection'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Image } from 'sanity'
+import YouTube from './YouTubePlayer'
 
 export function CustomPortableText({
   paragraphClasses = '',
@@ -84,6 +85,12 @@ export function CustomPortableText({
             )}
           </div>
         )
+      },
+      // @ts-ignore
+      youtube: (props) => {
+        console.log('props', props)
+        console.log('props.value.url', props.value.url)
+        return <YouTube url={props.value.url} />
       },
       button: ({ value }) => {
         return (

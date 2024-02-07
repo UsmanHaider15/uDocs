@@ -23,6 +23,7 @@ import home from 'schemas/singletons/home'
 import settings from 'schemas/singletons/settings'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import tocLink from 'schemas/objects/tocLink'
+import { youtube } from 'schemas/objects/youtube'
 import { i18n } from 'settings'
 import { codeInput } from '@sanity/code-input'
 
@@ -88,6 +89,7 @@ export default defineConfig({
       doc,
       toc,
       // Objects
+      youtube,
       milestone,
       timeline,
       tocLink,

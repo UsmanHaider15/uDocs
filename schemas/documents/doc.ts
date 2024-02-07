@@ -172,6 +172,9 @@ export default defineType({
             },
           ],
         }),
+        defineArrayMember({
+          type: 'youtube',
+        }),
       ],
     }),
     defineField({
