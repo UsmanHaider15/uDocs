@@ -5,8 +5,8 @@ with everything you love from Next.js and Sanity CMS.
 
 ![uDocs Logo](uDocs.png)
 
-
 ## Features
+
 - Documentation Localization
 - Documentation Versioning
 - Algolia Search
@@ -72,5 +72,5 @@ npx vercel --prod
 import
 
 ```
-sanity dataset import uDoc.tar.gz production
+sanity dataset import uDocs.tar.gz production
 ```
