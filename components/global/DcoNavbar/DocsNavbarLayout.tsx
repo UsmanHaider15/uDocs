@@ -18,7 +18,12 @@ export default function Navbar(props: NavbarProps) {
     <header className="sticky top-0 bg-white z-10 py-2 border-b-2 md:px-0 px-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="self-center">
-          <div>uDocs</div>
+          <Link
+            href={`/en/docs/v1/introduction`}
+            className="hover:text-blue-500"
+          >
+            Docs
+          </Link>
           {menuItems &&
             menuItems.map((menuItem, key) => {
               const href = resolveHref(menuItem?._type, menuItem?.slug)
