@@ -15,7 +15,7 @@ import { IoMdSpeedometer } from 'react-icons/io'
 const FeatureGrid = () => {
   return (
     <div className="font-sans font-medium text-neutral-900">
-      <div className="grid grid-cols-4 gap-4 justify-center font-medium">
+      <div className="grid md:grid-cols-4 gap-4 justify-center font-medium">
         <div className="flex gap-4 items-center text-neutral-900">
           <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
             <MdWorkspaces fontSize="24" />
