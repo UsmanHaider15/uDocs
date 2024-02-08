@@ -16,7 +16,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
   return (
     <>
-      <article className="grow p-3">
+      <article className="grow md:p-3 px-3 py-6">
         <div>
           {docNavigation &&
             docNavigation.map((link, index) => (

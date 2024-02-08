@@ -1,6 +1,5 @@
 'use client'
-// Add the import statement at the top of your file
-import { useState, FC } from 'react'
+import { useState, useEffect, FC } from 'react'
 import { TOCLink } from 'types'
 import NavigationLink from './NavigationLink'
 import { FiMenu, FiX } from 'react-icons/fi' // Importing icons
@@ -12,7 +11,6 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
-  // State to manage the visibility of the NavigationLink components
   const [isLinksVisible, setIsLinksVisible] = useState(true)
 
   // Function to toggle the visibility state
@@ -20,16 +18,33 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
     setIsLinksVisible(!isLinksVisible)
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if the screen width is greater than the Tailwind md breakpoint (768px by default)
+      if (window.innerWidth >= 768) {
+        setIsLinksVisible(true) // Ensure links are visible on larger screens
+      }
+    }
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize)
+
+    // Call the handler right away so state gets updated with initial window size
+    handleResize()
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('resize', handleResize)
+  }, []) // Empty dependency array means this effect runs once on mount
+
   return (
     <div className="flex-none md:w-56 md:sticky md:top-20 md:h-screen">
-      {/* Sidebar */}
       <aside>
-        {/* Toggle Button with Icon */}
+        {/* Toggle Button with Icon - only shown on small screens */}
         <button
           onClick={toggleLinksVisibility}
           className="w-full flex border-b-2 p-3 md:hidden"
         >
-          {isLinksVisible ? <FiX /> : <FiMenu />}{' '}
+          {isLinksVisible ? <FiX /> : <FiMenu />}
         </button>
 
         {/* Conditionally render NavigationLinks based on isLinksVisible state */}

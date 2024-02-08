@@ -88,8 +88,6 @@ export function CustomPortableText({
       },
       // @ts-ignore
       youtube: (props) => {
-        console.log('props', props)
-        console.log('props.value.url', props.value.url)
         return <YouTube url={props.value.url} />
       },
       button: ({ value }) => {
