@@ -101,15 +101,15 @@ function generateAlgoliaRecords(doc) {
   let baseObjectID = Date.now() * 1000 // Multiply to simulate a higher resolution
 
   const baseHierarchy = {
-    lvl0: 'Getting Started',
+    lvl0: `${doc.language} / ${doc.version}`,
     lvl1: doc.title,
   }
 
   const baseRecord = {
     hierarchy: { ...baseHierarchy },
-    url: `/en/docs/v1/${doc.slug}`,
-    language: 'en',
-    version: 'v1',
+    url: `/${doc.language}/docs/${doc.version}/${doc.slug}`,
+    language: doc.language,
+    version: doc.version,
     sanityDocumentId: doc._id,
   }
 
