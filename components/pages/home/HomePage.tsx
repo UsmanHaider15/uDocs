@@ -45,7 +45,7 @@ export function HomePage({ data, lang }: HomePageProps) {
       <div className="py-2 md:py-5"></div>
       <div>
         <div className="text-2xl text-center md:text-4xl font-extrabold tracking-tight">
-          What's special in uDocs
+          What&apos;s special in uDocs
         </div>
         <div>
           {features &&
