@@ -3,8 +3,6 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 import algoliasearch from 'algoliasearch'
 import { client } from 'lib/sanity.client'
-import indexer from 'sanity-algolia'
-import { type SanityDocumentStub } from '@sanity/client'
 
 export const runtime = 'nodejs'
 
@@ -16,37 +14,38 @@ const algolia = algoliasearch(
 export async function POST(req: NextRequest) {
   try {
     const { body, isValidSignature } = await parseBody<{
-      _type: string
       _id: string
-      title: string
-      slug: string
-      language: string
-      version: string
-      body: any
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
       return new Response(message, { status: 401 })
     }
 
-    if (
-      !body?._type ||
-      !body?._id ||
-      !body?.title ||
-      !body?.slug ||
-      !body?.language ||
-      !body?.version ||
-      !body?.body
-    ) {
+    if (!body?._id) {
       return new Response('Bad Request', { status: 400 })
     }
 
     const algoliaIndex = algolia.initIndex('docs')
 
-    await deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
+    // get document of type doc by id
+    const doc = await client.fetch(
+      `*[_type == "doc" && _id == $id][0] {
+        _id,
+        title,
+        body,
+        language,
+        "version": version->slug.current,
+        "slug": slug.current,
+        "headings": body[length(style) == 2 && string::startsWith(style, "h")],
+      }`,
+      { id: body._id },
+    )
+
+    await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
+
     try {
       const response = await algoliaIndex
-        .saveObjects(generateAlgoliaRecords(body))
+        .saveObjects(generateAlgoliaRecords(doc))
         .wait()
       console.log('Algolia response', response)
     } catch (error) {
