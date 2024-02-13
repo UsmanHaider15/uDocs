@@ -2,14 +2,21 @@ import React from 'react'
 import { CustomPortableText } from 'components/shared/CustomPortableText'
 import Link from 'next/link'
 import type { DocPagePayload, TOCLink } from 'types'
-import { TableOfContents } from 'components/shared/TableOfContents'
+import { TableOfContents } from 'components/shared/TableOfContent'
+
+export interface DocPageProps {
+  data: DocPagePayload | null
+  docNavigation: TOCLink[] | null
+  lang: string
+  version: string
+}
 
 export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
   const { body, title, headings, previousDoc, nextDoc } = data ?? {}
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <article className="grow p-3 py-6">
+    <div className="flex flex-col md:flex-row grow">
+      <article className="grow p-3">
         <div className="mb-4">
           {docNavigation &&
             docNavigation.map((link, index) => (
@@ -31,26 +38,30 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
         )}
 
         <div className="flex justify-between items-center px-2 py-4">
-          {previousDoc && (
+          {previousDoc && previousDoc.slug && previousDoc.title ? (
             <Link
               href={`/${lang}/docs/${version}/${previousDoc.slug}`}
               className="text-blue-700 hover:underline hover:font-semibold"
             >
               ← {previousDoc.title}
             </Link>
+          ) : (
+            <span></span> // Placeholder to keep the layout but not display anything
           )}
-          {nextDoc && (
+          {nextDoc && nextDoc.slug && nextDoc.title ? (
             <Link
               href={`/${lang}/docs/${version}/${nextDoc.slug}`}
               className="text-blue-700 hover:underline hover:font-semibold"
             >
               {nextDoc.title} →
             </Link>
+          ) : (
+            <span></span>
           )}
         </div>
       </article>
 
-      <nav className="flex-none w-56 sticky top-20 h-screen overflow-y-auto p-4 hidden md:block">
+      <nav className="flex-none w-56 sticky top-20 h-screen overflow-y-auto p-2 hidden md:block">
         {headings && headings.length > 0 && (
           <TableOfContents headings={headings} />
         )}

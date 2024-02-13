@@ -9,7 +9,7 @@ import YouTube from './YouTubePlayer'
 import ButtonComponent from './CustomButton'
 
 export function CustomPortableText({
-  paragraphClasses = 'mb-2', // Default class for paragraphs
+  paragraphClasses = '', // Default class for paragraphs
   value,
 }: {
   paragraphClasses?: string
