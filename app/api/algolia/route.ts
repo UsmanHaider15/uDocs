@@ -22,36 +22,31 @@ export async function POST(req: NextRequest) {
       slug: string
       language: string
       version: string
+      body: any
     }>(req, revalidateSecret)
     if (!isValidSignature) {
       const message = 'Invalid signature'
       return new Response(message, { status: 401 })
     }
 
-    if (!body?._type || !body?._id || !body?.title || !body?.slug) {
+    if (
+      !body?._type ||
+      !body?._id ||
+      !body?.title ||
+      !body?.slug ||
+      !body?.language ||
+      !body?.version ||
+      !body?.body
+    ) {
       return new Response('Bad Request', { status: 400 })
     }
 
     const algoliaIndex = algolia.initIndex('docs')
-    const fullSlug = `/${body.language}/docs/${body.version}/${body.slug}`
 
-    // get document of type doc by id
-    const doc = await client.fetch(
-      `*[_type == "doc" && _id == $id][0] {
-        _id,
-        title,
-        body,
-        "slug": slug.current,
-        "headings": body[length(style) == 2 && string::startsWith(style, "h")],
-      }`,
-      { id: body._id },
-    )
-
-    await deleteRecordsBySanityDocumentId(doc._id, algoliaIndex)
-    console.log('doc', generateAlgoliaRecords(doc))
+    await deleteRecordsBySanityDocumentId(body._id, algoliaIndex)
     try {
       const response = await algoliaIndex
-        .saveObjects(generateAlgoliaRecords(doc))
+        .saveObjects(generateAlgoliaRecords(body))
         .wait()
       console.log('Algolia response', response)
     } catch (error) {
