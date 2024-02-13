@@ -45,8 +45,8 @@ export const TableOfContents = ({ headings }) => {
           <li key={h2.id} className="mt-2 mb-0">
             <a
               href={`#${h2.id}`}
-              className={`block hover:text-blue-400 transition-colors duration-200 ease-in-out ${
-                activeId === h2.id ? 'text-blue-600 font-bold' : ''
+              className={`block hover:text-blue-700 transition-colors duration-200 ease-in-out ${
+                activeId === h2.id ? 'text-blue-700' : ''
               }`}
               style={{ textDecoration: 'none', lineHeight: '1.6' }}
             >
@@ -58,8 +58,8 @@ export const TableOfContents = ({ headings }) => {
                   <li key={h3.id} className="mt-2 mb-0">
                     <a
                       href={`#${h3.id}`}
-                      className={`block text-neutral-400 hover:text-blue-400 transition-colors duration-200 ease-in-out ${
-                        activeId === h3.id ? 'text-blue-600 font-bold' : ''
+                      className={`block text-neutral-400 hover:text-blue-700 transition-colors duration-200 ease-in-out ${
+                        activeId === h3.id ? 'text-blue-700' : ''
                       }`}
                       style={{ textDecoration: 'none', lineHeight: '1.6' }}
                     >
