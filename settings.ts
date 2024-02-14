@@ -8,7 +8,7 @@ const languages: Language[] = [
 
 const versions: Version[] = [
   { id: 'v1', title: 'V1', isDefault: true },
-  { id: 'v2', title: 'V2' },
+  // { id: 'v2', title: 'V2' },
 ]
 
 const i18n = {
