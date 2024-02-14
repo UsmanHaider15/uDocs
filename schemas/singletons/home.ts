@@ -12,7 +12,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
-      description: 'This field is the title of your personal website.',
+      description: 'This field is the title of your website.',
       title: 'Title',
       type: 'string',
       validation: (rule) => rule.required(),
@@ -26,7 +26,7 @@ export default defineType({
     defineField({
       name: 'overview',
       description:
-        'Used both for the <meta> description tag for SEO, and the personal website subheader.',
+        'Used both for the <meta> description tag for SEO, and the website subheader.',
       title: 'Overview',
       type: 'array',
       of: [

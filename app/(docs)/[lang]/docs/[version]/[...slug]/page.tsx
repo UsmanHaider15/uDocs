@@ -2,10 +2,8 @@ import { toPlainText } from '@portabletext/react'
 import { DocPage } from 'components/pages/doc_page/DocPage'
 import DocPagePreview from 'components/pages/doc_page/DocPagePreview'
 import {
-  getHomePageTitle,
   getDocBySlugAndLang,
   getDocsPathsWithLang,
-  getSettings,
   getTocs,
 } from 'lib/sanity.fetch'
 import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
@@ -23,16 +21,14 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, lang, version } = params
 
-  const [settings, page, homePageTitle] = await Promise.all([
-    getSettings(),
+  const [page] = await Promise.all([
     getDocBySlugAndLang(`${slug.join('/')}`, lang, version),
-    getHomePageTitle(),
   ])
 
   return defineMetadata({
-    baseTitle: homePageTitle ?? undefined,
+    // baseTitle: homePageTitle ?? undefined,
     description: page?.overview ? toPlainText(page.overview) : '',
-    image: settings?.ogImage,
+    // image: settings?.ogImage,
     title: page?.title,
   })
 }

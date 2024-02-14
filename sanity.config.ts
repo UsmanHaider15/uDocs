@@ -29,7 +29,7 @@ import { codeInput } from '@sanity/code-input'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
-  'Next.js Personal Website with Sanity.io'
+  'Next.js Sanity CMS Documentation Website'
 
 export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,

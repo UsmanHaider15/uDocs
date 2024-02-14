@@ -1,4 +1,4 @@
-> **_NOTE:_**  This project is under construction.
+> **_NOTE:_** This project is under construction.
 
 # Next Gen Documentation Website
 
@@ -12,8 +12,8 @@ with everything you love from Next.js and Sanity CMS.
 - Documentation Localization
 - Documentation Versioning
 - Algolia Search
-- A performant, static personal website with editable projects
-- A native and customizable authoring environment, accessible on `yourpersonalwebsite.com/studio`
+- A performant, static docs website with editable projects
+- A native and customizable authoring environment, accessible on `docs.com/studio`
 - Real-time and collaborative content editing with fine-grained revision history
 - Side-by-side instant content preview that works across your whole site
 - Support for block content and the most advanced custom fields capability in the industry
@@ -51,7 +51,7 @@ npm install && npm run dev
 
 When you run this development server, the changes you make in your frontend and studio configuration will be applied live using hot reloading.
 
-Your personal website should be up and running on [http://localhost:3000][localhost-3000]! You can create and edit content on [http://localhost:3000/studio][localhost-3000-studio].
+Your docs website should be up and running on [http://localhost:3000][localhost-3000]! You can create and edit content on [http://localhost:3000/studio][localhost-3000-studio].
 
 ### Step 4. Deploy to production
 
