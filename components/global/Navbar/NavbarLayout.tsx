@@ -1,9 +1,7 @@
-import Search from 'components/autocomplete/Search'
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import type { MenuItem, SettingsPayload } from 'types'
 import LanugageDropdown from './LanguageDropdown'
-import VersionDropdown from './VersionDropdown'
 import DocuSearch from 'components/DocSearch'
 
 interface NavbarProps {
@@ -12,7 +10,7 @@ interface NavbarProps {
   version: string
 }
 export default function Navbar(props: NavbarProps) {
-  const { data, lang, version } = props
+  const { data, lang } = props
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
@@ -59,9 +57,6 @@ export default function Navbar(props: NavbarProps) {
           <div className="mr-2 self-center">
             <LanugageDropdown lang={lang} />
           </div>
-          {/* <div className="mr-2 self-center">
-            <VersionDropdown lang={lang} version={version} />
-          </div> */}
         </div>
       </nav>
     </header>

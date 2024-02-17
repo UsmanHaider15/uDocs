@@ -1,4 +1,5 @@
 'use client'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { versions } from 'settings'
 
@@ -17,12 +18,11 @@ const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
 
   return (
     <div className="relative w-12">
-      {' '}
-      {/* Matched width with LanguageDropdown */}
       <select
         id="version-select"
         className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-2 py-1 text-sm rounded shadow leading-tight focus:outline-none focus:shadow-outline"
         onChange={handleVersionChange}
+        value={version}
       >
         {versions.map((versionObj) => (
           <option key={versionObj.id} value={versionObj.id}>
