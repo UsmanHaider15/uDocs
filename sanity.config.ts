@@ -26,6 +26,7 @@ import tocLink from 'schemas/objects/tocLink'
 import { youtube } from 'schemas/objects/youtube'
 import { i18n } from 'settings'
 import { codeInput } from '@sanity/code-input'
+import { docLink } from 'schemas/objects/docLink'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -93,6 +94,7 @@ export default defineConfig({
       milestone,
       timeline,
       tocLink,
+      docLink,
     ],
   },
   plugins: [

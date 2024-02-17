@@ -34,7 +34,12 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
 
         {title && <h1 className="text-4xl font-bold mb-4">{title}</h1>}
         {body && (
-          <CustomPortableText paragraphClasses="max-w-3xl mb-4" value={body} />
+          <CustomPortableText
+            paragraphClasses="max-w-3xl mb-4"
+            value={body}
+            lang={lang}
+            version={version}
+          />
         )}
 
         <div className="flex justify-between items-center px-2 py-4">

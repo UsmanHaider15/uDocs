@@ -4,16 +4,20 @@ import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { Image } from 'sanity'
 import YouTube from './YouTubePlayer'
 import ButtonComponent from './CustomButton'
+import Link from 'next/link'
 
 export function CustomPortableText({
   paragraphClasses = '', // Default class for paragraphs
   value,
+  lang = 'en',
+  version = 'v1',
 }: {
   paragraphClasses?: string
   value: PortableTextBlock[]
+  lang: string
+  version: string
 }) {
   const consistentBaseClass = 'my-4 mx-0 text-base leading-relaxed' // Consistent base for typography
 
@@ -81,6 +85,22 @@ export function CustomPortableText({
         </div>
       ),
       youtube: (props) => <YouTube url={props.value.url} />,
+      docLink: ({ value }) => {
+        console.log('value', value)
+        return (
+          <div className="my-4">
+            <h3 className="text-xl font-semibold">{value.title}</h3>
+            <p>{value.description}</p>
+            <Link
+              href={`/${lang}/docs/${version}/${value.docRefSlug}`}
+              className="text-blue-500 hover:text-blue-700"
+            >
+              Read more
+            </Link>
+          </div>
+        )
+      },
+
       button: ({ value }) => (
         <ButtonComponent
           text={value?.text}

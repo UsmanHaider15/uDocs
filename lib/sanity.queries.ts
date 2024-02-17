@@ -46,12 +46,25 @@ export const tocQuery = `
 export const docsBySlugAndLangQuery = groq`
   *[_type == "doc" && slug.current == $slug && language == $lang && version->slug.current == $version][0] {
     _id,
-    body,
+    body[] {
+      ...,
+      _type == "docLink" => {
+        "docRefSlug": docRef->slug.current,
+        title,
+        description,
+      }
+    },
     overview,
     title,
     "headings": body[length(style) == 2 && string::startsWith(style, "h")],
-    "previousDoc": {"title": previousDoc->title, "slug": previousDoc->slug.current},
-    "nextDoc": {"title": nextDoc->title, "slug": nextDoc->slug.current}
+    "previousDoc": {
+      "title": previousDoc->title,
+      "slug": previousDoc->slug.current
+    },
+    "nextDoc": {
+      "title": nextDoc->title,
+      "slug": nextDoc->slug.current
+    }
   }
 `
 

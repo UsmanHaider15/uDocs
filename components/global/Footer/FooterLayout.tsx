@@ -1,5 +1,4 @@
 import type { PortableTextBlock } from '@portabletext/types'
-import { CustomPortableText } from 'components/shared/CustomPortableText'
 import type { SettingsPayload } from 'types'
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa'
 
