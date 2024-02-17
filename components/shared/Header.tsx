@@ -21,7 +21,12 @@ export function Header(props: HeaderProps) {
       {/* Description */}
       {description && (
         <div className="">
-          <CustomPortableText value={description} paragraphClasses="text-lg" />
+          <CustomPortableText
+            value={description}
+            paragraphClasses="text-lg"
+            lang="en"
+            version="v1"
+          />
         </div>
       )}
     </div>

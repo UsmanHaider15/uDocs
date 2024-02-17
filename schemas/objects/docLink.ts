@@ -27,6 +27,7 @@ export const docLink = defineType({
         // Use a filter to dynamically limit the reference options
         filter: ({ document }) => {
           // Ensure we have access to the current document's language and version
+          // @ts-ignore
           if (!document?.language || !document?.version?._ref) {
             return {
               filter: '',
@@ -34,12 +35,12 @@ export const docLink = defineType({
             }
           }
 
-          console.log('document.slug.current', document.slug.current)
           return {
             // Filter by language and version
             filter: 'language == $language && version._ref == $versionRef',
             params: {
               language: document.language,
+              // @ts-ignore
               versionRef: document.version._ref,
             },
           }
