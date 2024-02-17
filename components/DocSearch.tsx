@@ -5,9 +5,9 @@ import '@docsearch/css'
 function DocuSearch() {
   return (
     <DocSearch
-      appId="JQKUNTEZ0K"
-      indexName="docs"
-      apiKey="1848f0666711829ecaeea2e5ccc4d41f"
+      appId={process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || ''}
+      indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX || ''}
+      apiKey={process.env.NEXT_PUBLIC_ALGOLIA_API_KEY || ''}
     />
   )
 }
