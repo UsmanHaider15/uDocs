@@ -44,6 +44,16 @@ function getLocale(request: IRequest): string {
 export const middleware: Middleware = (request) => {
   const { pathname } = request.nextUrl
 
+  // Exclude static files or specific asset paths from processing
+  if (
+    pathname.startsWith('/_next/static/') ||
+    pathname.endsWith('.ico') ||
+    pathname.endsWith('.png') ||
+    pathname.endsWith('.jpg')
+  ) {
+    return
+  }
+
   // Check if the pathname starts with /studio and skip localization
   if (pathname.startsWith('/studio')) {
     return
