@@ -6,7 +6,8 @@ import { type DocumentDefinition } from 'sanity'
 import { type StructureResolver } from 'sanity/desk'
 import { Iframe } from 'sanity-plugin-iframe-pane'
 import { iframeOptions, PREVIEWABLE_DOCUMENT_TYPES } from '../sanity.config'
-import { i18n } from 'settings'
+import { i18n, versions } from 'settings'
+import { DocumentTextIcon, TiersIcon, ThListIcon } from '@sanity/icons'
 
 export const singletonPlugin = (types: string[]) => {
   return {
@@ -112,42 +113,64 @@ export const pageStructure = (
         listItem.getId() !== 'toc',
     )
 
-    const docsByLanguageItem = S.listItem()
+    const docsByLanguageAndVersionItem = S.listItem()
       .title('Docs')
+      .icon(DocumentTextIcon)
       .child(() =>
         S.list()
           .title('Languages')
-          .items([
-            ...i18n.languages.map((language) =>
+          .items(
+            i18n.languages.map((language) =>
               S.listItem()
-                .title(`Docs (${language.id.toLocaleUpperCase()})`)
-                .schemaType('doc')
-                .child(
-                  S.documentList()
-                    .id(language.id)
-                    .title(`${language.title} Docs`)
-                    .schemaType('doc')
-                    .filter('_type == "doc" && language == $language')
-                    .params({ language: language.id }),
+                .title(`Docs (${language.id.toUpperCase()})`)
+                .child(() =>
+                  S.list()
+                    .title(`Versions`)
+                    .items(
+                      versions.map((version) =>
+                        S.listItem()
+                          .title(`Version ${version.id}`)
+                          .icon(ThListIcon)
+                          .schemaType('doc')
+                          .child(
+                            S.documentList()
+                              .id(`${language.id}-${version.id}`)
+                              .title(
+                                `${language.title} Docs - ${version.title}`,
+                              )
+                              .schemaType('doc')
+                              .filter(
+                                '_type == "doc" && language == $language && version->slug.current == $version',
+                              )
+                              .params({
+                                language: language.id,
+                                version: version.id,
+                              }),
+                          ),
+                      ),
+                    ),
                 ),
             ),
-          ]),
+          ),
       )
 
     const tocByLanguageItem = S.listItem()
       .title('Table of Content')
+      .icon(TiersIcon)
       .child(() =>
         S.list()
           .title('Languages')
           .items([
             ...i18n.languages.map((language) =>
               S.listItem()
-                .title(`Toc (${language.id.toLocaleUpperCase()})`)
+                .title(`Table of Content (${language.id.toLocaleUpperCase()})`)
                 .schemaType('toc')
                 .child(
                   S.documentList()
                     .id(language.id)
-                    .title(`${language.title} Toc`)
+                    .title(
+                      `Table of Content (${language.id.toLocaleUpperCase()})`,
+                    )
                     .schemaType('toc')
                     .filter('_type == "toc" && language == $language')
                     .params({ language: language.id }),
@@ -161,7 +184,7 @@ export const pageStructure = (
       .items([
         ...singletonItems,
         S.divider(),
-        docsByLanguageItem,
+        docsByLanguageAndVersionItem,
         tocByLanguageItem,
         S.divider(),
         ...defaultListItems,
