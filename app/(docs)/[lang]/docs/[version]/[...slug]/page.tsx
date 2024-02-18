@@ -4,6 +4,7 @@ import DocPagePreview from 'components/pages/doc_page/DocPagePreview'
 import {
   getDocBySlugAndLang,
   getDocsPathsWithLang,
+  getSettings,
   getTocs,
 } from 'lib/sanity.fetch'
 import { docsBySlugAndLangQuery } from 'lib/sanity.queries'
@@ -21,14 +22,15 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, lang, version } = params
 
-  const [page] = await Promise.all([
+  const [settings, page] = await Promise.all([
+    getSettings(),
     getDocBySlugAndLang(`${slug.join('/')}`, lang, version),
   ])
 
   return defineMetadata({
     // baseTitle: homePageTitle ?? undefined,
     description: page?.overview ? toPlainText(page.overview) : '',
-    // image: settings?.ogImage,
+    image: settings?.ogImage,
     title: page?.title,
   })
 }

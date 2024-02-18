@@ -92,6 +92,7 @@ export const docPathsWithLang = groq`
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer,
+    ogImage,
     menuItems[]->{
       _type,
       "slug": slug.current,
