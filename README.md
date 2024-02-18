@@ -5,12 +5,15 @@
 Simple, powerful and flexible site generation framework
 with everything you love from Next.js and Sanity CMS.
 
-<img src="uDocs.png" alt="uDocs Logo" width="300" height="300"/>
-<img src="screenshots/1.png" alt="Introduction Page" width="300" height="300"/>
-<img src="screenshots/2.png" alt="Introduction Page" width="300" height="300"/>
-<img src="screenshots/3.png" alt="Introduction Page" width="300" height="300"/>
-<img src="screenshots/4.png" alt="Introduction Page" width="300" height="300"/>
-<img src="screenshots/5.png" alt="Introduction Page" width="300" height="300"/>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center;">
+  <img src="uDocs.png" alt="uDocs Logo" width="300" height="300"/>
+  <img src="screenshots/1.png" alt="Introduction Page" width="300" height="300"/>
+  <img src="screenshots/2.png" alt="Introduction Page" width="300" height="300"/>
+  <img src="screenshots/3.png" alt="Introduction Page" width="300" height="300"/>
+  <img src="screenshots/4.png" alt="Introduction Page" width="300" height="300"/>
+  <img src="screenshots/5.png" alt="Introduction Page" width="300" height="300"/>
+</div>
+
 
 ## Features
 
