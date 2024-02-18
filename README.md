@@ -5,7 +5,7 @@
 Simple, powerful and flexible site generation framework
 with everything you love from Next.js and Sanity CMS.
 
-![uDocs Logo](uDocs.png)
+<img src="uDocs.png" alt="uDocs Logo" width="500"/>
 
 ## Features
 
