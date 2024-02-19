@@ -1,43 +1,89 @@
 'use client'
-import React, { useState, useEffect } from 'react'
-import { googleTranslateLanguages } from 'settings'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { FaCaretDown } from 'react-icons/fa'
+import ReactCountryFlag from 'react-country-flag'
+
+// Assuming googleTranslateLanguages is correctly imported
+import { googleTranslateLanguages } from 'settings'
 
 interface LanguageDropdownProps {
   lang: string
 }
 
 const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
   const router = useRouter()
 
-  const handleLanguageChange = (e) => {
-    const newLang = e.target.value
+  const currentLanguage = googleTranslateLanguages.find(
+    (language) => language.id === lang,
+  )
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
+
+  const handleLanguageChange = (newLang) => {
+    setIsDropdownOpen(false)
     router.push(`/${newLang}/docs`)
   }
 
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isDropdownOpen])
+
   return (
-    <div className="relative w-24">
-      <select
-        id="language-select"
-        value={lang}
-        onChange={handleLanguageChange}
-        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-2 py-1 text-sm rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-      >
-        {googleTranslateLanguages.map(({ id, title }) => (
-          <option key={id} value={id}>
-            {title}
-          </option>
-        ))}
-      </select>
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-        <svg
-          className="fill-current h-3 w-3"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+    <div className="relative inline-block text-left" ref={dropdownRef}>
+      <div>
+        <button
+          type="button"
+          id="dropdownNavbarLink"
+          onClick={toggleDropdown}
+          className="flex items-center w-full px-2 text-sm font-medium text-gray-700 hover:text-blue-500"
+          aria-expanded="true"
+          aria-haspopup="true"
         >
-          <path d="M5.59 7l5 5 5-5H5.59z" />
-        </svg>
+          <ReactCountryFlag
+            countryCode={currentLanguage?.countryCode}
+            className="mr-1"
+          />
+          {currentLanguage ? currentLanguage.title : 'Select Language'}{' '}
+          <FaCaretDown className="ml-1" />
+        </button>
       </div>
+
+      {isDropdownOpen && (
+        <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1" role="none">
+            {googleTranslateLanguages.map(({ id, title, countryCode }) => (
+              <a
+                href="#"
+                key={id}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleLanguageChange(id)
+                }}
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                <ReactCountryFlag countryCode={countryCode} className="mr-1" />
+                {title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,7 +1,8 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { versions } from 'settings'
+import { FaCaretDown } from 'react-icons/fa'
 
 interface VersionDropdownProps {
   lang: string
@@ -9,36 +10,73 @@ interface VersionDropdownProps {
 }
 
 const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const dropdownRef = useRef(null)
   const router = useRouter()
 
-  const handleVersionChange = (e) => {
-    const newVersion = e.target.value
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
+
+  const handleVersionChange = (newVersion) => {
+    setIsDropdownOpen(false) // Close the dropdown when a version is selected
     router.push(`/${lang}/docs/${newVersion}`)
   }
 
+  const currentVersion = versions.find(
+    (versionObj) => versionObj.id === version,
+  )
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false)
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isDropdownOpen])
+
   return (
-    <div className="relative w-12">
-      <select
-        id="version-select"
-        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-2 py-1 text-sm rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-        onChange={handleVersionChange}
-        value={version}
-      >
-        {versions.map((versionObj) => (
-          <option key={versionObj.id} value={versionObj.id}>
-            {versionObj.title}
-          </option>
-        ))}
-      </select>
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-        <svg
-          className="fill-current h-3 w-3"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+    <div className="relative inline-block text-left" ref={dropdownRef}>
+      <div>
+        <button
+          type="button"
+          id="dropdownNavbarLink"
+          onClick={toggleDropdown}
+          className="flex items-center w-full px-2 text-sm font-medium text-gray-700 hover:text-blue-500"
+          aria-expanded="true"
+          aria-haspopup="true"
         >
-          <path d="M5.59 7l5 5 5-5H5.59z" />
-        </svg>
+          {currentVersion ? currentVersion.title : 'Select Version'}{' '}
+          <FaCaretDown className="ml-1" />
+        </button>
       </div>
+
+      {isDropdownOpen && (
+        <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1" role="none">
+            {versions.map(({ id, title }) => (
+              <a
+                href="#"
+                key={id}
+                onClick={(e) => {
+                  e.preventDefault()
+                  handleVersionChange(id)
+                }}
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {title}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

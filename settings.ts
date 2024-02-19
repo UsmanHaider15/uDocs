@@ -1,9 +1,9 @@
 import { Language, Version } from 'types'
 
 const languages: Language[] = [
-  { id: 'en', title: 'English', isDefault: true },
-  { id: 'ja', title: '日本語' },
-  { id: 'fr', title: 'Français' },
+  { id: 'en', title: 'English', isDefault: true, countryCode: 'US' },
+  { id: 'ja', title: '日本語', countryCode: 'JP' },
+  { id: 'fr', title: 'Français', countryCode: 'FR' },
 ]
 
 const versions: Version[] = [
@@ -17,10 +17,13 @@ const i18n = {
   base: languages.find((item) => item.isDefault).id,
 }
 
-const googleTranslateLanguages = languages.map(({ id, title }) => ({
-  id,
-  title,
-}))
+const googleTranslateLanguages = languages.map(
+  ({ id, title, countryCode }) => ({
+    id,
+    title,
+    countryCode,
+  }),
+)
 
 // For v3 studio
 export { i18n, googleTranslateLanguages, versions }

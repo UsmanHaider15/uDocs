@@ -4,6 +4,7 @@ import type { MenuItem, SettingsPayload } from 'types'
 import LanugageDropdown from '../Navbar/LanguageDropdown'
 import VersionDropdown from '../Navbar/VersionDropdown'
 import DocuSearch from 'components/DocSearch'
+import { FaGithub } from 'react-icons/fa'
 
 interface NavbarProps {
   data: SettingsPayload
@@ -51,6 +52,15 @@ export default function Navbar(props: NavbarProps) {
         <div className="flex flex-row-reverse">
           <div className="mr-2">
             <DocuSearch />
+          </div>
+          <div className="mx-2 self-center">
+            <Link
+              className="hover:text-blue-500 cursor-pointer"
+              href="https://github.com/UsmanHaider15/uDocs"
+              target="_blank"
+            >
+              <FaGithub size={22} />
+            </Link>
           </div>
           <div className="mr-2 self-center">
             <LanugageDropdown lang={lang} />
