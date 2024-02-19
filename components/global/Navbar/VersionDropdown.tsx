@@ -28,6 +28,7 @@ const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
   // Close dropdown if clicked outside
   useEffect(() => {
     function handleClickOutside(event) {
+      // @ts-ignore
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false)
       }

@@ -30,6 +30,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
   // Close dropdown if clicked outside
   useEffect(() => {
     function handleClickOutside(event) {
+      // @ts-ignore
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false)
       }
@@ -56,6 +57,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
           aria-haspopup="true"
         >
           <ReactCountryFlag
+            // @ts-ignore
             countryCode={currentLanguage?.countryCode}
             className="mr-1"
           />

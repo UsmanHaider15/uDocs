@@ -67,7 +67,7 @@ export interface Language {
   id: string
   title: string
   isDefault?: boolean // Optional property
-  countryCode?: string // Optional property
+  countryCode: string // Optional property
 }
 
 export interface Version {
