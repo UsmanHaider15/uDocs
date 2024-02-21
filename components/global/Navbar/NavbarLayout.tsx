@@ -16,7 +16,7 @@ export default function Navbar(props: NavbarProps) {
 
   return (
     <header className="sticky top-0 bg-white z-10 py-2 border-b-2 md:px-0 px-2">
-      <nav className="flex mx-auto max-w-screen-lg justify-between">
+      <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="self-center">
           <Link
             href={`/en/docs/v1/introduction`}

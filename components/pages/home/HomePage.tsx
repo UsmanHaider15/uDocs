@@ -15,7 +15,7 @@ export function HomePage({ data, lang }: HomePageProps) {
   const { features, overview = [], title = '' } = data ?? {}
 
   return (
-    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-lg md:px-0">
+    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
       <div className="mb-24 mt-5">
         <div className="text-center">
           {/* {title && <Header centered title={title} description={overview} />} */}
