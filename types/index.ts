@@ -51,6 +51,16 @@ export interface DocPagePayload {
   nextDoc: Partial<DocPagePayload>
 }
 
+export interface BlogPagePayload {
+  title: string
+  slug: string
+  overview?: PortableTextBlock[]
+  body?: PortableTextBlock[]
+  headings?: PortableTextBlock[]
+  previousDoc: Partial<BlogPagePayload>
+  nextDoc: Partial<BlogPagePayload>
+}
+
 export interface TOCLink {
   title: string
   slug: string

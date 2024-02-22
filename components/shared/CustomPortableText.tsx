@@ -17,7 +17,7 @@ export function CustomPortableText({
   paragraphClasses?: string
   value: PortableTextBlock[]
   lang: string
-  version: string
+  version?: string
 }) {
   const consistentBaseClass = 'my-4 mx-0 text-base leading-relaxed' // Consistent base for typography
 

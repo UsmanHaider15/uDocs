@@ -12,9 +12,12 @@ import {
   settingsQuery,
   tocQuery,
   pageBySlugAndLangQuery,
+  blogsBySlugAndLangQuery,
+  blogPathsWithLang,
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
+  BlogPagePayload,
   DocPagePayload,
   HomePagePayload,
   PagePayload,
@@ -93,6 +96,14 @@ export function getDocBySlugAndLang(
   })
 }
 
+export function getBlogBySlugAndLang(slug: string, lang?: string) {
+  return sanityFetch<BlogPagePayload | null>({
+    query: blogsBySlugAndLangQuery,
+    params: { slug, lang },
+    tags: [`/${lang}/blog//${slug}`],
+  })
+}
+
 export function getPageBySlugAndLang(slug: string, lang?: string) {
   return sanityFetch<PagePayload | null>({
     query: pageBySlugAndLangQuery,
@@ -135,6 +146,14 @@ export function getPagesPaths() {
 export function getDocsPathsWithLang() {
   return client.fetch<{ language: string; slug: string; version: string }[]>(
     docPathsWithLang,
+    {},
+    { token, perspective: 'published' },
+  )
+}
+
+export function getBlogsPathsWithLang() {
+  return client.fetch<{ language: string; slug: string }[]>(
+    blogPathsWithLang,
     {},
     { token, perspective: 'published' },
   )

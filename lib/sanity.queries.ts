@@ -68,6 +68,31 @@ export const docsBySlugAndLangQuery = groq`
   }
 `
 
+export const blogsBySlugAndLangQuery = groq`
+  *[_type == "blog" && slug.current == $slug && language == $lang][0] {
+    _id,
+    body[] {
+      ...,
+      _type == "docLink" => {
+        "docRefSlug": docRef->slug.current,
+        title,
+        description,
+      }
+    },
+    overview,
+    title,
+    "headings": body[length(style) == 2 && string::startsWith(style, "h")],
+    "previousDoc": {
+      "title": previousDoc->title,
+      "slug": previousDoc->slug.current
+    },
+    "nextDoc": {
+      "title": nextDoc->title,
+      "slug": nextDoc->slug.current
+    }
+  }
+`
+
 export const pageBySlugAndLangQuery = groq`
   *[_type == "page" && slug.current == $slug && language == $lang ][0] {
   _id,
@@ -89,6 +114,14 @@ export const docPathsWithLang = groq`
     "version": version->slug.current,
   }
 `
+
+export const blogPathsWithLang = groq`
+  *[_type == "blog" && slug.current != null]{
+    "slug": slug.current,
+    "language": language
+  }
+`
+
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer,
