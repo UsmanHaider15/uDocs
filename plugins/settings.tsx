@@ -110,7 +110,8 @@ export const pageStructure = (
           (singleton) => singleton.name === listItem.getId(),
         ) &&
         listItem.getId() !== 'doc' &&
-        listItem.getId() !== 'toc',
+        listItem.getId() !== 'toc' &&
+        listItem.getId() !== 'blog',
     )
 
     const docsByLanguageAndVersionItem = S.listItem()
@@ -154,6 +155,29 @@ export const pageStructure = (
           ),
       )
 
+    const blogItemsByLanguage = S.listItem()
+      .title('Blogs')
+      .icon(DocumentTextIcon) // Adjust the icon as needed
+      .child(() =>
+        S.list()
+          .title('Languages')
+          .items([
+            ...i18n.languages.map((language) =>
+              S.listItem()
+                .title(`Blogs (${language.title})`)
+                .schemaType('blog')
+                .child(
+                  S.documentList()
+                    .id(`blog-${language.id}`)
+                    .title(`Blogs (${language.title})`)
+                    .schemaType('blog')
+                    .filter('_type == "blog" && language == $language')
+                    .params({ language: language.id }),
+                ),
+            ),
+          ]),
+      )
+
     const tocByLanguageItem = S.listItem()
       .title('Table of Content')
       .icon(TiersIcon)
@@ -184,6 +208,7 @@ export const pageStructure = (
       .items([
         ...singletonItems,
         S.divider(),
+        blogItemsByLanguage,
         docsByLanguageAndVersionItem,
         tocByLanguageItem,
         S.divider(),

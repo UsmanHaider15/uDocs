@@ -27,6 +27,7 @@ import { youtube } from 'schemas/objects/youtube'
 import { i18n } from 'settings'
 import { codeInput } from '@sanity/code-input'
 import { docLink } from 'schemas/objects/docLink'
+import blog from 'schemas/documents/blog'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -36,11 +37,13 @@ export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
   page.name,
   doc.name,
+  blog.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
   page.name,
   doc.name,
+  blog.name,
 ] satisfies typeof PREVIEWABLE_DOCUMENT_TYPES
 
 // Used to generate URLs for drafts and live previews
@@ -50,9 +53,6 @@ export const urlResolver = defineUrlResolver({
   base: PREVIEW_BASE_URL,
   requiresSlug: PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS,
 })
-
-// Usage
-// Assuming 'doc' is the document you are working with and 'getClient' is available
 
 export const iframeOptions = {
   url: async (doc, secret) => {
@@ -88,6 +88,7 @@ export default defineConfig({
       duration,
       page,
       doc,
+      blog,
       toc,
       // Objects
       youtube,
@@ -129,7 +130,7 @@ export default defineConfig({
 
       // Required
       // Translations UI will only appear on these schema types
-      schemaTypes: ['doc', 'toc', 'page'],
+      schemaTypes: ['doc', 'toc', 'page', 'blog'],
 
       // Optional
       // Customizes the name of the language field

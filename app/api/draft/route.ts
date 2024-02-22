@@ -73,6 +73,8 @@ export async function GET(request) {
     await resolveAndRedirect(documentType, fullSlug, language)
   } else if (documentType === 'page') {
     await resolveAndRedirect(documentType, slug, language)
+  } else if (documentType === 'blog') {
+    await resolveAndRedirect(documentType, slug, language)
   } else {
     throw new Response('Invalid document type', { status: 400 })
   }
