@@ -6,7 +6,6 @@ import {
   getPageBySlug,
   getPageBySlugAndLang,
   getPagesPaths,
-  getSettings,
 } from 'lib/sanity.fetch'
 import { pageBySlugAndLangQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
@@ -24,8 +23,7 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = params
 
-  const [settings, page, homePageTitle] = await Promise.all([
-    getSettings(),
+  const [page, homePageTitle] = await Promise.all([
     getPageBySlug(slug),
     getHomePageTitle(),
   ])
@@ -33,7 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return defineMetadata({
     baseTitle: homePageTitle ?? undefined,
     description: page?.overview ? toPlainText(page.overview) : '',
-    image: settings?.ogImage,
     title: page?.title,
   })
 }

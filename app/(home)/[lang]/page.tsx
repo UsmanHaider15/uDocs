@@ -1,11 +1,7 @@
 import { toPlainText } from '@portabletext/react'
 import { HomePage } from 'components/pages/home/HomePage'
 import HomePagePreview from 'components/pages/home/HomePagePreview'
-import {
-  getHomePage,
-  getPageBySlugAndLang,
-  getSettings,
-} from 'lib/sanity.fetch'
+import { getHomePage, getSettings } from 'lib/sanity.fetch'
 import { homePageQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'

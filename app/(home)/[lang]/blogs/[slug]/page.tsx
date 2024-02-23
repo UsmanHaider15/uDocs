@@ -20,15 +20,11 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, lang } = params
 
-  const [settings, page] = await Promise.all([
-    getSettings(),
-    getBlogBySlugAndLang(slug, lang),
-  ])
+  const [page] = await Promise.all([getBlogBySlugAndLang(slug, lang)])
 
   return defineMetadata({
     // baseTitle: homePageTitle ?? undefined,
     description: page?.overview ? toPlainText(page.overview) : '',
-    image: settings?.ogImage,
     title: page?.title,
   })
 }

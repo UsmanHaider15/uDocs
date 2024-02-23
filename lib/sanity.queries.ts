@@ -43,6 +43,16 @@ export const tocQuery = `
   }
 `
 
+export const recentBlogs = `
+*[_type == "blog" && language == $lang] | order(_createdAt desc)[0...5]
+  {
+    poster,
+    title,
+    "slug": slug.current,
+    overview,
+  }
+`
+
 export const docsBySlugAndLangQuery = groq`
   *[_type == "doc" && slug.current == $slug && language == $lang && version->slug.current == $version][0] {
     _id,

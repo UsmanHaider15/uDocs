@@ -68,7 +68,6 @@ export function Page({ data }: PageProps) {
             paragraphClasses="font-serif max-w-3xl text-xl"
             value={overview}
             lang="en"
-            version="v1"
           />
         </div>
       )}
@@ -78,7 +77,6 @@ export function Page({ data }: PageProps) {
             paragraphClasses="font-serif max-w-3xl text-xl"
             value={body}
             lang="en"
-            version="v1"
           />
         )}
       </article>

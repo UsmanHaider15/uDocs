@@ -14,6 +14,7 @@ import {
   pageBySlugAndLangQuery,
   blogsBySlugAndLangQuery,
   blogPathsWithLang,
+  recentBlogs,
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
@@ -125,6 +126,14 @@ export function getTocs(lang: string, version?: string) {
     query: tocQuery,
     params: { lang, version },
     tags: [`/${lang}/docs/${version}/[...slug]`],
+  })
+}
+
+export function getRecentBlogsSlugs(lang: string) {
+  return sanityFetch<BlogPagePayload[] | null>({
+    query: recentBlogs,
+    params: { lang },
+    tags: [`/${lang}/blogs/[slug]`],
   })
 }
 

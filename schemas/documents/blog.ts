@@ -13,6 +13,26 @@ export default defineType({
       title: 'Title',
       validation: (rule) => rule.required(),
     }),
+    {
+      title: 'Poster',
+      name: 'poster',
+      type: 'image',
+      options: {
+        hotspot: true, // <-- Defaults to false
+      },
+      fields: [
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+        },
+        {
+          name: 'attribution',
+          type: 'string',
+          title: 'Attribution',
+        },
+      ],
+    },
     defineField({
       type: 'slug',
       name: 'slug',

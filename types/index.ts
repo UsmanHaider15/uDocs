@@ -53,6 +53,7 @@ export interface DocPagePayload {
 
 export interface BlogPagePayload {
   title: string
+  poster: Image
   slug: string
   overview?: PortableTextBlock[]
   body?: PortableTextBlock[]
@@ -65,6 +66,11 @@ export interface TOCLink {
   title: string
   slug: string
   links?: TOCLink[] | null
+}
+
+export interface BlogLink {
+  title: string
+  slug: string
 }
 
 export interface SettingsPayload {

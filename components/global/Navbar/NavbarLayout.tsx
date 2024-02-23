@@ -20,9 +20,12 @@ export default function Navbar(props: NavbarProps) {
         <div className="self-center">
           <Link
             href={`/en/docs/v1/introduction`}
-            className="hover:text-blue-500"
+            className="hover:text-blue-500 mr-4"
           >
             Docs
+          </Link>
+          <Link href={`/${lang}/blogs`} className="hover:text-blue-500">
+            Blogs
           </Link>
           {menuItems &&
             menuItems.map((menuItem, key) => {
