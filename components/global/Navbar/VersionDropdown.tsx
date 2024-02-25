@@ -44,13 +44,13 @@ const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
   }, [isDropdownOpen])
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
-      <div>
+    <div className="relative inline-block text-left w-full" ref={dropdownRef}>
+      <div className="border rounded-md">
         <button
           type="button"
           id="dropdownNavbarLink"
           onClick={toggleDropdown}
-          className="flex items-center w-full px-2 text-sm font-medium text-gray-700 hover:text-blue-500"
+          className="flex justify-between w-full p-2 text-sm font-medium text-gray-700 hover:text-blue-500"
           aria-expanded="true"
           aria-haspopup="true"
         >
@@ -60,7 +60,7 @@ const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
       </div>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute left-0 border border-top-0 right-0 z-10 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1" role="none">
             {versions.map(({ id, title }) => (
               <a
