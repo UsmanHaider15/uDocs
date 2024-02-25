@@ -4,6 +4,7 @@ import type { MenuItem, SettingsPayload } from 'types'
 import LanugageDropdown from './LanguageDropdown'
 import DocuSearch from 'components/DocSearch'
 import { FaGithub } from 'react-icons/fa'
+import Image from 'next/image'
 
 interface NavbarProps {
   data: SettingsPayload
@@ -17,9 +18,9 @@ export default function Navbar(props: NavbarProps) {
   return (
     <header className="sticky top-0 bg-white z-10 py-2 border-b-2 md:px-0 px-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
-        <div className="self-center">
+        <div className="flex items-center">
           <Link href={`/${lang}`} className="hover:text-blue-500 mr-4">
-            Home
+            <Image width={30} height={30} src="/favicon.ico" alt="Home" />
           </Link>
           <Link
             href={`/en/docs/v1/introduction`}

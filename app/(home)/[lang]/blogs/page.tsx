@@ -23,7 +23,7 @@ export default async function BlogSlugRoute({ params }: Props) {
   return (
     <div className="w-full">
       <div className="my-6 text-4xl font-bold text-center">Recent Blogs</div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col md:flex-row">
         {data &&
           data.map((blog, index) => (
             <div
