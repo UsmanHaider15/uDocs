@@ -25,8 +25,11 @@ export default async function BlogSlugRoute({ params }: Props) {
       <div className="my-6 text-4xl font-bold text-center">Recent Blogs</div>
       <div className="flex gap-4">
         {data &&
-          data.map((blog) => (
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+          data.map((blog, index) => (
+            <div
+              key={index}
+              className="max-w-sm bg-white border border-gray-200 rounded-lg shadow"
+            >
               <Link href={`/${params.lang}/blogs/${blog.slug}`}>
                 {/* Assuming blog.imageSrc is the path to your blog's image. Adjust as necessary. */}
                 <ImageBox image={blog.poster} alt={blog.title} />

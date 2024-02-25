@@ -55,7 +55,7 @@ export interface BlogPagePayload {
   title: string
   poster: Image
   slug: string
-  overview?: PortableTextBlock[]
+  overview: PortableTextBlock[]
   body?: PortableTextBlock[]
   headings?: PortableTextBlock[]
   previousDoc: Partial<BlogPagePayload>
