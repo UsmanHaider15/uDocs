@@ -1,6 +1,6 @@
 import { toPlainText } from '@portabletext/react'
-import { DocPage } from 'components/pages/doc_page/DocPage'
-import DocPagePreview from 'components/pages/doc_page/DocPagePreview'
+import { DocPage } from 'components/pages/doc-page/DocPage'
+import DocPagePreview from 'components/pages/doc-page/DocPagePreview'
 import {
   getDocBySlugAndLang,
   getDocsPathsWithLang,
