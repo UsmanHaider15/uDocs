@@ -3,6 +3,7 @@ import { CustomPortableText } from 'components/shared/CustomPortableText'
 import Link from 'next/link'
 import type { DocPagePayload, TOCLink } from 'types'
 import { TableOfContents } from 'components/shared/TableOfContent'
+import { IoMdHome } from 'react-icons/io'
 
 export interface DocPageProps {
   data: DocPagePayload | null
@@ -17,11 +18,18 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
   return (
     <div className="flex flex-col md:flex-row grow">
       <article className="grow p-3">
-        <div className="mb-4">
+        <div className="flex item-center mb-4">
+          <Link
+            href={`/${lang}`}
+            className="text-blue-700 hover:underline hover:font-semibold"
+          >
+            <IoMdHome size={22} />
+          </Link>
+          <span className="text-gray-500 px-2"> / </span>
           {docNavigation &&
             docNavigation.map((link, index) => (
               <React.Fragment key={index}>
-                {index > 0 && <span className="text-gray-500"> / </span>}
+                {index > 0 && <span className="text-gray-500 px-2"> / </span>}
                 <Link
                   href={`/${lang}/docs/${version}/${link.slug}`}
                   className="text-blue-700 hover:underline hover:font-semibold"

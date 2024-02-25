@@ -86,17 +86,18 @@ export function CustomPortableText({
       ),
       youtube: (props) => <YouTube url={props.value.url} />,
       docLink: ({ value }) => {
-        console.log('value', value)
         return (
           <div className="my-4">
             <h3 className="text-xl font-semibold">{value.title}</h3>
-            <p>{value.description}</p>
-            <Link
-              href={`/${lang}/docs/${version}/${value.docRefSlug}`}
-              className="text-blue-500 hover:text-blue-700"
-            >
-              Read more
-            </Link>
+            <p className="!mb-0">{value.description}</p>
+            <div>
+              <Link
+                href={`/${lang}/docs/${version}/${value.docRefSlug}`}
+                className="text-blue-500 hover:text-blue-700"
+              >
+                Read more
+              </Link>
+            </div>
           </div>
         )
       },
