@@ -22,7 +22,7 @@ const NavigationLink = ({
   const isActive = pathname === href
 
   const linkBaseClasses =
-    'block px-2 py-1 text-sm transition-colors duration-150 ease-in-out'
+    'block px-2 py-1 text-base transition-colors duration-150 ease-in-out'
   const activeClasses = 'text-blue-700 font-semibold'
   const hoverClasses = 'hover:text-blue-700 hover:font-semibold'
   const fontClasses = hasNestedLinks ? 'font-semibold' : 'font-normal'

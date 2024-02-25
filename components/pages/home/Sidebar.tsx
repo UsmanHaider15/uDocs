@@ -37,7 +37,7 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   }, []) // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="flex-none md:w-56 md:sticky md:top-20 md:h-screen">
+    <div className="flex-none md:w-56 md:sticky md:top-32 md:h-screen">
       <aside>
         {/* Toggle Button with Icon - only shown on small screens */}
         <button

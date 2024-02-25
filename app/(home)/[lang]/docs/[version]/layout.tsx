@@ -30,9 +30,6 @@ export default async function DocsLayout({
 
         <Suspense>{children}</Suspense>
       </div>
-      <Suspense>
-        <Footer />
-      </Suspense>
     </div>
   )
 }
