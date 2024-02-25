@@ -1,7 +1,6 @@
 import Sidebar from 'components/pages/home/Sidebar'
 import { getTocs, token } from 'lib/sanity.fetch'
 import { Suspense } from 'react'
-import VersionDropdown from 'components/global/Navbar/VersionDropdown'
 
 export default async function DocsLayout({
   params,
@@ -15,17 +14,9 @@ export default async function DocsLayout({
   return (
     <div>
       <div className="flex flex-col md:flex-row max-w-screen-xl mx-auto md:py-4">
-        <div>
-          <VersionDropdown lang={params.lang} version={params.version} />
-
-          {toc && (
-            <Sidebar
-              toc={toc}
-              language={params.lang}
-              version={params.version}
-            />
-          )}
-        </div>
+        {toc && (
+          <Sidebar toc={toc} language={params.lang} version={params.version} />
+        )}
 
         <Suspense>{children}</Suspense>
       </div>

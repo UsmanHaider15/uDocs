@@ -3,6 +3,7 @@ import { useState, useEffect, FC } from 'react'
 import { TOCLink } from 'types'
 import NavigationLink from './NavigationLink'
 import { FiMenu, FiX } from 'react-icons/fi' // Importing icons
+import VersionDropdown from 'components/global/Navbar/VersionDropdown'
 
 interface SidebarProps {
   toc: TOCLink
@@ -37,8 +38,10 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
   }, []) // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="flex-none md:w-56 md:sticky md:top-32 md:h-screen">
-      <aside>
+    <div className="flex-none md:w-56 md:sticky md:top-20 md:h-screen">
+      <VersionDropdown lang={language} version={version} />
+
+      <aside className="pt-3">
         {/* Toggle Button with Icon - only shown on small screens */}
         <button
           onClick={toggleLinksVisibility}
