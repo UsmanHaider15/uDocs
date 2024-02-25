@@ -89,6 +89,7 @@ export const blogsBySlugAndLangQuery = groq`
         description,
       }
     },
+    poster,
     overview,
     title,
     "headings": body[length(style) == 2 && string::startsWith(style, "h")],

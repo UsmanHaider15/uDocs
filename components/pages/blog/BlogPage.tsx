@@ -1,21 +1,33 @@
 import React from 'react'
 import { CustomPortableText } from 'components/shared/CustomPortableText'
 import Link from 'next/link'
-import type { DocPagePayload, TOCLink } from 'types'
+import type { BlogPagePayload, DocPagePayload, TOCLink } from 'types'
 import { TableOfContents } from 'components/shared/TableOfContent'
+import ImageBox from 'components/shared/ImageBox'
 
 export interface BlogPageProps {
-  data: DocPagePayload | null
+  data: BlogPagePayload | null
   lang: string
 }
 
 export function BlogPage({ data, lang }: BlogPageProps) {
-  const { body, title, headings, previousDoc, nextDoc } = data ?? {}
+  const { body, overview, title, headings, previousDoc, nextDoc } = data ?? {}
 
   return (
     <div className="flex flex-col md:flex-row grow">
       <article className="grow p-3">
         {title && <h1 className="text-4xl font-bold mb-4">{title}</h1>}
+
+        {overview && (
+          <CustomPortableText
+            paragraphClasses="max-w-3xl mb-4"
+            value={overview}
+            lang={lang}
+          />
+        )}
+
+        <ImageBox image={data?.poster} alt={data?.title} />
+
         {body && (
           <CustomPortableText
             paragraphClasses="max-w-3xl mb-4"
@@ -23,7 +35,6 @@ export function BlogPage({ data, lang }: BlogPageProps) {
             lang={lang}
           />
         )}
-
         <div className="flex justify-between items-center px-2 py-4">
           {previousDoc && previousDoc.slug && previousDoc.title ? (
             <Link

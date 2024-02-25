@@ -1,4 +1,4 @@
-import { getRecentBlogsSlugs, getSettings } from 'lib/sanity.fetch'
+import { getRecentBlogsSlugs } from 'lib/sanity.fetch'
 import { toPlainText } from '@portabletext/react'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
@@ -12,7 +12,6 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return defineMetadata({
-    // baseTitle: homePageTitle ?? undefined,
     description: 'List of all Recent Blogs',
     title: 'Blogs Page',
   })
@@ -22,7 +21,8 @@ export default async function BlogSlugRoute({ params }: Props) {
   const data = await getRecentBlogsSlugs(params.lang)
 
   return (
-    <div>
+    <div className="w-full">
+      <div className="my-6 text-4xl font-bold text-center">Recent Blogs</div>
       <div className="flex gap-4">
         {data &&
           data.map((blog) => (
