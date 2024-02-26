@@ -28,12 +28,6 @@ export default function Navbar(props: NavbarProps) {
           >
             Docs
           </Link>
-          <Link
-            href={`/en/api-reference/v1/introduction`}
-            className="hover:text-blue-500 mr-4"
-          >
-            API
-          </Link>
           <Link href={`/${lang}/blogs`} className="hover:text-blue-500">
             Blogs
           </Link>
