@@ -16,7 +16,7 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-white z-10 py-2 border-b-2 md:px-0 px-2">
+    <header className="sticky top-0 bg-white z-10 py-2 shadow-sm md:px-0 px-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="flex items-center">
           <Link href={`/${lang}`} className="hover:text-blue-500 mr-4">
