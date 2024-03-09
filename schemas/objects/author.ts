@@ -12,6 +12,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'role',
+      type: 'string',
+      title: 'Role',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'bio',
       type: 'text',
       title: 'Biography',
@@ -19,9 +25,9 @@ export default defineType({
       of: [{ type: 'block' }],
     },
     {
-      name: 'image',
+      name: 'authorImage',
       type: 'image',
-      title: 'Image',
+      title: 'Author Image',
       options: {
         hotspot: true, // Enables image cropping
       },

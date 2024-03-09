@@ -11,12 +11,17 @@ export interface BlogPageProps {
 }
 
 export function BlogPage({ data, lang }: BlogPageProps) {
-  const { body, overview, title, headings, previousDoc, nextDoc } = data ?? {}
+  const { title, converImage, overview, body, author, _createdAt } = data ?? {}
 
   return (
     <div className="flex flex-col md:flex-row grow">
       <article className="grow p-3">
         {title && <h1 className="text-4xl font-bold mb-4">{title}</h1>}
+        {author && author.name}
+        {author && author.role}
+        {author && author.authorImage && (
+          <ImageBox image={author.authorImage} alt={author.name} />
+        )}
 
         {overview && (
           <CustomPortableText
@@ -26,7 +31,7 @@ export function BlogPage({ data, lang }: BlogPageProps) {
           />
         )}
 
-        <ImageBox image={data?.converImage} alt={data?.title} />
+        <ImageBox image={converImage} alt={title} />
 
         {body && (
           <CustomPortableText
@@ -35,35 +40,7 @@ export function BlogPage({ data, lang }: BlogPageProps) {
             lang={lang}
           />
         )}
-        <div className="flex justify-between items-center px-2 py-4">
-          {previousDoc && previousDoc.slug && previousDoc.title ? (
-            <Link
-              href={`/${lang}/blogs/${previousDoc.slug}`}
-              className="text-blue-700 hover:underline hover:font-semibold"
-            >
-              ← {previousDoc.title}
-            </Link>
-          ) : (
-            <span></span> // Placeholder to keep the layout but not display anything
-          )}
-          {nextDoc && nextDoc.slug && nextDoc.title ? (
-            <Link
-              href={`/${lang}/blogs/${nextDoc.slug}`}
-              className="text-blue-700 hover:underline hover:font-semibold"
-            >
-              {nextDoc.title} →
-            </Link>
-          ) : (
-            <span></span>
-          )}
-        </div>
       </article>
-
-      <nav className="flex-none w-56 sticky top-20 h-screen overflow-y-auto p-2 hidden md:block">
-        {headings && headings.length > 0 && (
-          <TableOfContents headings={headings} />
-        )}
-      </nav>
     </div>
   )
 }

@@ -51,15 +51,20 @@ export interface DocPagePayload {
   nextDoc: Partial<DocPagePayload>
 }
 
+interface Author {
+  name: string
+  role: string
+  authorImage: Image
+}
+
 export interface BlogPagePayload {
   title: string
-  converImage: Image
   slug: string
+  converImage: Image
   overview: PortableTextBlock[]
   body?: PortableTextBlock[]
-  headings?: PortableTextBlock[]
-  previousDoc: Partial<BlogPagePayload>
-  nextDoc: Partial<BlogPagePayload>
+  author: Author
+  _createdAt: string
 }
 
 export interface TOCLink {

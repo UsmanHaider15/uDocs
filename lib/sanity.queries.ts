@@ -81,6 +81,10 @@ export const docsBySlugAndLangQuery = groq`
 export const blogsBySlugAndLangQuery = groq`
   *[_type == "blog" && slug.current == $slug && language == $lang][0] {
     _id,
+    title,
+    "slug": slug.current,
+    converImage,
+    overview,
     body[] {
       ...,
       _type == "docLink" => {
@@ -89,18 +93,12 @@ export const blogsBySlugAndLangQuery = groq`
         description,
       }
     },
-    converImage,
-    overview,
-    title,
-    "headings": body[length(style) == 2 && string::startsWith(style, "h")],
-    "previousDoc": {
-      "title": previousDoc->title,
-      "slug": previousDoc->slug.current
+    author->{
+      name,
+      role,
+      authorImage
     },
-    "nextDoc": {
-      "title": nextDoc->title,
-      "slug": nextDoc->slug.current
-    }
+    _createdAt
   }
 `
 
