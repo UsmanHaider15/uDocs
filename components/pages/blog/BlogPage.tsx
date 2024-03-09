@@ -13,12 +13,15 @@ export interface BlogPageProps {
 export function BlogPage({ data, lang }: BlogPageProps) {
   const { title, converImage, body, author, _createdAt } = data ?? {}
 
-  const date = new Date(_createdAt)
-  const formattedDate = date.toLocaleDateString('en-US', {
-    month: 'long', // full month name
-    day: 'numeric', // numeric day
-    year: 'numeric', // 4 digit year
-  })
+  let formattedDate = ''
+  if (_createdAt) {
+    const date = new Date(_createdAt)
+    formattedDate = date.toLocaleDateString('en-US', {
+      month: 'long', // full month name
+      day: 'numeric', // numeric day
+      year: 'numeric', // 4 digit year
+    })
+  }
 
   const authorImageUrl =
     author && urlForImage(author.authorImage)?.fit('crop').url()

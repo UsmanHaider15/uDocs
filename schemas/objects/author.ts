@@ -22,6 +22,7 @@ export default defineType({
       type: 'text',
       title: 'Biography',
       // Optional: If you want the bio to support rich text (bold, italic, links)
+      // @ts-ignore
       of: [{ type: 'block' }],
     },
     {
