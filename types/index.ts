@@ -53,7 +53,7 @@ export interface DocPagePayload {
 
 export interface BlogPagePayload {
   title: string
-  poster: Image
+  converImage: Image
   slug: string
   overview: PortableTextBlock[]
   body?: PortableTextBlock[]

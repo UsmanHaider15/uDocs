@@ -26,7 +26,7 @@ export function BlogPage({ data, lang }: BlogPageProps) {
           />
         )}
 
-        <ImageBox image={data?.poster} alt={data?.title} />
+        <ImageBox image={data?.converImage} alt={data?.title} />
 
         {body && (
           <CustomPortableText

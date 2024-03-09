@@ -28,9 +28,9 @@ export default function Navbar(props: NavbarProps) {
           >
             Docs
           </Link>
-          <Link href={`/${lang}/blogs`} className="hover:text-blue-500">
+          {/* <Link href={`/${lang}/blogs`} className="hover:text-blue-500">
             Blogs
-          </Link>
+          </Link> */}
           {menuItems &&
             menuItems.map((menuItem, key) => {
               const href = resolveHref(menuItem?._type, menuItem?.slug)

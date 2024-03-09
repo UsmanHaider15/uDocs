@@ -16,6 +16,7 @@ import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import page from 'schemas/documents/page'
 import doc from 'schemas/documents/doc'
 import toc from 'schemas/documents/toc'
+import author from 'schemas/objects/author'
 import duration from 'schemas/objects/duration'
 import milestone from 'schemas/objects/milestone'
 import timeline from 'schemas/objects/timeline'
@@ -91,6 +92,7 @@ export default defineConfig({
       blog,
       toc,
       // Objects
+      author,
       youtube,
       milestone,
       timeline,

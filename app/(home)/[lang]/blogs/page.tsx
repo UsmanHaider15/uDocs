@@ -32,7 +32,7 @@ export default async function BlogSlugRoute({ params }: Props) {
             >
               <Link href={`/${params.lang}/blogs/${blog.slug}`}>
                 {/* Assuming blog.imageSrc is the path to your blog's image. Adjust as necessary. */}
-                <ImageBox image={blog.poster} alt={blog.title} />
+                <ImageBox image={blog.converImage} alt={blog.title} />
               </Link>
               <div className="p-5">
                 <Link href={`/${params.lang}/blogs/${blog.slug}`}>

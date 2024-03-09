@@ -12,7 +12,7 @@ export default defineType({
       type: 'string',
       name: 'title',
       title: 'Title',
-      validation: (rule) => rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       type: 'slug',
@@ -25,11 +25,11 @@ export default defineType({
       },
     }),
     {
-      title: 'Poster',
-      name: 'poster',
+      title: 'Cover Image',
+      name: 'converImage',
       type: 'image',
       options: {
-        hotspot: true, // <-- Defaults to false
+        hotspot: true,
       },
       fields: [
         {
@@ -44,34 +44,21 @@ export default defineType({
         },
       ],
     },
-
     defineField({
       name: 'language',
       type: 'string',
       readOnly: true,
     }),
-    // Removed the version field
     defineField({
       name: 'overview',
-      description:
-        'Used both for the <meta> description tag for SEO, and the website subheader.',
       title: 'Overview',
       type: 'array',
       of: [
         defineArrayMember({
-          lists: [],
-          marks: {
-            annotations: [],
-            decorators: [
-              { title: 'Italic', value: 'em' },
-              { title: 'Strong', value: 'strong' },
-            ],
-          },
-          styles: [],
           type: 'block',
         }),
       ],
-      validation: (rule) => rule.max(155).required(),
+      validation: (Rule) => Rule.max(155).required(),
     }),
     defineField({
       name: 'body',
@@ -80,26 +67,15 @@ export default defineType({
       of: [
         defineArrayMember({
           type: 'block',
-          marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'Url',
-                  },
-                ],
-              },
-            ],
-          },
-          styles: [{ title: 'Normal', value: 'normal' }],
-          lists: [],
         }),
       ],
+    }),
+    // Add the author reference field
+    defineField({
+      name: 'author',
+      title: 'Author',
+      type: 'reference',
+      to: [{ type: 'author' }], // Reference to an author document type
     }),
   ],
   preview: {
@@ -107,11 +83,11 @@ export default defineType({
       title: 'title',
       subtitle: 'slug.current',
     },
-    prepare(props: any) {
+    prepare(props) {
       const { subtitle } = props
       return {
         title: props.title,
-        subtitle: subtitle,
+        subtitle,
       }
     },
   },
