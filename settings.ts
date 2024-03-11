@@ -5,10 +5,7 @@ const languages: Language[] = [
   { id: 'ja', title: '日本語', countryCode: 'JP' },
 ]
 
-const versions: Version[] = [
-  { id: 'v1', title: 'V1', isDefault: true },
-  { id: 'v2', title: 'V2' },
-]
+const versions: Version[] = [{ id: 'v1', title: 'V1', isDefault: true }]
 
 const i18n = {
   languages,

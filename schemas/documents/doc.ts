@@ -47,6 +47,7 @@ export default defineType({
           }
         },
       },
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'overview',
@@ -188,10 +189,13 @@ export default defineType({
       description: 'Reference to the previous document',
       options: {
         filter: ({ document }) => {
+          // @ts-ignore
+          const versionRef = document?.version._ref
           return {
-            filter: 'language == $language',
+            filter: 'language == $language && version._ref == $versionRef',
             params: {
               language: document?.language,
+              versionRef, // This needs to be the actual reference ID of the version
             },
           }
         },
@@ -205,10 +209,13 @@ export default defineType({
       description: 'Reference to the next document',
       options: {
         filter: ({ document }) => {
+          // @ts-ignore
+          const versionRef = document?.version._ref
           return {
-            filter: 'language == $language',
+            filter: 'language == $language && version._ref == $versionRef',
             params: {
               language: document?.language,
+              versionRef, // This needs to be the actual reference ID of the version
             },
           }
         },
