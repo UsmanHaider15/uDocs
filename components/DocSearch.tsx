@@ -7,7 +7,7 @@ function DocuSearch() {
     <DocSearch
       appId={process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || ''}
       indexName={process.env.NEXT_PUBLIC_ALGOLIA_INDEX || ''}
-      apiKey={process.env.NEXT_PUBLIC_ALGOLIA_API_KEY || ''}
+      apiKey={process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY || ''}
     />
   )
 }

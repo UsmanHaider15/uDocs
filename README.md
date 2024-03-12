@@ -14,7 +14,6 @@ with everything you love from Next.js and Sanity CMS.
   <img src="screenshots/5.png" alt="Introduction Page" width="200" height="200"/>
 </div>
 
-
 ## Features
 
 - Documentation Localization
@@ -35,7 +34,7 @@ with everything you love from Next.js and Sanity CMS.
 
 Use the Deploy Button below. It will let you deploy the starter using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-sanity-example) as well as connect it to your Sanity Content Lake using [the Sanity Vercel Integration][integration].
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FUsmanHaider15%2FuDocs&env=NEXT_PUBLIC_ALGOLIA_INDEX,NEXT_PUBLIC_ALGOLIA_API_KEY,NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,ALGOLIA_ADMIN_API_KEY,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_PROJECT_ID,SANITY_API_READ_TOKEN,SANITY_WEBHOOK_SECRET,VERCEL_ENV&project-name=udocs&repository-name=uDocs&demo-title=uDocs&demo-description=Nextjs%20Sanity%20CMS%20powered%20%20Documentation%20website&demo-url=https%3A%2F%2Fwww.udocs.io%2Fen&demo-image=https%3A%2F%2Fi.ibb.co%2FZLNf7kh%2FuDocs.png)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FUsmanHaider15%2FuDocs&env=NEXT_PUBLIC_ALGOLIA_INDEX,NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY,NEXT_PUBLIC_ALGOLIA_APPLICATION_ID,ALGOLIA_ADMIN_API_KEY,NEXT_PUBLIC_SANITY_DATASET,NEXT_PUBLIC_SANITY_PROJECT_ID,SANITY_API_READ_TOKEN,SANITY_WEBHOOK_SECRET,VERCEL_ENV&project-name=udocs&repository-name=uDocs&demo-title=uDocs&demo-description=Nextjs%20Sanity%20CMS%20powered%20%20Documentation%20website&demo-url=https%3A%2F%2Fwww.udocs.io%2Fen&demo-image=https%3A%2F%2Fi.ibb.co%2FZLNf7kh%2FuDocs.png)
 
 ### Step 2. Set up the project locally
 
