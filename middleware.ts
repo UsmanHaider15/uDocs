@@ -65,8 +65,8 @@ export const middleware: Middleware = (request) => {
   }
 
   // Updated Regex to match /xx/docs or /xx/docs/{version}
-  // where xx is any two-letter code and {version} is optional
-  const localePatternWithVersion = /^\/([a-z]{2})\/docs(\/([a-zA-Z0-9-]+))?$/
+  // where xx is a language code (e.g., "en", "zh-CN") and {version} is optional
+  const localePatternWithVersion = /^\/([a-zA-Z-]+)\/docs(\/([a-zA-Z0-9-]+))?$/
 
   const match = pathname.match(localePatternWithVersion)
   if (match) {

@@ -2,7 +2,7 @@ import { Language, Version } from 'types'
 
 const languages: Language[] = [
   { id: 'en', title: 'English', isDefault: true, countryCode: 'US' },
-  { id: 'ja', title: '日本語', countryCode: 'JP' },
+  { id: 'zh-CN', title: '简体中文', countryCode: 'CN' },
 ]
 
 const versions: Version[] = [{ id: 'v1', title: 'V1', isDefault: true }]

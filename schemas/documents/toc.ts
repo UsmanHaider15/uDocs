@@ -11,17 +11,19 @@ export default {
       title: 'Title',
     },
     {
-      name: 'language',
-      type: 'string',
-      readOnly: true,
-    },
-    {
       type: 'slug',
       name: 'slug',
       title: 'Slug',
       options: {
+        source: 'title',
+        maxLength: 96,
         isUnique: isUniqueOtherThanLanguage,
       },
+    },
+    {
+      name: 'language',
+      type: 'string',
+      readOnly: true,
     },
     {
       type: 'array',
