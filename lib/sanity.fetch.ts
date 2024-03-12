@@ -26,8 +26,6 @@ import type {
   TOCLink,
 } from 'types'
 
-import { revalidateSecret } from './sanity.api'
-
 export const token = process.env.SANITY_API_READ_TOKEN
 
 const DEFAULT_PARAMS = {} as QueryParams

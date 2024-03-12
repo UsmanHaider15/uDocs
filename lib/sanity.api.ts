@@ -22,7 +22,7 @@ export const apiVersion =
 export const previewSecretId: `${string}.${string}` = 'preview.secret'
 
 // See the app/api/revalidate/route.ts for how this is used
-export const revalidateSecret = process.env.SANITY_REVALIDATE_SECRET
+export const revalidateSecret = process.env.SANITY_WEBHOOK_SECRET
 
 function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
