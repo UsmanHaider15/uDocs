@@ -51,12 +51,14 @@ export function CustomPortableText({
       ),
     },
     list: {
+      number: ({ children }) => (
+        <ul className={`${consistentBaseClass} list-decimal pl-4`}>
+          {children}
+        </ul>
+      ),
       bullet: ({ children }) => (
         <ul className={`${consistentBaseClass} list-disc pl-4`}>{children}</ul>
       ),
-    },
-    listItem: {
-      bullet: ({ children }) => <li className="mb-1">{children}</li>,
     },
     marks: {
       link: ({ children, value }) => (
