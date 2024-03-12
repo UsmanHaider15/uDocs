@@ -7,7 +7,7 @@ import { client } from 'lib/sanity.client'
 export const runtime = 'nodejs'
 
 const algolia = algoliasearch(
-  process.env.ALGOLIA_APPLICATION_ID as string,
+  process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID as string,
   process.env.ALGOLIA_ADMIN_API_KEY as string,
 )
 

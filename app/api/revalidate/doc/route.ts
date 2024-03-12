@@ -26,16 +26,8 @@ import { revalidateSecret } from 'lib/sanity.api'
 import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
-import algoliasearch from 'algoliasearch'
-import { client } from 'lib/sanity.client'
-import indexer, { flattenBlocks } from 'sanity-algolia'
 
 export const runtime = 'nodejs'
-
-const algolia = algoliasearch(
-  process.env.ALGOLIA_APPLICATION_ID as string,
-  process.env.ALGOLIA_ADMIN_API_KEY as string,
-)
 
 export async function POST(req: NextRequest) {
   try {
