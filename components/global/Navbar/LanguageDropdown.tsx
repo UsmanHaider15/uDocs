@@ -52,7 +52,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
           type="button"
           id="dropdownNavbarLink"
           onClick={toggleDropdown}
-          className="flex items-center w-full px-2 text-sm font-medium text-gray-700 hover:text-blue-500"
+          className="flex items-center w-full px-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent"
           aria-expanded="true"
           aria-haspopup="true"
         >
@@ -67,7 +67,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
       </div>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1" role="none">
             {googleTranslateLanguages.map(({ id, title, countryCode }) => (
               <a
@@ -77,7 +77,7 @@ const LanguageDropdown = ({ lang }: LanguageDropdownProps) => {
                   e.preventDefault()
                   handleLanguageChange(id)
                 }}
-                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                className="text-gray-700 dark:text-gray-300 block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <ReactCountryFlag countryCode={countryCode} className="mr-1" />
                 {title}

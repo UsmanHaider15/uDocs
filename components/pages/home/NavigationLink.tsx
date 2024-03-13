@@ -21,20 +21,27 @@ const NavigationLink = ({
   const href = `/${language}/docs/${version}/${link.slug}`
   const isActive = pathname === href
 
-  const linkBaseClasses = 'py-1 text-sm'
-  const activeClasses = 'text-blue-700 font-semibold'
-  const hoverClasses = 'hover:text-blue-700 hover:font-semibold'
-  const fontClasses = hasNestedLinks ? 'font-semibold' : 'font-normal'
+  const linkBaseClasses = 'py-1.5 text-gray-900 dark:text-gray-100'
+  const activeClasses =
+    'text-primary dark:text-accent font-semibold bg-blue-100 dark:bg-gray-700 rounded' // Example modification
+  const hoverClasses =
+    'hover:font-semibold hover:bg-blue-100 dark:hover:bg-gray-700'
+  const fontClasses = hasNestedLinks
+    ? 'font-semibold text-base'
+    : 'font-light text-sm'
+
   const toggleNestedLinks = () => setIsOpen(!isOpen)
 
   return (
-    <div className={`mt-1 ${hasNestedLinks ? 'mb-1' : 'mb-1'}`}>
-      <div className="flex items-center justify-between">
+    <div className="">
+      <div
+        className={`flex items-center justify-between ${
+          isActive ? activeClasses : hoverClasses
+        } px-2`}
+      >
         <Link href={href}>
           <div
-            className={`${linkBaseClasses} ${fontClasses} ${
-              isActive ? activeClasses : hoverClasses
-            } cursor-pointer`}
+            className={`${linkBaseClasses} ${fontClasses}  cursor-pointer`}
             aria-current={isActive ? 'page' : undefined}
             // onClick={(e) => hasNestedLinks && e.preventDefault()}
           >
@@ -48,7 +55,7 @@ const NavigationLink = ({
         )}
       </div>
       {hasNestedLinks && isOpen && (
-        <div className="ml-2">
+        <div className="pb-2">
           {link.links?.map((nestedLink) => (
             <NavigationLink
               key={nestedLink.slug}

@@ -19,7 +19,8 @@ export function CustomPortableText({
   lang: string
   version?: string
 }) {
-  const consistentBaseClass = 'my-4 mx-0 text-base leading-relaxed' // Consistent base for typography
+  const consistentBaseClass =
+    'my-4 mx-0 text-base leading-relaxed text-gray-900 dark:text-gray-100' // Adapted for dark/light themes
 
   const components: PortableTextComponents = {
     block: {
@@ -32,19 +33,22 @@ export function CustomPortableText({
         </p>
       ),
       blockquote: ({ children }) => (
-        <blockquote className="p-4 italic border-l-4 border-stone-400 bg-stone-100 text-stone-600">
+        <blockquote className="p-4 italic border-l-4 border-stone-400 dark:border-stone-600 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-200">
           {children}
         </blockquote>
       ),
       h1: ({ children, value }) => (
-        <h1 id={value._key} className="text-3xl font-bold my-4">
+        <h1
+          id={value._key}
+          className="text-3xl font-bold my-4 text-gray-900 dark:text-gray-100"
+        >
           {children}
         </h1>
       ),
       h2: ({ children, value }) => (
         <h2
           id={value._key}
-          className="text-2xl font-semibold my-4 border-t border-stone-200 pt-4"
+          className="text-2xl font-semibold my-4 border-t border-stone-200 dark:border-stone-700 pt-4 text-gray-900 dark:text-gray-100"
         >
           {children}
         </h2>
@@ -52,9 +56,9 @@ export function CustomPortableText({
     },
     list: {
       number: ({ children }) => (
-        <ul className={`${consistentBaseClass} list-decimal pl-4`}>
+        <ol className={`${consistentBaseClass} list-decimal pl-4`}>
           {children}
-        </ul>
+        </ol>
       ),
       bullet: ({ children }) => (
         <ul className={`${consistentBaseClass} list-disc pl-4`}>{children}</ul>
@@ -63,7 +67,7 @@ export function CustomPortableText({
     marks: {
       link: ({ children, value }) => (
         <a
-          className="text-blue-500 hover:text-blue-700 transition-colors duration-300 ease-in-out"
+          className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 ease-in-out"
           href={value?.href}
           target="_blank"
           rel="noopener noreferrer"
@@ -72,17 +76,20 @@ export function CustomPortableText({
         </a>
       ),
       code: ({ children }) => (
-        <code className="py-1 px-2 font-mono text-xs bg-gray-200 rounded-md">
+        <code className="py-1 px-2 font-mono text-xs bg-gray-200 dark:bg-gray-700 rounded-md">
           {children}
         </code>
       ),
     },
     types: {
+      // Updated components below to adapt to dark/light themes as needed.
       image: ({ value }) => (
         <div className="my-5">
           <ImageBox image={value} alt={value.alt} classesWrapper="" />
           {value?.caption && (
-            <p className="text-xs text-center mt-2">{value.caption}</p>
+            <p className="text-xs text-center mt-2 text-gray-900 dark:text-gray-100">
+              {value.caption}
+            </p>
           )}
         </div>
       ),
@@ -90,12 +97,16 @@ export function CustomPortableText({
       docLink: ({ value }) => {
         return (
           <div className="my-4">
-            <h3 className="text-xl font-semibold">{value.title}</h3>
-            <p className="!mb-0">{value.description}</p>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+              {value.title}
+            </h3>
+            <p className="!mb-0 text-gray-900 dark:text-gray-100">
+              {value.description}
+            </p>
             <div>
               <Link
                 href={`/${lang}/docs/${version}/${value.docRefSlug}`}
-                className="text-blue-500 hover:text-blue-700"
+                className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
               >
                 Read more
               </Link>
@@ -103,7 +114,6 @@ export function CustomPortableText({
           </div>
         )
       },
-
       button: ({ value }) => (
         <ButtonComponent
           text={value?.text}

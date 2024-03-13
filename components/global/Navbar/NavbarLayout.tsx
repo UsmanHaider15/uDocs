@@ -1,7 +1,7 @@
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import type { MenuItem, SettingsPayload } from 'types'
-import LanugageDropdown from './LanguageDropdown'
+import LanguageDropdown from './LanguageDropdown'
 import DocuSearch from 'components/DocSearch'
 import { FaGithub } from 'react-icons/fa'
 import Image from 'next/image'
@@ -17,19 +17,19 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-white z-10 py-2 shadow-sm md:px-0 px-2">
+    <header className="sticky top-0 bg-gray-50 dark:bg-gray-900 z-10 py-2 shadow-sm md:px-0 px-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="flex items-center">
-          <Link href={`/${lang}`} className="hover:text-blue-500 mr-4">
+          <Link href={`/${lang}`} className="hover:text-primary mr-4">
             <Image width={30} height={30} src="/favicon.ico" alt="Home" />
           </Link>
           <Link
             href={`/en/docs/v1/introduction`}
-            className="hover:text-blue-500 mr-4"
+            className="hover:text-primary mr-4"
           >
             Docs
           </Link>
-          <Link href={`/${lang}/blogs`} className="hover:text-blue-500">
+          <Link href={`/${lang}/blogs`} className="hover:text-primary">
             Blogs
           </Link>
           {menuItems &&
@@ -45,10 +45,10 @@ export default function Navbar(props: NavbarProps) {
                 >
                   <Link
                     key={key}
-                    className={`text-lg hover:text-black md:text-xl ${
+                    className={`text-lg hover:text-primary md:text-xl ${
                       menuItem?._type === 'home'
-                        ? 'font-extrabold text-black'
-                        : 'text-gray-600'
+                        ? 'font-extrabold text-gray-900 dark:text-gray-100'
+                        : 'text-gray-600 dark:text-gray-400'
                     }`}
                     href={href}
                   >
@@ -63,17 +63,14 @@ export default function Navbar(props: NavbarProps) {
           <div className="mr-2">
             <DocuSearch />
           </div>
-          {/* <div className="mr-2 self-center">
+          <div className="self-center">
             <ThemeSwitcher />
-          </div> */}
-          <div className="mr-2 self-center">
-            <FaGithub
-              size={22}
-              className="hover:text-blue-500 cursor-pointer"
-            />
           </div>
           <div className="mr-2 self-center">
-            <LanugageDropdown lang={lang} />
+            <FaGithub size={22} className="hover:text-primary cursor-pointer" />
+          </div>
+          <div className="mr-2 self-center">
+            <LanguageDropdown lang={lang} />
           </div>
         </div>
       </nav>

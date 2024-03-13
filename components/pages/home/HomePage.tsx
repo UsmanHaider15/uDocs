@@ -15,47 +15,23 @@ export function HomePage({ data, lang }: HomePageProps) {
   const { features, overview = [], title = '' } = data ?? {}
 
   return (
-    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
+    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0 text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-900">
       <div className="mb-24 mt-5">
         <div className="text-center">
-          {/* {title && <Header centered title={title} description={overview} />} */}
-          <div
-            style={{
-              fontSize: 49,
-              fontWeight: 500,
-              letterSpacing: -0.5,
-              lineHeight: '52px',
-              marginBottom: 24.5,
-              color: 'rgb(16, 17, 18)',
-            }}
-          >
+          <div className="text-6xl font-medium leading-tight mb-4 text-gray-900 dark:text-gray-100">
             Next Gen Documentation Website
           </div>
-          <div
-            className="mx-auto"
-            style={{
-              fontSize: 20,
-              fontWeight: 500,
-              lineHeight: '32px',
-              maxWidth: 640,
-              color: 'rgb(86, 93, 103)',
-            }}
-          >
+          <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 mb-4">
             An optimized site generator in Next.js and Sanity CMS. uDocs helps
             you to move fast and write content. Build documentation websites,
             blogs, marketing pages, and more.
           </div>
         </div>
-        <div
-          className="flex justify-center space-x-4"
-          style={{ marginTop: 32 }}
-        >
-          {' '}
-          {/* Adjusted for consistency */}
+        <div className="flex justify-center space-x-4">
           <div className="text-center">
             <button
               type="button"
-              className="text-white bg-gray-800 border-2 border-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-3 mb-2"
+              className="inline-flex justify-center items-center px-5 py-3 border-2 font-medium text-sm bg-gray-800 border-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-lg mb-2"
             >
               <Link
                 href={`/${lang}/docs/v1/introduction`}
@@ -68,7 +44,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           <div className="text-center">
             <button
               type="button"
-              className="text-gray-800 bg-white border border-gray-300 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium text-sm px-5 py-3 mb-2"
+              className="inline-flex justify-center items-center px-5 py-3 border font-medium text-sm bg-white text-gray-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-lg mb-2"
             >
               <Link
                 href={`https://github.com/UsmanHaider15/uDocs`}
@@ -82,23 +58,13 @@ export function HomePage({ data, lang }: HomePageProps) {
       </div>
 
       <div className="mb-24">
-        <div
-          className="text-center"
-          style={{
-            fontSize: 39,
-            fontWeight: 500,
-            lineHeight: '44px',
-            marginBottom: 24.5,
-            color: 'rgb(16, 17, 18)',
-          }}
-        >
+        <div className="text-center text-5xl font-medium leading-tight mb-6 text-gray-900 dark:text-gray-100">
           Features you&apos;ll love
         </div>
         <div>
           {features &&
             features.map(({ title, description, image }, index) => {
               const isEven = index % 2 === 0
-
               return (
                 <div
                   className={`flex flex-col gap-4 py-2 md:flex-row ${
@@ -107,28 +73,12 @@ export function HomePage({ data, lang }: HomePageProps) {
                   key={title}
                 >
                   <div className="text-left basis-1/2">
-                    <div
-                      style={{
-                        fontSize: 25,
-                        fontWeight: 500,
-                        lineHeight: '28px',
-                        marginBottom: 19.5,
-                        color: 'rgb(16, 17, 18)',
-                      }}
-                    >
+                    <div className="text-4xl font-medium leading-tight mb-5 text-gray-900 dark:text-gray-100">
                       {title}
                     </div>
-                    <div
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 500,
-                        lineHeight: '28px',
-                        color: 'rgb(86, 93, 103)',
-                      }}
-                    >
+                    <div className="text-lg font-medium leading-relaxed text-gray-600 dark:text-gray-400">
                       {description}
-                    </div>{' '}
-                    {/* Removed font-serif for consistency */}
+                    </div>
                   </div>
                   <ImageBox
                     image={image}
@@ -143,16 +93,7 @@ export function HomePage({ data, lang }: HomePageProps) {
 
       <div className="mb-24">
         <div className="flex flex-col items-center">
-          <div
-            className="text-center"
-            style={{
-              fontSize: 39,
-              fontWeight: 500,
-              lineHeight: '44px',
-              marginBottom: 24.5,
-              color: 'rgb(16, 17, 18)',
-            }}
-          >
+          <div className="text-center text-5xl font-medium leading-tight mb-6 text-gray-900 dark:text-gray-100">
             More features developers love
           </div>
         </div>
