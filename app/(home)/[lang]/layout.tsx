@@ -23,7 +23,7 @@ export default async function IndexRoute({
   const isDraftMode = draftMode().isEnabled
 
   const layout = (
-    <div className="flex min-h-screen flex-col bg-white text-black">
+    <div className="flex min-h-screen flex-col text-black dark:text-white bg-white dark:bg-black">
       {isDraftMode && <PreviewBanner />}
       <Suspense>
         <Navbar lang={params.lang} version={'v1'} />

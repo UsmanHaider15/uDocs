@@ -5,6 +5,7 @@ import LanugageDropdown from './LanguageDropdown'
 import DocuSearch from 'components/DocSearch'
 import { FaGithub } from 'react-icons/fa'
 import Image from 'next/image'
+import ThemeSwitcher from './ThemeSwitcher'
 
 interface NavbarProps {
   data: SettingsPayload
@@ -62,6 +63,9 @@ export default function Navbar(props: NavbarProps) {
           <div className="mr-2">
             <DocuSearch />
           </div>
+          {/* <div className="mr-2 self-center">
+            <ThemeSwitcher />
+          </div> */}
           <div className="mr-2 self-center">
             <FaGithub
               size={22}

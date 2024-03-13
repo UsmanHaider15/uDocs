@@ -1,5 +1,6 @@
 import 'tailwindcss/tailwind.css'
 import { Analytics } from '@vercel/analytics/react'
+import { ThemeProvider } from './theme-provider'
 
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 
@@ -29,10 +30,10 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${mono.variable} ${sans.variable} ${serif.variable}`}
+      className={`${mono.variable} ${sans.variable} ${serif.variable} light`}
     >
       <body>
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>
     </html>
