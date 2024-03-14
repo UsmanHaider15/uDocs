@@ -20,7 +20,7 @@ export function CustomPortableText({
   version?: string
 }) {
   const consistentBaseClass =
-    'my-4 mx-0 text-base leading-relaxed text-gray-900 dark:text-gray-100' // Adapted for dark/light themes
+    'my-4 mx-0 text-base leading-relaxed text-light-text dark:text-dark-text' // Adapted for dark/light themes
 
   const components: PortableTextComponents = {
     block: {
@@ -33,14 +33,14 @@ export function CustomPortableText({
         </p>
       ),
       blockquote: ({ children }) => (
-        <blockquote className="p-4 italic border-l-4 border-stone-400 dark:border-stone-600 bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-200">
+        <blockquote className="p-4 italic border-l-4 border-light-secondary dark:border-dark-secondary bg-light-base dark:bg-dark-base text-light-secondary dark:text-dark-secondary">
           {children}
         </blockquote>
       ),
       h1: ({ children, value }) => (
         <h1
           id={value._key}
-          className="text-3xl font-bold my-4 text-gray-900 dark:text-gray-100"
+          className="text-3xl font-bold my-4 text-light-text dark:text-dark-text"
         >
           {children}
         </h1>
@@ -48,7 +48,7 @@ export function CustomPortableText({
       h2: ({ children, value }) => (
         <h2
           id={value._key}
-          className="text-2xl font-semibold my-4 border-t border-stone-200 dark:border-stone-700 pt-4 text-gray-900 dark:text-gray-100"
+          className="text-2xl font-semibold my-4 border-t border-light-secondary dark:border-dark-secondary pt-4 text-light-text dark:text-dark-text"
         >
           {children}
         </h2>
@@ -67,7 +67,7 @@ export function CustomPortableText({
     marks: {
       link: ({ children, value }) => (
         <a
-          className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 ease-in-out"
+          className="text-light-primary dark:text-dark-primary hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300 ease-in-out"
           href={value?.href}
           target="_blank"
           rel="noopener noreferrer"
@@ -76,18 +76,17 @@ export function CustomPortableText({
         </a>
       ),
       code: ({ children }) => (
-        <code className="py-1 px-2 font-mono text-xs bg-gray-200 dark:bg-gray-700 rounded-md">
+        <code className="py-1 px-2 font-mono text-xs bg-light-secondary dark:bg-dark-secondary rounded-md">
           {children}
         </code>
       ),
     },
     types: {
-      // Updated components below to adapt to dark/light themes as needed.
       image: ({ value }) => (
         <div className="my-5">
           <ImageBox image={value} alt={value.alt} classesWrapper="" />
           {value?.caption && (
-            <p className="text-xs text-center mt-2 text-gray-900 dark:text-gray-100">
+            <p className="text-xs text-center mt-2 text-light-text dark:text-dark-text">
               {value.caption}
             </p>
           )}
@@ -97,16 +96,16 @@ export function CustomPortableText({
       docLink: ({ value }) => {
         return (
           <div className="my-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            <h3 className="text-xl font-semibold text-light-text dark:text-dark-text">
               {value.title}
             </h3>
-            <p className="!mb-0 text-gray-900 dark:text-gray-100">
+            <p className="!mb-0 text-light-text dark:text-dark-text">
               {value.description}
             </p>
             <div>
               <Link
                 href={`/${lang}/docs/${version}/${value.docRefSlug}`}
-                className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                className="text-light-primary dark:text-dark-primary hover:text-light-accent dark:hover:text-dark-accent"
               >
                 Read more
               </Link>
