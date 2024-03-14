@@ -16,16 +16,14 @@ export function HomePage({ data, lang }: HomePageProps) {
 
   return (
     <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
-      <div className="mb-24 mt-5">
-        <div className="text-center">
-          <div className="text-6xl font-medium leading-tight mb-4">
-            Next Gen Documentation Website
-          </div>
-          <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 mb-4">
-            An optimized site generator in Next.js and Sanity CMS. uDocs helps
-            you to move fast and write content. Build documentation websites,
-            blogs, marketing pages, and more.
-          </div>
+      <div className="my-36 text-center">
+        <div className="text-6xl font-extrabold leading-tight">
+          Next Gen Documentation Website
+        </div>
+        <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 my-16">
+          An optimized site generator in Next.js and Sanity CMS. uDocs helps you
+          to move fast and write content. Build documentation websites, blogs,
+          marketing pages, and more.
         </div>
         <div className="flex justify-center space-x-4">
           <div className="text-center">
@@ -57,8 +55,8 @@ export function HomePage({ data, lang }: HomePageProps) {
         </div>
       </div>
 
-      <div className="mb-24">
-        <div className="text-center text-5xl font-medium leading-tight mb-6">
+      <div className="my-28">
+        <div className="text-center text-5xl font-bold leading-tight mb-16">
           Features you&apos;ll love
         </div>
         <div>
@@ -67,7 +65,7 @@ export function HomePage({ data, lang }: HomePageProps) {
               const isEven = index % 2 === 0
               return (
                 <div
-                  className={`flex flex-col gap-4 py-2 md:flex-row ${
+                  className={`flex flex-col gap-4 my-16 md:flex-row ${
                     isEven ? '' : 'md:flex-row-reverse'
                   } md:py-4`}
                   key={title}
@@ -91,9 +89,9 @@ export function HomePage({ data, lang }: HomePageProps) {
         </div>
       </div>
 
-      <div className="mb-24">
+      <div className="my-28">
         <div className="flex flex-col items-center">
-          <div className="text-center text-5xl font-medium leading-tight mb-6 text-light-text dark:text-dark-text">
+          <div className="text-center text-5xl font-medium leading-tight mb-12 text-light-text dark:text-dark-text">
             More features developers love
           </div>
         </div>
