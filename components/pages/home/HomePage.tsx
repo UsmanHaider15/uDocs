@@ -15,10 +15,10 @@ export function HomePage({ data, lang }: HomePageProps) {
   const { features, overview = [], title = '' } = data ?? {}
 
   return (
-    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0 text-gray-900 dark:text-gray-100 bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
       <div className="mb-24 mt-5">
         <div className="text-center">
-          <div className="text-6xl font-medium leading-tight mb-4 text-gray-900 dark:text-gray-100">
+          <div className="text-6xl font-medium leading-tight mb-4">
             Next Gen Documentation Website
           </div>
           <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 mb-4">
@@ -31,7 +31,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           <div className="text-center">
             <button
               type="button"
-              className="inline-flex justify-center items-center px-5 py-3 border-2 font-medium text-sm bg-gray-800 border-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-lg mb-2"
+              className="inline-flex justify-center items-center px-5 py-3 border-2 font-medium text-sm bg-light-primary border-light-primary text-white hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-light-primary rounded-lg mb-2 dark:bg-dark-primary dark:border-dark-primary dark:hover:bg-dark-secondary dark:focus:ring-dark-primary"
             >
               <Link
                 href={`/${lang}/docs/v1/introduction`}
@@ -44,7 +44,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           <div className="text-center">
             <button
               type="button"
-              className="inline-flex justify-center items-center px-5 py-3 border font-medium text-sm bg-white text-gray-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-lg mb-2"
+              className="inline-flex justify-center items-center px-5 py-3 border font-medium text-sm bg-accent text-primary hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-accent rounded-lg mb-2 dark:bg-dark-accent dark:text-dark-primary dark:hover:shadow-lg dark:focus:ring-dark-accent"
             >
               <Link
                 href={`https://github.com/UsmanHaider15/uDocs`}
@@ -58,7 +58,7 @@ export function HomePage({ data, lang }: HomePageProps) {
       </div>
 
       <div className="mb-24">
-        <div className="text-center text-5xl font-medium leading-tight mb-6 text-gray-900 dark:text-gray-100">
+        <div className="text-center text-5xl font-medium leading-tight mb-6">
           Features you&apos;ll love
         </div>
         <div>
@@ -73,7 +73,7 @@ export function HomePage({ data, lang }: HomePageProps) {
                   key={title}
                 >
                   <div className="text-left basis-1/2">
-                    <div className="text-4xl font-medium leading-tight mb-5 text-gray-900 dark:text-gray-100">
+                    <div className="text-4xl font-medium leading-tight mb-5 text-light-text dark:text-dark-text">
                       {title}
                     </div>
                     <div className="text-lg font-medium leading-relaxed text-gray-600 dark:text-gray-400">
@@ -93,7 +93,7 @@ export function HomePage({ data, lang }: HomePageProps) {
 
       <div className="mb-24">
         <div className="flex flex-col items-center">
-          <div className="text-center text-5xl font-medium leading-tight mb-6 text-gray-900 dark:text-gray-100">
+          <div className="text-center text-5xl font-medium leading-tight mb-6 text-light-text dark:text-dark-text">
             More features developers love
           </div>
         </div>

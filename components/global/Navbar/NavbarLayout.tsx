@@ -17,19 +17,25 @@ export default function Navbar(props: NavbarProps) {
   const menuItems = data?.menuItems || ([] as MenuItem[])
 
   return (
-    <header className="sticky top-0 bg-gray-50 dark:bg-gray-900 z-10 py-2 shadow-sm md:px-0 px-2">
+    <header className="sticky top-0 z-10 py-2 shadow-sm md:px-0 px-2">
       <nav className="flex mx-auto max-w-screen-xl justify-between">
         <div className="flex items-center">
-          <Link href={`/${lang}`} className="hover:text-primary mr-4">
+          <Link
+            href={`/${lang}`}
+            className="hover:text-light-primary dark:hover:text-dark-primary mr-4"
+          >
             <Image width={30} height={30} src="/favicon.ico" alt="Home" />
           </Link>
           <Link
             href={`/en/docs/v1/introduction`}
-            className="hover:text-primary mr-4"
+            className="hover:text-light-primary dark:hover:text-dark-primary mr-4"
           >
             Docs
           </Link>
-          <Link href={`/${lang}/blogs`} className="hover:text-primary">
+          <Link
+            href={`/${lang}/blogs`}
+            className="hover:text-light-primary dark:hover:text-dark-primary"
+          >
             Blogs
           </Link>
           {menuItems &&
@@ -45,9 +51,9 @@ export default function Navbar(props: NavbarProps) {
                 >
                   <Link
                     key={key}
-                    className={`text-lg hover:text-primary md:text-xl ${
+                    className={`text-lg hover:text-light-primary dark:hover:text-dark-primary md:text-xl ${
                       menuItem?._type === 'home'
-                        ? 'font-extrabold text-gray-900 dark:text-gray-100'
+                        ? 'font-extrabold text-light-text dark:text-dark-text'
                         : 'text-gray-600 dark:text-gray-400'
                     }`}
                     href={href}
@@ -67,7 +73,10 @@ export default function Navbar(props: NavbarProps) {
             <ThemeSwitcher />
           </div>
           <div className="mr-2 self-center">
-            <FaGithub size={22} className="hover:text-primary cursor-pointer" />
+            <FaGithub
+              size={22}
+              className="hover:text-light-primary dark:hover:text-dark-primary cursor-pointer"
+            />
           </div>
           <div className="mr-2 self-center">
             <LanguageDropdown lang={lang} />

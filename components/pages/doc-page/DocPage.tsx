@@ -21,7 +21,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
         <div className="flex item-center mb-4">
           <Link
             href={`/${lang}`}
-            className="text-primary hover:text-accent hover:underline hover:font-semibold"
+            className="text-light-primary hover:text-light-accent hover:underline hover:font-semibold dark:text-dark-primary dark:hover:text-dark-accent"
           >
             <IoMdHome size={22} />
           </Link>
@@ -37,7 +37,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
                 )}
                 <Link
                   href={`/${lang}/docs/${version}/${link.slug}`}
-                  className="text-primary hover:text-accent hover:underline hover:font-semibold"
+                  className="text-light-primary hover:text-light-accent hover:underline hover:font-semibold dark:text-dark-primary dark:hover:text-dark-accent"
                 >
                   {link.title}
                 </Link>
@@ -46,13 +46,13 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
         </div>
 
         {title && (
-          <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          <h1 className="text-4xl font-bold mb-4 text-light-text dark:text-dark-text">
             {title}
           </h1>
         )}
         {body && (
           <CustomPortableText
-            paragraphClasses="max-w-3xl mb-4 text-gray-900 dark:text-gray-100"
+            paragraphClasses="max-w-3xl mb-4 text-light-text dark:text-dark-text"
             value={body}
             lang={lang}
             version={version}
@@ -63,7 +63,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           {previousDoc && previousDoc.slug && previousDoc.title ? (
             <Link
               href={`/${lang}/docs/${version}/${previousDoc.slug}`}
-              className="text-primary hover:text-accent hover:underline hover:font-semibold"
+              className="text-light-primary hover:text-light-accent hover:underline hover:font-semibold dark:text-dark-primary dark:hover:text-dark-accent"
             >
               ← {previousDoc.title}
             </Link>
@@ -73,7 +73,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
           {nextDoc && nextDoc.slug && nextDoc.title ? (
             <Link
               href={`/${lang}/docs/${version}/${nextDoc.slug}`}
-              className="text-primary hover:text-accent hover:underline hover:font-semibold"
+              className="text-light-primary hover:text-light-accent hover:underline hover:font-semibold dark:text-dark-primary dark:hover:text-dark-accent"
             >
               {nextDoc.title} →
             </Link>
