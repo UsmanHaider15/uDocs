@@ -14,78 +14,30 @@ import { IoMdSpeedometer } from 'react-icons/io'
 
 const FeatureGrid = () => {
   return (
-    <div className="font-sans font-medium text-neutral-900">
-      <div className="grid md:grid-cols-4 gap-4 justify-center font-medium">
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <MdWorkspaces fontSize="24" />
+    <div className="font-sans font-medium text-light-text dark:text-dark-text">
+      <div className="grid md:grid-cols-4 gap-4 justify-center">
+        {[
+          {
+            Icon: MdWorkspaces,
+            title: 'Incremental Static Regeneration (ISR)',
+          },
+          { Icon: FaRocket, title: 'Real-time editing and previews' },
+          { Icon: FaPlug, title: 'Deployed on Vercel' },
+          { Icon: IoMdSpeedometer, title: 'SEO Optimized' },
+          { Icon: SiTypescript, title: 'Sweet DX' },
+          { Icon: FaMoon, title: 'Dark mode' },
+          { Icon: FaBoxOpen, title: 'Responsive Design' },
+          { Icon: FaCode, title: 'Embeddable Studio' },
+        ].map(({ Icon, title }, index) => (
+          <div key={index} className="flex gap-4 items-center">
+            <div className="flex justify-center items-center p-3 bg-light-base dark:bg-dark-base rounded-md border border-light-secondary dark:border-dark-secondary">
+              <Icon fontSize="24" />
+            </div>
+            <div>
+              <h4 className="my-2 mx-0 leading-5">{title}</h4>
+            </div>
           </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">
-              Incremental Static Regeneration (ISR)
-            </h4>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <FaRocket fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">
-              Real-time editing and previews
-            </h4>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <FaPlug fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">Deployed on Vercel</h4>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <IoMdSpeedometer fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">SEO Optimized</h4>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <SiTypescript fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">Sweet DX</h4>
-          </div>
-        </div>
-
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <FaMoon fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">Dark mode</h4>
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <FaBoxOpen fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">Responsive Design</h4>
-          </div>
-        </div>
-
-        <div className="flex gap-4 items-center text-neutral-900">
-          <div className="flex justify-center items-center p-3 bg-gray-50 rounded-md border border-gray-200 border-solid bg-opacity-[0.2]">
-            <FaCode fontSize="24" />
-          </div>
-          <div>
-            <h4 className="my-2 mx-0 leading-5">Embeddable Studio</h4>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )
