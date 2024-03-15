@@ -5,6 +5,7 @@ import type { HomePagePayload } from 'types'
 import FeatureGrid from './FeatureGrid'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
+import { toPlainText } from '@portabletext/react'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -12,18 +13,14 @@ export interface HomePageProps {
 }
 
 export function HomePage({ data, lang }: HomePageProps) {
-  const { features, overview = [], title = '' } = data ?? {}
+  const { features, title = '', body = [] } = data ?? {}
 
   return (
     <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
       <div className="my-36 text-center">
-        <div className="text-6xl font-extrabold leading-tight">
-          Next Gen Documentation Website
-        </div>
+        <div className="text-6xl font-extrabold leading-tight">{title}</div>
         <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 my-16">
-          An optimized site generator in Next.js and Sanity CMS. uDocs helps you
-          to move fast and write content. Build documentation websites, blogs,
-          marketing pages, and more.
+          {toPlainText(body)}
         </div>
         <div className="flex justify-center space-x-4">
           <div className="text-center">

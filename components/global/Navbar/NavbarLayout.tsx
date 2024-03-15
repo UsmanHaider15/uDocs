@@ -27,7 +27,7 @@ export default function Navbar(props: NavbarProps) {
             <Image width={30} height={30} src="/favicon.ico" alt="Home" />
           </Link>
           <Link
-            href={`/en/docs/v1/introduction`}
+            href={`/${lang}/docs/v1/introduction`}
             className="hover:text-light-primary dark:hover:text-dark-primary mr-4"
           >
             Docs
