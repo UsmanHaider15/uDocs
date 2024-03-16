@@ -35,6 +35,7 @@ export default async function RootLayout({
     >
       <body>
         <ThemeProvider>{children}</ThemeProvider>
+        <SpeedInsights />
         <Analytics />
       </body>
     </html>
