@@ -21,11 +21,11 @@ const NavigationLink = ({
   const href = `/${language}/docs/${version}/${link.slug}`
   const isActive = pathname === href
 
-  const linkBaseClasses = 'py-1.5 text-gray-900 dark:text-gray-100'
+  const linkBaseClasses = 'py-1.5'
   const activeClasses =
-    'text-primary dark:text-accent font-semibold bg-blue-100 dark:bg-gray-700 rounded' // Example modification
+    'text-light-base dark:text-dark-base font-semibold bg-light-primary dark:bg-dark-primary rounded'
   const hoverClasses =
-    'hover:font-semibold hover:bg-blue-100 dark:hover:bg-gray-700'
+    'hover:text-light-base hover:dark:text-dark-base hover:font-semibold hover:bg-light-primary dark:hover:bg-dark-primary rounded hover:opacity-75'
   const fontClasses = hasNestedLinks
     ? 'font-semibold text-base'
     : 'font-light text-sm'

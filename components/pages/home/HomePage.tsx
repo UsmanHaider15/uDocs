@@ -26,7 +26,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           <div className="text-center">
             <button
               type="button"
-              className="inline-flex justify-center items-center px-5 py-3 border-2 font-medium text-sm bg-light-primary border-light-primary text-white hover:bg-secondary focus:outline-none focus:ring-4 focus:ring-light-primary rounded-lg mb-2 dark:bg-dark-primary dark:border-dark-primary dark:hover:bg-dark-secondary dark:focus:ring-dark-primary"
+              className="inline-flex justify-center items-center px-5 py-3 border-2 font-medium text-sm text-light-base hover:text-light-primary dark:text-dark-base dark:hover:text-dark-primary bg-light-primary border-light-primary hover:bg-light-secondary focus:outline-none focus:ring-4 focus:ring-light-primary rounded-lg mb-2 dark:bg-dark-primary dark:border-dark-primary dark:hover:bg-dark-secondary dark:focus:ring-dark-primary"
             >
               <Link
                 href={`/${lang}/docs/v1/introduction`}
@@ -39,7 +39,7 @@ export function HomePage({ data, lang }: HomePageProps) {
           <div className="text-center">
             <button
               type="button"
-              className="inline-flex justify-center items-center px-5 py-3 border font-medium text-sm bg-accent text-primary hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-accent rounded-lg mb-2 dark:bg-dark-accent dark:text-dark-primary dark:hover:shadow-lg dark:focus:ring-dark-accent"
+              className="inline-flex justify-center items-center px-5 py-3 font-medium text-sm bg-light-secondary dark:bg-dark-secondary border border-light-text dark:border-dark-text focus:outlin rounded-lg mb-2"
             >
               <Link
                 href={`https://github.com/UsmanHaider15/uDocs`}
