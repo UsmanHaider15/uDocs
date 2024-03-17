@@ -46,7 +46,7 @@ export function DocPage({ data, lang, version, docNavigation }: DocPageProps) {
         </div>
 
         {title && (
-          <h1 className="text-4xl font-bold mb-4 text-light-text dark:text-dark-text">
+          <h1 className="text-5xl font-bold mb-4 text-light-text dark:text-dark-text">
             {title}
           </h1>
         )}

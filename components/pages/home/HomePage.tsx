@@ -1,4 +1,3 @@
-import { Header } from 'components/shared/Header'
 import ImageBox from 'components/shared/ImageBox'
 import Link from 'next/link'
 import type { HomePagePayload } from 'types'

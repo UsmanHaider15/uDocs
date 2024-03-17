@@ -40,7 +40,7 @@ export function CustomPortableText({
       h1: ({ children, value }) => (
         <h1
           id={value._key}
-          className="text-3xl font-bold my-4 text-light-text dark:text-dark-text"
+          className="text-4xl font-bold my-4 text-light-text dark:text-dark-text"
         >
           {children}
         </h1>
@@ -48,10 +48,42 @@ export function CustomPortableText({
       h2: ({ children, value }) => (
         <h2
           id={value._key}
-          className="text-2xl font-semibold my-4 border-t border-light-secondary dark:border-dark-secondary pt-4 text-light-text dark:text-dark-text"
+          className="text-3xl font-semibold my-4 border-t border-light-secondary dark:border-dark-secondary pt-4 text-light-text dark:text-dark-text"
         >
           {children}
         </h2>
+      ),
+      h3: ({ children, value }) => (
+        <h3
+          id={value._key}
+          className="text-2xl my-2 font-semibold text-light-text dark:text-dark-text"
+        >
+          {children}
+        </h3>
+      ),
+      h4: ({ children, value }) => (
+        <h4
+          id={value._key}
+          className="text-xl font-semibold text-light-text dark:text-dark-text"
+        >
+          {children}
+        </h4>
+      ),
+      h5: ({ children, value }) => (
+        <h5
+          id={value._key}
+          className="text-xl font-semibold text-light-text dark:text-dark-text"
+        >
+          {children}
+        </h5>
+      ),
+      h6: ({ children, value }) => (
+        <h6
+          id={value._key}
+          className="text-md font-semibold text-light-text dark:text-dark-text"
+        >
+          {children}
+        </h6>
       ),
     },
     list: {
