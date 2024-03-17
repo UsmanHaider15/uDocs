@@ -41,10 +41,11 @@ export function HomePage({ data, lang }: HomePageProps) {
               className="inline-flex justify-center items-center px-5 py-3 font-medium text-sm bg-light-secondary dark:bg-dark-secondary border border-light-text dark:border-dark-text focus:outlin rounded-lg mb-2"
             >
               <Link
-                href={`https://github.com/UsmanHaider15/uDocs`}
+                href={`https://calendly.com/usman-haider-developer/working-hours`}
                 className="flex justify-center items-center"
               >
-                Github <FaArrowUpRightFromSquare className="ml-2" />
+                Contact Me
+                <FaArrowUpRightFromSquare className="ml-2" />
               </Link>
             </button>
           </div>

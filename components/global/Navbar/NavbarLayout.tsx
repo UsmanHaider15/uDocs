@@ -72,12 +72,12 @@ export default function Navbar(props: NavbarProps) {
           <div className="self-center">
             <ThemeSwitcher />
           </div>
-          <div className="mr-2 self-center">
+          {/* <div className="mr-2 self-center">
             <FaGithub
               size={22}
               className="hover:text-light-primary dark:hover:text-dark-primary cursor-pointer"
             />
-          </div>
+          </div> */}
           <div className="mr-2 self-center">
             <LanguageDropdown lang={lang} />
           </div>
