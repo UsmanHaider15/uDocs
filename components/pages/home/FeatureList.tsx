@@ -6,12 +6,16 @@ import { IoMdSpeedometer } from 'react-icons/io'
 
 const Feature = ({ Icon, title, description }) => (
   <div className="flex items-center space-x-4">
-    <div className="flex items-center justify-center p-4 bg-slate-600 text-white rounded-full">
-      <Icon className="text-blue-500" size={40} />
+    <div className="flex items-center justify-center p-4 text-light-text dark:text-dark-text rounded-full">
+      <Icon className="text-light-primary dark:text-dark-primary" size={40} />
     </div>
     <div>
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-sm">{description}</p>
+      <h3 className="text-lg font-semibold text-light-text dark:text-dark-text">
+        {title}
+      </h3>
+      <p className="text-sm text-light-text dark:text-dark-text">
+        {description}
+      </p>
     </div>
   </div>
 )
@@ -69,15 +73,17 @@ const features = [
 
 const FeatureList = () => {
   return (
-    <div className="bg-gray-800 text-white p-10 max-w-screen-lg mx-auto">
+    <div className="text-light-text dark:text-dark-text p-10 max-w-screen-lg mx-auto">
       <div className="text-center max-w-screen-sm mx-auto">
-        <h1 className="text-3xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-4 ">
           Beautiful documentation that converts users
         </h1>
-        <p>A platform you can rely on to reach your audience</p>
+        <p className="text-light-text dark:text-dark-text">
+          A platform you can rely on to reach your audience
+        </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-10 mt-10 bg-slate-700 p-8 rounded-md">
+      <div className="grid grid-cols-2 gap-10 mt-10 bg-light-secondary dark:bg-dark-secondary p-8 rounded-md">
         {features.map((feature, index) => (
           <Feature key={index} {...feature} />
         ))}

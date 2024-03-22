@@ -18,15 +18,15 @@ export default function Footer(props: FooterProps) {
   const footer = data?.footer || ([] as PortableTextBlock[])
 
   return (
-    <footer className="bg-darkBlue text-white">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-light-secondary dark:bg-dark-secondary">
+      <div className="py-10 px-4 mx-auto max-w-screen-xl grid grid-cols-3 gap-8">
         <div>
           <h5 className="text-lg font-bold mb-4">COMPANY</h5>
           <ul className="space-y-2">
+            <li>Docs</li>
+            <li>Blog</li>
             <li>About</li>
             <li>Careers</li>
-            <li>Brand Center</li>
-            <li>Blog</li>
           </ul>
         </div>
 
@@ -48,23 +48,11 @@ export default function Footer(props: FooterProps) {
             <li>Terms</li>
           </ul>
         </div>
-
-        <div>
-          <h5 className="text-lg font-bold mb-4">DOWNLOAD</h5>
-          <ul className="space-y-2">
-            <li>iOS</li>
-            <li>Android</li>
-            <li>Windows</li>
-            <li>MacOS</li>
-          </ul>
-        </div>
       </div>
 
-      <div className="flex flex-col py-8 px-6 mx-auto max-w-screen-xl justify-between items-center border-t border-gray-600">
+      <div className="flex flex-col p-6 mx-auto max-w-screen-xl justify-between items-center border-t border-gray-600">
         <div className="pb-4 font-bold text-xl">uDocs</div>
-        <div className="pb-4">
-          © 2021-2022 Flowbite™. All Rights Reserved.
-        </div>
+        <div className="pb-4">© Copyright. All Rights Reserved.</div>
         <div className="flex space-x-4">
           <FaFacebook size={24} />
           <FaInstagram size={24} />

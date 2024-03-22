@@ -19,7 +19,7 @@ export function HomePage({ data, lang }: HomePageProps) {
 
   return (
     <div className="flex flex-col px-2 py-4 mx-auto max-w-screen-xl md:px-0">
-      <div className="my-28 text-center">
+      <div className="my-20 text-center">
         <div className="text-6xl font-extrabold leading-tight">{title}</div>
         <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 mt-10 mb-14">
           {toPlainText(body)}
@@ -55,7 +55,7 @@ export function HomePage({ data, lang }: HomePageProps) {
         </div>
       </div>
 
-      <div className="mt-28">
+      <div>
         <MainFeatures />
         {/* <div>
           {features &&
@@ -97,9 +97,9 @@ export function HomePage({ data, lang }: HomePageProps) {
         <FeatureGrid /> */}
       </div>
 
-      <div className="my-20">
+      {/* <div className="my-20">
         <ContactSection />
-      </div>
+      </div> */}
     </div>
   )
 }
