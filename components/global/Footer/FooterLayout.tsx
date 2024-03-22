@@ -21,32 +21,32 @@ export default function Footer(props: FooterProps) {
     <footer className="bg-light-secondary dark:bg-dark-secondary">
       <div className="py-10 px-4 mx-auto max-w-screen-xl grid grid-cols-3 gap-8">
         <div>
-          <h5 className="text-lg font-bold mb-4">COMPANY</h5>
-          <ul className="space-y-2">
-            <li>Docs</li>
-            <li>Blog</li>
-            <li>About</li>
-            <li>Careers</li>
-          </ul>
+          <h5 className="text-lg font-bold mb-2">COMPANY</h5>
+          <div>
+            <div>Docs</div>
+            <div>Blog</div>
+            <div>About</div>
+            <div>Careers</div>
+          </div>
         </div>
 
         <div>
-          <h5 className="text-lg font-bold mb-4">HELP CENTER</h5>
-          <ul className="space-y-2">
-            <li>Discord Server</li>
-            <li>Twitter</li>
-            <li>Facebook</li>
-            <li>Contact Us</li>
-          </ul>
+          <h5 className="text-lg font-bold mb-2">HELP CENTER</h5>
+          <div>
+            <div>Discord Server</div>
+            <div>Twitter</div>
+            <div>Facebook</div>
+            <div>Contact Us</div>
+          </div>
         </div>
 
         <div>
-          <h5 className="text-lg font-bold mb-4">LEGAL</h5>
-          <ul className="space-y-2">
-            <li>Privacy Policy</li>
-            <li>Licensing</li>
-            <li>Terms</li>
-          </ul>
+          <h5 className="text-lg font-bold mb-2">LEGAL</h5>
+          <div>
+            <div>Privacy Podivcy</div>
+            <div>divcensing</div>
+            <div>Terms</div>
+          </div>
         </div>
       </div>
 

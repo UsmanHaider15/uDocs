@@ -63,6 +63,17 @@ export interface BlogPagePayload {
   converImage: Image
   overview: PortableTextBlock[]
   body?: PortableTextBlock[]
+  estimatedReadingTime?: number
+  author: Author
+  _createdAt: string
+}
+
+export interface BlogListPayload {
+  title: string
+  slug: string
+  converImage: Image
+  overview: PortableTextBlock[]
+  estimatedReadingTime: number
   author: Author
   _createdAt: string
 }

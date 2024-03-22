@@ -7,7 +7,7 @@ const IntroSection = ({ title, body, lang }) => {
   return (
     <div className="text-center mb-40">
       <div className="text-6xl font-extrabold leading-tight">{title}</div>
-      <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl text-gray-600 dark:text-gray-400 mt-10 mb-14">
+      <div className="mx-auto text-lg font-medium leading-relaxed max-w-2xl mt-10 mb-14">
         {toPlainText(body)}
       </div>
       <div className="flex justify-center space-x-4">

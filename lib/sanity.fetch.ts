@@ -18,6 +18,7 @@ import {
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {
+  BlogListPayload,
   BlogPagePayload,
   DocPagePayload,
   HomePagePayload,
@@ -128,7 +129,7 @@ export function getTocs(lang: string, version?: string) {
 }
 
 export function getRecentBlogsSlugs(lang: string) {
-  return sanityFetch<BlogPagePayload[] | null>({
+  return sanityFetch<BlogListPayload[] | null>({
     query: recentBlogs,
     params: { lang },
     tags: [`/${lang}/blogs/[slug]`],
