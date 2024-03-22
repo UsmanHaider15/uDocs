@@ -5,6 +5,9 @@ import FeatureGrid from './FeatureGrid'
 import { FaArrowRightLong } from 'react-icons/fa6'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import { toPlainText } from '@portabletext/react'
+import MainFeatures from './MainFeatures'
+import FeatureList from './FeatureList'
+import ContactSection from './ContactSection'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -53,10 +56,8 @@ export function HomePage({ data, lang }: HomePageProps) {
       </div>
 
       <div className="mt-28">
-        <div className="text-center text-5xl font-bold leading-tight mb-16">
-          Features you&apos;ll love
-        </div>
-        <div>
+        <MainFeatures />
+        {/* <div>
           {features &&
             features.map(({ title, description, image }, index) => {
               const isEven = index % 2 === 0
@@ -83,16 +84,21 @@ export function HomePage({ data, lang }: HomePageProps) {
                 </div>
               )
             })}
-        </div>
+        </div> */}
       </div>
 
       <div className="my-20">
-        <div className="flex flex-col items-center">
+        <FeatureList />
+        {/* <div className="flex flex-col items-center">
           <div className="text-center text-5xl font-medium leading-tight mb-12 text-light-text dark:text-dark-text">
             More features developers love
           </div>
         </div>
-        <FeatureGrid />
+        <FeatureGrid /> */}
+      </div>
+
+      <div className="my-20">
+        <ContactSection />
       </div>
     </div>
   )

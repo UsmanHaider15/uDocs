@@ -1,8 +1,14 @@
 import type { PortableTextBlock } from '@portabletext/types'
 import type { SettingsPayload } from 'types'
-import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa'
-import { MdOutlineEmail } from 'react-icons/md'
-import Link from 'next/link'
+import {
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+  FaApple,
+  FaAndroid,
+  FaWindows,
+  FaAppleAlt,
+} from 'react-icons/fa'
 
 interface FooterProps {
   data: SettingsPayload
@@ -12,51 +18,61 @@ export default function Footer(props: FooterProps) {
   const footer = data?.footer || ([] as PortableTextBlock[])
 
   return (
-    <footer className="bottom-0 w-full px-6 py-4 text-center border-t-2 z-10 text-light-text dark:text-dark-text border-light-secondary dark:border-dark-secondary">
-      <div className="flex mx-auto max-w-screen-xl justify-between">
-        <div>Powered by uDocs</div>
-        <div className="flex">
-          <div className="px-2">
-            <Link
-              target="_blank"
-              href="mailto:usman.haider.developer@gmail.com?subject=uDocs%20Inquiry%20or%20Collaboration&body=Hi%20Usman,%0A%0AI'm%20interested%20in%20learning%20more%20about%20uDocs%20and%20possible%20collaboration%20opportunities.%20Here%20are%20some%20details%20about%20my%20inquiry%20or%20project:%0A%0A[Please%20provide%20details%20about%20your%20inquiry%20or%20project%20here.]%0A%0ALooking%20forward%20to%20your%20response.%0A%0ABest,%0A[Your%20Name]"
-            >
-              {' '}
-              <MdOutlineEmail
-                size={20}
-                className="text-light-text dark:text-dark-text hover:text-blue-600 dark:hover:text-blue-400"
-              />
-            </Link>
-          </div>
-          <div className="px-2">
-            <Link
-              target="_blank"
-              href="https://www.linkedin.com/in/usman-haider-39020017a/"
-            >
-              {' '}
-              <FaLinkedin
-                size={20}
-                className="text-light-text dark:text-dark-text hover:text-blue-600 dark:hover:text-blue-400"
-              />
-            </Link>
-          </div>
-          <div className="px-2">
-            <Link target="_blank" href="https://twitter.com/UsmanHaider734">
-              {' '}
-              <FaTwitter
-                size={20}
-                className="text-light-text dark:text-dark-text hover:text-blue-400 dark:hover:text-blue-300"
-              />
-            </Link>
-          </div>
-          <div className="px-2">
-            <Link target="_blank" href="https://github.com/UsmanHaider15">
-              <FaGithub
-                size={20}
-                className="text-light-text dark:text-dark-text hover:text-pink-600 dark:hover:text-pink-400"
-              />
-            </Link>
-          </div>
+    <footer className="bg-darkBlue text-white">
+      <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+          <h5 className="text-lg font-bold mb-4">COMPANY</h5>
+          <ul className="space-y-2">
+            <li>About</li>
+            <li>Careers</li>
+            <li>Brand Center</li>
+            <li>Blog</li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 className="text-lg font-bold mb-4">HELP CENTER</h5>
+          <ul className="space-y-2">
+            <li>Discord Server</li>
+            <li>Twitter</li>
+            <li>Facebook</li>
+            <li>Contact Us</li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 className="text-lg font-bold mb-4">LEGAL</h5>
+          <ul className="space-y-2">
+            <li>Privacy Policy</li>
+            <li>Licensing</li>
+            <li>Terms</li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 className="text-lg font-bold mb-4">DOWNLOAD</h5>
+          <ul className="space-y-2">
+            <li>iOS</li>
+            <li>Android</li>
+            <li>Windows</li>
+            <li>MacOS</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="flex flex-col py-8 px-6 mx-auto max-w-screen-xl justify-between items-center border-t border-gray-600">
+        <div className="pb-4 font-bold text-xl">uDocs</div>
+        <div className="pb-4">
+          © 2021-2022 Flowbite™. All Rights Reserved.
+        </div>
+        <div className="flex space-x-4">
+          <FaFacebook size={24} />
+          <FaInstagram size={24} />
+          <FaTwitter size={24} />
+          <FaApple size={24} />
+          <FaAndroid size={24} />
+          <FaWindows size={24} />
+          <FaAppleAlt size={24} />
         </div>
       </div>
     </footer>
