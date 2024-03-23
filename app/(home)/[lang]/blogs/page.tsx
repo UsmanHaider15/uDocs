@@ -1,12 +1,14 @@
-import { getRecentBlogsSlugs } from 'lib/sanity.fetch'
-import { toPlainText } from '@portabletext/react'
-import { defineMetadata } from 'lib/utils.metadata'
-import { Metadata } from 'next'
-import { urlForImage } from 'lib/sanity.image'
-import Link from 'next/link'
-import ImageBox from 'components/shared/ImageBox'
 import Image from 'next/image'
+import Link from 'next/link'
+import { Metadata } from 'next'
+import { toPlainText } from '@portabletext/react'
 
+import { urlForImage } from 'lib/sanity.image'
+import { getRecentBlogsSlugs } from 'lib/sanity.fetch'
+import { defineMetadata } from 'lib/utils.metadata'
+import ImageBox from 'components/shared/ImageBox'
+
+// Type definition at the top
 type Props = {
   params: { lang: string }
 }
@@ -23,8 +25,6 @@ export default async function BlogSlugRoute({ params }: Props) {
 
   return (
     <div className="w-full">
-      {/* Uncomment and adjust the heading as needed. */}
-      {/* <div className="my-6 text-4xl font-bold text-center text-light-text dark:text-dark-text">Recent Blogs</div> */}
       <div className="flex gap-4 flex-col md:flex-row">
         {data &&
           data.map((blog, index) => (
@@ -33,21 +33,16 @@ export default async function BlogSlugRoute({ params }: Props) {
               className="p-4 max-w-sm bg-dark-secondary dark:bg-dark-secondary border border-light-secondary rounded-lg shadow-md hover:shadow-2xl transition duration-300 ease-in-out"
             >
               <Link href={`/${params.lang}/blogs/${blog.slug}`}>
-                {/* Assuming blog.coverImage is the path to your blog's image. Adjust as necessary. */}
-                <ImageBox image={blog.converImage} alt={blog.title} />
-              </Link>
-              <div className="py-4">
-                <Link href={`/${params.lang}/blogs/${blog.slug}`}>
-                  <h5 className="text-lg  font-bold tracking-tight text-light-text dark:text-dark-text mb-2">
+                <ImageBox image={blog.coverImage} alt={blog.title} />
+                <div className="py-4">
+                  <h5 className="text-lg font-bold leading-5 tracking-tight text-light-text dark:text-dark-text mb-2">
                     {blog.title}
                   </h5>
-                </Link>
-                <div className="text-sm mb-2">
-                  {truncateTextAtWord(blog.overview, 150)} ...
-                </div>
-                <div className="text-sm">
+                  <div className="text-sm leading-4 mb-2">
+                    {truncateTextAtWord(blog.overview, 150)} ...
+                  </div>
                   {blog.author && (
-                    <div className="flex">
+                    <div className="text-sm flex">
                       {blog.author.authorImage && (
                         <Image
                           alt={'alt'}
@@ -61,10 +56,8 @@ export default async function BlogSlugRoute({ params }: Props) {
                         />
                       )}
                       <div>
-                        <p className="font-semibold text-sm !m-0">
-                          {blog.author.name}
-                        </p>
-                        <div className="text-sm">
+                        <p className="font-semibold !m-0">{blog.author.name}</p>
+                        <div>
                           {formatIsoTimestampToCustomFormat(blog._createdAt)} .{' '}
                           {blog.estimatedReadingTime} min read
                         </div>
@@ -72,7 +65,7 @@ export default async function BlogSlugRoute({ params }: Props) {
                     </div>
                   )}
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
       </div>

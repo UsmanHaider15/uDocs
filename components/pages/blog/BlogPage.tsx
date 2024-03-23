@@ -11,7 +11,7 @@ export interface BlogPageProps {
 }
 
 export function BlogPage({ data, lang }: BlogPageProps) {
-  const { title, converImage, body, author, _createdAt } = data ?? {}
+  const { title, coverImage, body, author, _createdAt } = data ?? {}
 
   let formattedDate = ''
   if (_createdAt) {
@@ -52,7 +52,7 @@ export function BlogPage({ data, lang }: BlogPageProps) {
         )}
 
         <div className="py-4">
-          <ImageBox image={converImage} alt={title} />
+          <ImageBox image={coverImage} alt={title} />
         </div>
 
         {body && (

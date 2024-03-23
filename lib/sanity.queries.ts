@@ -45,7 +45,7 @@ export const tocQuery = `
 
 export const recentBlogs = `
 *[_type == "blog" && language == $lang] | order(_createdAt desc)[0...5] {
-  converImage,
+  coverImage,
   title,
   "slug": slug.current,
   overview,
@@ -89,7 +89,7 @@ export const blogsBySlugAndLangQuery = groq`
     _id,
     title,
     "slug": slug.current,
-    converImage,
+    coverImage,
     overview,
     body[] {
       ...,
