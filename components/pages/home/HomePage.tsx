@@ -12,7 +12,7 @@ export function HomePage({ data, lang }: HomePageProps) {
   const { features, title = '', body = [] } = data ?? {}
 
   return (
-    <div className="flex flex-col my-40 mx-auto max-w-screen-xl md:px-0">
+    <div className="flex flex-col my-20 lg:my-40 mx-auto max-w-screen-xl md:px-0">
       <IntroSection title={title} body={body} lang={lang} />
       <MainFeatures />
       <FeatureList />

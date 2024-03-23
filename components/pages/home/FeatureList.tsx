@@ -73,15 +73,17 @@ const features = [
 
 const FeatureList = () => {
   return (
-    <div className="text-light-text dark:text-dark-text max-w-screen-lg mx-auto">
-      <div className="text-center max-w-screen-sm mx-auto mb-10">
-        <h1 className="text-4xl font-bold mb-4">Features you&apos;ll love</h1>
-        <p className="text-light-text dark:text-dark-text">
+    <div className="text-light-text dark:text-dark-text max-w-screen-lg mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center max-w-screen-md mx-auto mb-8 lg:mb-10">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 lg:mb-4">
+          Features you&apos;ll love
+        </h1>
+        <p className="text-base sm:text-lg">
           A platform you can rely on to reach your audience
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-10 bg-light-secondary dark:bg-dark-secondary p-8 rounded-md">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-10 bg-light-secondary dark:bg-dark-secondary p-5 sm:p-8 rounded-md">
         {features.map((feature, index) => (
           <Feature key={index} {...feature} />
         ))}
