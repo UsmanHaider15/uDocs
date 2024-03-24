@@ -13,6 +13,7 @@ import Link from 'next/link'
 interface FooterProps {
   data: SettingsPayload
 }
+
 export default function Footer(props: FooterProps) {
   const { data } = props
   const footer = data?.footer || ([] as PortableTextBlock[])
@@ -24,19 +25,19 @@ export default function Footer(props: FooterProps) {
           <div className="pb-4 font-bold text-xl">uDocs</div>
           <div className="flex space-x-4">
             <Link href="mailto:usman.haider.developer@gmail.com">
-              <IoMdMail size={24} />
+              <IoMdMail size={16} />
             </Link>
             <Link href={'https://github.com/UsmanHaider15'} target="_blank">
-              <FaGithub size={24} />
+              <FaGithub size={16} />
             </Link>
             <Link
               href={'https://www.linkedin.com/in/usman-haider-39020017a/'}
               target="_blank"
             >
-              <FaLinkedin size={24} />
+              <FaLinkedin size={16} />
             </Link>
             <Link href={'https://twitter.com/UsmanHaider734'} target="_blank">
-              <FaTwitter size={24} />
+              <FaTwitter size={16} />
             </Link>
           </div>
         </div>
@@ -62,9 +63,9 @@ export default function Footer(props: FooterProps) {
           </div>
           <div>
             <h5 className="text-lg font-bold mb-2">Product</h5>
-            <div>
-              <div>Docs</div>
-              <div>Blog</div>
+            <div className="flex flex-col">
+              <Link href={'/docs'}>Docs</Link>
+              <Link href={'/blogs'}>Blogs</Link>
             </div>
           </div>
         </div>

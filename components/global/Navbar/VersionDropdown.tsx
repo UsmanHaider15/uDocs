@@ -44,7 +44,10 @@ const VersionDropdown = ({ lang, version }: VersionDropdownProps) => {
   }, [isDropdownOpen])
 
   return (
-    <div className="relative inline-block text-left w-full" ref={dropdownRef}>
+    <div
+      className="relative inline-block text-left w-full my-2 lg:my-0 lg:mb-4"
+      ref={dropdownRef}
+    >
       <div className="border rounded-md dark:border-gray-700">
         <button
           type="button"

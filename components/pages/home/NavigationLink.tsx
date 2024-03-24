@@ -33,7 +33,7 @@ const NavigationLink = ({
   const toggleNestedLinks = () => setIsOpen(!isOpen)
 
   return (
-    <div className="">
+    <div>
       <div
         className={`flex items-center justify-between ${
           isActive ? activeClasses : hoverClasses

@@ -6,8 +6,11 @@ import { IoMdSpeedometer } from 'react-icons/io'
 
 const Feature = ({ Icon, title, description }) => (
   <div className="flex items-center space-x-4">
-    <div className="flex items-center justify-center p-4 text-light-text dark:text-dark-text rounded-full">
-      <Icon className="text-light-primary dark:text-dark-primary" size={40} />
+    <div className="w-12 h-12 flex items-center justify-center text-light-text dark:text-dark-text rounded-full">
+      <Icon
+        className="w-full h-full text-light-primary dark:text-dark-primary"
+        size={40}
+      />
     </div>
     <div>
       <h3 className="text-lg font-semibold text-light-text dark:text-dark-text">
