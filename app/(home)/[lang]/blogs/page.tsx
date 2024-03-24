@@ -46,6 +46,7 @@ export default async function BlogSlugRoute({ params }: Props) {
                       {blog.author.authorImage && (
                         <Image
                           alt={'alt'}
+                          // @ts-ignore
                           src={urlForImage(blog.author.authorImage)
                             ?.fit('crop')
                             .url()}
