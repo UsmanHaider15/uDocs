@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 const IntroSection = ({ title, body, lang }) => {
   return (
-    <div className="text-center mb-10 lg:mb-40">
+    <div className="text-center mb-20 md:mb-60">
       <div className="text-3xl lg:text-6xl font-extrabold leading-tight">
         {title}
       </div>
