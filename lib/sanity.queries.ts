@@ -44,13 +44,19 @@ export const tocQuery = `
 `
 
 export const recentBlogs = `
-*[_type == "blog" && language == $lang] | order(_createdAt desc)[0...5]
-  {
-    converImage,
-    title,
-    "slug": slug.current,
-    overview,
-  }
+*[_type == "blog" && language == $lang] | order(_createdAt desc)[0...5] {
+  coverImage,
+  title,
+  "slug": slug.current,
+  overview,
+  _createdAt,
+  author->{
+    name,
+    role,
+    authorImage
+  },
+  "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180 )
+}
 `
 
 export const docsBySlugAndLangQuery = groq`
@@ -83,7 +89,7 @@ export const blogsBySlugAndLangQuery = groq`
     _id,
     title,
     "slug": slug.current,
-    converImage,
+    coverImage,
     overview,
     body[] {
       ...,

@@ -60,9 +60,20 @@ interface Author {
 export interface BlogPagePayload {
   title: string
   slug: string
-  converImage: Image
+  coverImage: Image
   overview: PortableTextBlock[]
   body?: PortableTextBlock[]
+  estimatedReadingTime?: number
+  author: Author
+  _createdAt: string
+}
+
+export interface BlogListPayload {
+  title: string
+  slug: string
+  coverImage: Image
+  overview: PortableTextBlock[]
+  estimatedReadingTime: number
   author: Author
   _createdAt: string
 }

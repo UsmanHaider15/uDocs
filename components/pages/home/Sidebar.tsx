@@ -39,28 +39,28 @@ const Sidebar: FC<SidebarProps> = ({ toc, language, version }) => {
 
   return (
     <div className="flex-none md:w-56 md:sticky md:top-20 md:h-screen">
-      <VersionDropdown lang={language} version={version} />
-
-      <aside className="pt-3">
-        {/* Toggle Button with Icon - only shown on small screens */}
+      <aside>
         <button
           onClick={toggleLinksVisibility}
-          className="w-full flex border-b-2 p-3 md:hidden"
+          className="w-full flex border-y-2 p-3 md:hidden"
         >
           {isLinksVisible ? <FiX /> : <FiMenu />}
         </button>
 
         {/* Conditionally render NavigationLinks based on isLinksVisible state */}
-        {isLinksVisible &&
-          toc.links &&
-          toc.links.map((link) => (
-            <NavigationLink
-              key={link.slug}
-              link={link}
-              language={language}
-              version={version}
-            />
-          ))}
+        {isLinksVisible && toc.links && (
+          <div>
+            <VersionDropdown lang={language} version={version} />
+            {toc.links.map((link) => (
+              <NavigationLink
+                key={link.slug}
+                link={link}
+                language={language}
+                version={version}
+              />
+            ))}
+          </div>
+        )}
       </aside>
     </div>
   )

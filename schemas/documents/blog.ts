@@ -26,7 +26,7 @@ export default defineType({
     }),
     {
       title: 'Cover Image',
-      name: 'converImage',
+      name: 'coverImage',
       type: 'image',
       options: {
         hotspot: true,
