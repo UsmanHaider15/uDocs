@@ -21,7 +21,7 @@ const features = [
 
 const MainFeatures = () => {
   return (
-    <div className="text-center bg-light-base dark:bg-dark-base text-light-text dark:text-dark-text mb-10 md:mb-40">
+    <div className="text-center bg-light-base dark:bg-dark-base text-light-text dark:text-dark-text mb-20 md:mb-60">
       <h1 className="text-2xl md:text-4xl font-bold mb-5 md:mb-12">
         Documentation Leveled Up
       </h1>
@@ -32,7 +32,7 @@ const MainFeatures = () => {
             className="flex flex-col items-center max-w-xs md:max-w-sm px-4"
           >
             <div className="w-8 h-8 md:w-12 md:h-12 my-2 md:my-4">
-              <Icon className="w-full h-full text-light-primary dark:text-dark-primary" />
+              <Icon className="w-full h-full light-base dark:light-base" />
             </div>
             <h2 className="text-xl md:text-2xl font-semibold">{title}</h2>
             <p className="text-sm md:text-base">{description}</p>

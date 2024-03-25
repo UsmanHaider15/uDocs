@@ -25,19 +25,19 @@ export default function Footer(props: FooterProps) {
           <div className="pb-4 font-bold text-xl">uDocs</div>
           <div className="flex space-x-4">
             <Link href="mailto:usman.haider.developer@gmail.com">
-              <IoMdMail size={16} />
+              <IoMdMail size={20} />
             </Link>
             <Link href={'https://github.com/UsmanHaider15'} target="_blank">
-              <FaGithub size={16} />
+              <FaGithub size={20} />
             </Link>
             <Link
               href={'https://www.linkedin.com/in/usman-haider-39020017a/'}
               target="_blank"
             >
-              <FaLinkedin size={16} />
+              <FaLinkedin size={20} />
             </Link>
             <Link href={'https://twitter.com/UsmanHaider734'} target="_blank">
-              <FaTwitter size={16} />
+              <FaTwitter size={20} />
             </Link>
           </div>
         </div>
