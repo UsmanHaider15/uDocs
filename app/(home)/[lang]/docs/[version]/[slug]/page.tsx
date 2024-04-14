@@ -35,18 +35,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   })
 }
 
-export async function generateStaticParams() {
-  const docPaths = await getDocsPathsWithLang()
-  return docPaths
-    .filter(({ slug }) => slug !== '/')
-    .map(({ slug, language, version }) => {
-      return {
-        lang: language,
-        version: version,
-        slug: slug,
-      }
-    })
-}
+// export async function generateStaticParams() {
+//   const docPaths = await getDocsPathsWithLang()
+//   return docPaths
+//     .filter(({ slug }) => slug !== '/')
+//     .map(({ slug, language, version }) => {
+//       return {
+//         lang: language,
+//         version: version,
+//         slug: slug,
+//       }
+//     })
+// }
 
 export default async function PageSlugRoute({ params }: Props) {
   const data = await getDocBySlugAndLang(
