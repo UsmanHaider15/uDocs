@@ -16,7 +16,7 @@ import { LiveQuery } from 'next-sanity/preview/live-query'
 import { TOCLink } from 'types'
 
 type Props = {
-  params: { slug: string[]; lang: string; version: string }
+  params: { slug: string; lang: string; version: string }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const [settings, page] = await Promise.all([
     getSettings(),
-    getDocBySlugAndLang(`${slug.join('/')}`, lang, version),
+    getDocBySlugAndLang(`${slug}`, lang, version),
   ])
 
   return defineMetadata({
@@ -43,21 +43,21 @@ export async function generateStaticParams() {
       return {
         lang: language,
         version: version,
-        slug: slug.split('/'),
+        slug: slug,
       }
     })
 }
 
 export default async function PageSlugRoute({ params }: Props) {
   const data = await getDocBySlugAndLang(
-    params.slug.join('/'),
+    params.slug,
     params.lang,
     params.version,
   )
   let toc = await getTocs(params.lang, params.version)
   let docNavigation: TOCLink[] | null = null
   if (toc) {
-    docNavigation = findSlugWithParents(toc, params.slug.join('/'))
+    docNavigation = findSlugWithParents(toc, params.slug)
   }
 
   if (!data && !draftMode().isEnabled) {
@@ -69,7 +69,7 @@ export default async function PageSlugRoute({ params }: Props) {
       enabled={draftMode().isEnabled}
       query={docsBySlugAndLangQuery}
       params={{
-        slug: params.slug.join('/'),
+        slug: params.slug,
         lang: params.lang,
         version: params.version,
       }}
