@@ -33,7 +33,15 @@ export default async function BlogSlugRoute({ params }: Props) {
               className="p-4 max-w-sm bg-dark-secondary dark:bg-dark-secondary border border-light-secondary rounded-lg shadow-md hover:shadow-2xl transition duration-300 ease-in-out"
             >
               <Link href={`/${params.lang}/blogs/${blog.slug}`}>
-                <ImageBox image={blog.coverImage} alt={blog.title} />
+                <Image
+                  alt={'alt'}
+                  // @ts-ignore
+                  src={urlForImage(blog.coverImage)?.fit('crop').url()}
+                  width={500} // specify a fixed width
+                  height={300} // specify a fixed height
+                  sizes={'100vw'}
+                  className="rounded w-full h-72 object-cover"
+                />
                 <div className="py-4">
                   <h5 className="text-lg font-bold leading-5 tracking-tight text-light-text dark:text-dark-text mb-2">
                     {blog.title}

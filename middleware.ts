@@ -59,6 +59,11 @@ export const middleware: Middleware = (request) => {
     return
   }
 
+  // Check if the pathname starts with /api and skip localization
+  if (pathname.startsWith('/api')) {
+    return
+  }
+
   // Updated Regex to match /xx/docs or /xx/docs/{version}
   // where xx is a language code (e.g., "en", "zh-CN") and {version} is optional
   const localePatternWithVersion = /^\/([a-zA-Z-]+)\/docs(\/([a-zA-Z0-9-]+))?$/
